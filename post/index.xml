@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Otto&#39;s Blog</title>
-    <link>http://dockerk8s.com/post/</link>
-    <description>Recent content in Posts on Otto&#39;s Blog</description>
+    <title>Posts on Otto Deng</title>
+    <link>https://ottodeng.github.io/post/</link>
+    <description>Recent content in Posts on Otto Deng</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
+    <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
+    <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
     <lastBuildDate>Sun, 11 Feb 2018 12:50:13 +0800</lastBuildDate>
     
-	<atom:link href="http://dockerk8s.com/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ottodeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hello World</title>
-      <link>http://dockerk8s.com/post/hello-world/</link>
+      <link>https://ottodeng.github.io/post/hello-world/</link>
       <pubDate>Sun, 11 Feb 2018 12:50:13 +0800</pubDate>
-      
-      <guid>http://dockerk8s.com/post/hello-world/</guid>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>https://ottodeng.github.io/post/hello-world/</guid>
       <description>in post dir to hugo-nuo</description>
     </item>
     

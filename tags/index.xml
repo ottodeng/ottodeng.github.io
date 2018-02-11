@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Otto&#39;s Blog</title>
-    <link>http://dockerk8s.com/tags/</link>
-    <description>Recent content in Tags on Otto&#39;s Blog</description>
+    <title>Tags on Otto Deng</title>
+    <link>https://ottodeng.github.io/tags/</link>
+    <description>Recent content in Tags on Otto Deng</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
+    <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
+    <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
     
-	<atom:link href="http://dockerk8s.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ottodeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
