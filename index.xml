@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
+    <title>Otto&#39;s Blog</title>
     <link>http://dockerk8s.com/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <description>Recent content on Otto&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
     <lastBuildDate>Sun, 11 Feb 2018 12:50:13 +0800</lastBuildDate>
     
 	<atom:link href="http://dockerk8s.com/index.xml" rel="self" type="application/rss+xml" />
