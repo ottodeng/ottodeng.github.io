@@ -18,7 +18,7 @@
       <pubDate>Mon, 12 Feb 2018 13:12:45 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>https://ottodeng.github.io/post/cka-exam/</guid>
-      <description>在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧。
+      <description>在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。
 What is CKA? CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Cloud Native Computing Foundation)提供的认证项目，考试费用为300美金，考试过程为3个小时。
 如果考试第一次考试不通过，账号内会生成一个coupon code，在一年之内有一次免费重考的机会。 PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的朋友来带他入坑🤓
 考试环境准备和流程这里我就不说了，报名了之后，官方的guide都有提供，直接说最重要的吧。
