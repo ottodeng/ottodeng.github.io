@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Otto Deng</title>
+    <link>https://ottodeng.github.io/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Otto Deng</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
+    <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
+    <lastBuildDate>Mon, 12 Feb 2018 13:12:45 +0800</lastBuildDate>
+    
+	<atom:link href="https://ottodeng.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CKA Exam</title>
+      <link>https://ottodeng.github.io/post/cka-exam/</link>
+      <pubDate>Mon, 12 Feb 2018 13:12:45 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>https://ottodeng.github.io/post/cka-exam/</guid>
+      <description>在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧。
+What is CKA? CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Cloud Native Computing Foundation)提供的认证项目，考试费用为300美金，考试过程为3个小时。
+如果考试第一次考试不通过，账号内会生成一个coupon code，在一年之内有一次免费重考的机会。 PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的朋友来带他入坑🤓
+考试环境准备和流程这里我就不说了，报名了之后，官方的guide都有提供，直接说最重要的吧。
+我的学习过程 我简单地说一下自己的学习过程吧，希望能给大家一个参考。
+ 1. JimmySong的kubernetes-Handbook 2. LFS 158（在edX上的免费课程，还是很建议从0开始的同学们的） 3. LFS 258 (这个在我报名考试的时候，一起也买了，因为连同考试一起买，可以节省100美金) 4. Kelsey Hightower的Kubernetes-the-hard-way（这里面的实验是基于google cloud来做的，google cloud注册账号只要绑定一张信用卡，账号里面就有300美金的免费额度，实用时间为一年） 5. 官方k8s.io（考试最重要的就是这部分了，建议官方的每一个task都做一遍，考试的时候，是可以查k8s.io的，其实考试的内容，基本上都在这里面都有，就你熟悉的程度了） 6. 更多的资料参考Kubernetes Learning Resources  考试前准备 考试其实真的不难，甚至可以说是比较简单。对于中国的考生而言，只要前期做足了准备，相信大家还是很容易通过的。
+ 科学上网 这里放在第一位，因为它真的真的真的很重要，具体就不详细介绍了。 mac比windows考试的时候更有优势，主要是因为可以command+c/v，control+w（在windwos的chrome里面，control+w直接就关闭浏览器的当前标签了） 考试过程是可以上k8s.io和github等查资料的，所以收藏夹分好每个考点所涉及的yaml文件模版，能够迅速在考试的时候可以复制粘贴来修改； 掌握好kubectl &amp;ndash;dry-run -o yaml，这可以在把kubectl命令直接输出成yaml文件，修改完毕之后再运行。 考试的实验环境是通过GateOne来远程到一台跳板机的，大家可以提前熟悉一下GateOne的操作，考试时的界面大概就是以下这样，左边是题目，一共25题，第1题是example，右边是GateOne的页面。每一题知识点基本上都是独立的，相互不会影响作答。   每条题目都会写有占比的分数，如果分数不高，自己又不熟悉的题目，就先略过吧，回头有时间再来做。 考试的题目是有英文和中文版的，但是中文翻译我估计真的就直接是google翻译直接转成中文的，真的很烂。。。建议大家直接看英文吧，题目比较短，很容易看懂，基本上就是让你直接做某个操作，或者查看某些内容，然后把答案写到特定路径的文件下面。  在考试结束之后，36个小时之内，cncf就会通过邮件告诉你考试成绩了，如果你的分数大于74%，那么恭喜你通过了！并且附件就直接会有你的通过的证书。如果考试不通过，你的账号上就会直接有一次schedule考试的机会。</description>
+    </item>
+    
+  </channel>
+</rss>
