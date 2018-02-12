@@ -3,13 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://ottodeng.github.io/about/</loc>
-    <lastmod>2018-02-11T15:26:52+08:00</lastmod>
+    <loc>https://ottodeng.github.io/post/cka-exam/</loc>
+    <lastmod>2018-02-12T13:12:45+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://ottodeng.github.io/post/hello-world/</loc>
-    <lastmod>2018-02-11T12:50:13+08:00</lastmod>
+    <loc>https://ottodeng.github.io/post/change-log/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ottodeng.github.io/about/</loc>
+    <lastmod>2018-02-11T15:26:52+08:00</lastmod>
   </url>
   
   <url>
@@ -18,19 +23,48 @@
   </url>
   
   <url>
-    <loc>https://ottodeng.github.io/</loc>
+    <loc>https://ottodeng.github.io/tags/github/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ottodeng.github.io/tags/github-pages/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ottodeng.github.io/post/hello-world/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ottodeng.github.io/tags/hugo/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ottodeng.github.io/tags/me/</loc>
     <lastmod>2018-02-11T15:26:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://ottodeng.github.io/</loc>
+    <lastmod>2018-02-12T13:12:45+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ottodeng.github.io/post/</loc>
-    <lastmod>2018-02-11T12:50:13+08:00</lastmod>
+    <lastmod>2018-02-12T13:12:45+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ottodeng.github.io/tags/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
     <priority>0</priority>
   </url>
   

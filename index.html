@@ -10,8 +10,8 @@
   <meta name="twitter:title" content="Otto Deng" />
   <meta name="author" content="Otto Deng"/>
   <link href='https://ottodeng.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://ottodeng.github.io/img/otto.png" />
-  <meta name="twitter:image" content="https://ottodeng.github.io/img/otto.png" />
+  <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@otto_deng" />
   <meta name="twitter:creator" content="@otto_deng" />
@@ -105,29 +105,14 @@
           
         
           
-            <li class="navlinks-container">
-              <a class="navlinks-parent" href="javascript:void(0)">Samples</a>
-              <div class="navlinks-children">
-                
-                  <a href="/post/2017-03-07-bigimg-sample">Big Image Sample</a>
-                
-                  <a href="/post/2017-03-05-math-sample">Math Sample</a>
-                
-                  <a href="/post/2016-03-08-code-sample">Code Sample</a>
-                
-              </div>
-            </li>
-          
-        
-          
-            <li>
-              <a title="About" href="/about/">About</a>
-            </li>
-          
-        
-          
             <li>
               <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
             </li>
           
         
@@ -142,7 +127,7 @@
       <div class="avatar-img-border">
         
           <a title="Otto Deng" href="https://ottodeng.github.io">
-            <img class="avatar-img" src="https://ottodeng.github.io/img/otto.png" alt="Otto Deng" />
+            <img class="avatar-img" src="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" alt="Otto Deng" />
           </a>
         
       </div>
@@ -163,8 +148,31 @@
 
 
   
+    <div id="header-big-imgs" data-num-img=4 data-img-src-1="https://res.cloudinary.com/ottodeng/image/upload/v1518407113/docker-friends.png" data-img-src-2="https://res.cloudinary.com/ottodeng/image/upload/v1518407848/cloud_1.jpg" data-img-src-3="http://res.cloudinary.com/ottodeng/image/upload/c_scale,w_858/v1518407852/cloud_2.jpg" data-img-src-4="https://res.cloudinary.com/ottodeng/image/upload/v1518408276/cloud_3.jpg" ></div>
+  
 
-  <header class="header-section ">
+  <header class="header-section has-img">
+    
+      <div class="intro-header big-img">
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div class="page-heading">
+                <h1>Otto Deng</h1>
+                  
+                    
+                      <hr class="small">
+                      <span class="page-subheading">~ Keep It Simple, Stupid ~</span>
+                    
+                  
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="img-desc" style="display: inline;"></span>
+      </div>
     
     <div class="intro-header no-img">
       
@@ -176,7 +184,7 @@
                 
                   
                     <hr class="small">
-                    <span class="page-subheading">我叫邓子涛，一名伪架构师，英文名Otto，他们叫我头哥</span>
+                    <span class="page-subheading">~ Keep It Simple, Stupid ~</span>
                   
                 
                 
@@ -198,8 +206,8 @@
           
           
             <article class="post-preview">
-              <a href="https://ottodeng.github.io/post/hello-world/">
-                <h2 class="post-title">Hello World</h2>
+              <a href="https://ottodeng.github.io/post/cka-exam/">
+                <h2 class="post-title">CKA Exam</h2>
                 
                 
               </a>
@@ -207,11 +215,11 @@
               <span class="post-meta">
   
   
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Feb 22, 11028
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Feb 22, 12028
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (2 words)
+  <i class="fa fa-clock-o"></i> 1 minutes (51 words)
   
   
 </span>
@@ -219,7 +227,156 @@
 
               <div class="post-entry">
                 
-                  <p>Hello World</p>
+                  
+
+<p>在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧。</p>
+
+<h3 id="what-is-cka">What is CKA?</h3>
+
+<p>CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Cloud Native Computing Foundation)提供的认证项目，考试费用为300美金，考试过程为3个小时。</p>
+
+<p>如果考试第一次考试不通过，账号内会生成一个coupon code，在一年之内有一次免费重考的机会。
+PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的朋友来带他入坑🤓</p>
+
+<p>考试环境准备和流程这里我就不说了，报名了之后，官方的guide都有提供，直接说最重要的吧。</p>
+
+<h3 id="我的学习过程">我的学习过程</h3>
+
+<p>我简单地说一下自己的学习过程吧，希望能给大家一个参考。</p>
+
+<ul>
+<li>1. JimmySong的kubernetes-Handbook</li>
+<li>2. LFS 158（在edX上的免费课程，还是很建议从0开始的同学们的）</li>
+<li>3. LFS 258 (这个在我报名考试的时候，一起也买了，因为连同考试一起买，可以节省100美金)</li>
+<li>4. Kelsey Hightower的Kubernetes-the-hard-way（这里面的实验是基于google cloud来做的，google cloud注册账号只要绑定一张信用卡，账号里面就有300美金的免费额度，实用时间为一年）</li>
+<li>5. 官方k8s.io（考试最重要的就是这部分了，建议官方的每一个task都做一遍，考试的时候，是可以查k8s.io的，其实考试的内容，基本上都在这里面都有，就你熟悉的程度了）</li>
+<li>6. 更多的资料参考<a href="https://docs.google.com/spreadsheets/d/10NltoF_6y3mBwUzQ4bcQLQfCE1BWSgUDcJXy-Qp2JEU/edit#gid=0"><code>Kubernetes Learning Resources</code></a></li>
+</ul>
+
+<h3 id="考试前准备">考试前准备</h3>
+
+<p>考试其实真的不难，甚至可以说是比较简单。对于中国的考生而言，只要前期做足了准备，相信大家还是很容易通过的。</p>
+
+<ol>
+<li><code>科学上网</code> 这里放在第一位，因为它真的真的真的很重要，具体就不详细介绍了。</li>
+<li>mac比windows考试的时候更有优势，主要是因为可以command+c/v，control+w（在windwos的chrome里面，control+w直接就关闭浏览器的当前标签了）</li>
+<li>考试过程是可以上k8s.io和github等查资料的，所以收藏夹分好每个考点所涉及的yaml文件模版，能够迅速在考试的时候可以复制粘贴来修改；</li>
+<li>掌握好kubectl &ndash;dry-run -o yaml，这可以在把kubectl命令直接输出成yaml文件，修改完毕之后再运行。</li>
+<li>考试的实验环境是通过GateOne来远程到一台跳板机的，大家可以提前熟悉一下GateOne的操作，考试时的界面大概就是以下这样，左边是题目，一共25题，第1题是example，右边是GateOne的页面。每一题知识点基本上都是独立的，相互不会影响作答。</li>
+</ol>
+
+<p><img src="https://res.cloudinary.com/ottodeng/image/upload/v1518415044/WX20180212-135658_2x.png" alt="exam" /></p>
+
+<ol>
+<li>每条题目都会写有占比的分数，如果分数不高，自己又不熟悉的题目，就先略过吧，回头有时间再来做。</li>
+<li>考试的题目是有英文和中文版的，但是中文翻译我估计真的就直接是google翻译直接转成中文的，真的很烂。。。建议大家直接看英文吧，题目比较短，很容易看懂，基本上就是让你直接做某个操作，或者查看某些内容，然后把答案写到特定路径的文件下面。</li>
+</ol>
+
+<p>在考试结束之后，36个小时之内，cncf就会通过邮件告诉你考试成绩了，如果你的分数大于74%，那么恭喜你通过了！并且附件就直接会有你的通过的证书。如果考试不通过，你的账号上就会直接有一次schedule考试的机会。</p>
+
+<p><img src="https://res.cloudinary.com/ottodeng/image/upload/v1518415865/cka.png" alt="cka" /></p>
+
+                
+              </div>
+
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="https://ottodeng.github.io/post/change-log/">
+                <h2 class="post-title">dockerk8s网站更新日志</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Feb 22, 12028
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 1 minutes (15 words)
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  
+
+<h3 id="todo">TODO</h3>
+
+<ul class="task-list">
+<li><label><input type="checkbox" checked disabled class="task-list-item"> Blog release</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> 优化图片存储，目前只是简单地将图片上传到cloudinary中</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> 增加搜索框，计划使用 <a href="https://www.algolia.com/doc/tutorials/search-ui/instant-search/build-an-instant-search-results-page/instantsearchjs/">algolia</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> 增加评论框</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> 增加统计攻击</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> 增加cheatsheets来记录常用的命令</label></li>
+</ul>
+
+<h4 id="2018-02-12">2018-02-12</h4>
+
+<ol>
+<li>网站发布，目前托管在github pages上，通过CNAME注册到dockerk8s.com上。</li>
+<li>图片使用cloudirany存储，目前比较简单，后续将实用工具来管理图片。</li>
+<li>blog的框架使用hugo，不得不说，确实很好用，而且很方便，markdown真的非常适合用来记笔记，这里主要还是要感谢jimmysong的各种分享。</li>
+<li>目前bug茫茫多，后续还有很多很多很多很多……优化的地方。</li>
+</ol>
+
+                
+              </div>
+
+              
+                <span class="post-meta">
+                
+                  #<a href="https://ottodeng.github.io/tags/github-pages/">github-pages</a>&nbsp;
+                
+                  #<a href="https://ottodeng.github.io/tags/github/">github</a>&nbsp;
+                
+                  #<a href="https://ottodeng.github.io/tags/hugo/">hugo</a>&nbsp;
+                
+                </span>
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="https://ottodeng.github.io/post/hello-world/">
+                <h2 class="post-title">Hello world</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Feb 11, 1018
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 1 minutes (8 words)
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  <p>在年前休假的带娃这段时间，各种挤时间，终于把blog发布了。🎈💐👏</p>
+
+<p>blog的框架使用hugo，页面托管在GitHub pages上，里面的图片托管在cloudinary上，域名通过CNAME转发到我在godaddy注册的dockerk8s.com上。写这个blog主要出于几个原因：</p>
+
+<ul>
+<li>将自己平时的笔记直接放到blog上，也方便大家阅读。</li>
+<li>我本身不是一个coder，但是我觉得如果不会写代码，架构是很难做好的，想要做一名合格的架构师，首先就要成为一名全栈工程师。</li>
+<li>希望这个blog能提高我在这个行业的知名度吧。</li>
+</ul>
+
+<p>后续会慢慢完善blog的功能，和之前自己写的笔记整理发到blog上。</p>
+
+<p>最后，祝大家2018狗年旺旺汪，新年快乐！</p>
 
                 
               </div>
