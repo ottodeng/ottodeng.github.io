@@ -1,0 +1,54 @@
+[
+    {
+        "title": "About Me",
+        "uri": "about",
+        "content": "Info Otto Deng Shenzhen  Guangdong  China      Zhongkai University Technology Agriculture Engineering            Major System Cloud Architect      2010 2011      CCIE SP  28297  2011 03 2011 2015                      F5 Certified Technology Specialist  2014 01 2015 2016 Python  Django  CMDB   2016 2017 Openstack  VxLan  CEPH  Ansible    2017 2018 Docker  Kubernetes Certified Kubernates Administrator  2018 02 2018    Major Cloud Native",
+        "objectID": "about",
+        "date": "2018-02-11T07:26:52.000Z",
+        "tags": [
+            "me"
+        ],
+        "subtitle": "我叫邓子涛，一名伪架构师，英文名Otto，他们叫我头哥",
+        "description": "OttoDeng | dockerk8s",
+        "nocomment": true,
+        "postmeta": false,
+        "seealso": false,
+        "bigimg": [
+            {
+                "src": "https://res.cloudinary.com/ottodeng/image/upload/v1518401305/golang-gopher.jpg"
+            }
+        ]
+    },
+    {
+        "title": "dockerk8s网站更新日志",
+        "uri": "post/change-log",
+        "content": "TODO  x  Blog release                         cloudinary                algolia                            cheatsheets                  https 2018 02 12           github pages    CNAME   dockerk8s com       cloudirany                        blog     hugo                  markdown                     jimmysong         bug                         2018 02 22                2018 02 23",
+        "objectID": "post/change-log",
+        "date": "2018-02-12T04:30:13.000Z",
+        "draft": false,
+        "tags": [
+            "github-pages",
+            "github",
+            "hugo"
+        ]
+    },
+    {
+        "title": "CKA Exam",
+        "uri": "post/cka-exam",
+        "content": "cka                20                               CKA  CKA    Certified Kubernetes Adminsitrator   CNCF Cloud Native Computing Foundation              300        3                          coupon code                  PS        coupon code                                                   guide                                                  1  JimmySong kubernetes Handbook 2  LFS 158  edX             0         3  LFS 258                                  100    4  Kelsey Hightower Kubernetes the hard way          google cloud    google cloud                    300                 5    k8s io                      task               k8s io                               6         Kubernetes Learning Resources                                                                                                  mac windows                 command c v control w  windwos chrome   control w                        k8s io github                     yaml                             kubectl   dry run  o yaml      kubectl       yaml                        GateOne                     GateOne                           25   1  example    GateOne                                                                                                          google                                                                                          36      cncf                       74                                                schedule",
+        "objectID": "post/cka-exam",
+        "date": "2018-02-12T05:12:45.000Z",
+        "draft": false,
+        "tags": [
+            "kubernetes"
+        ]
+    },
+    {
+        "title": "Hello world",
+        "uri": "post/hello-world",
+        "content": "blog           blog     hugo      GitHub pages          cloudinary      CNAME     godaddy   dockerk8s com     blog                      blog                  coder                                                      blog                       blog                 blog         2018",
+        "objectID": "post/hello-world",
+        "date": "2018-02-12T04:34:13.000Z",
+        "draft": false
+    }
+]
