@@ -5,6 +5,7 @@
     <link>https://ottodeng.github.io/tags/github/</link>
     <description>Recent content in Github on Otto Deng</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
     <lastBuildDate>Mon, 12 Feb 2018 12:30:13 +0800</lastBuildDate>
@@ -18,7 +19,7 @@
       <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>https://ottodeng.github.io/post/change-log/</guid>
-      <description> TODO Blog release 优化图片存储，目前只是简单地将图片上传到cloudinary中 增加搜索框，计划使用 algolia 增加评论框 增加统计攻击 增加cheatsheets来记录常用的命令  2018-02-12  网站发布，目前托管在github pages上，通过CNAME注册到dockerk8s.com上。 图片使用cloudirany存储，目前比较简单，后续将实用工具来管理图片。 blog的框架使用hugo，不得不说，确实很好用，而且很方便，markdown真的非常适合用来记笔记，这里主要还是要感谢jimmysong的各种分享。 目前bug茫茫多，后续还有很多很多很多很多……优化的地方。  </description>
+      <description>TODO Blog release 优化图片存储，目前只是简单地将图片上传到cloudinary中 增加搜索框，计划使用 algolia 增加评论框 增加统计工具 增加cheatsheets来</description>
     </item>
     
   </channel>

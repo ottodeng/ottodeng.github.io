@@ -5,6 +5,7 @@
     <link>https://ottodeng.github.io/tags/me/</link>
     <description>Recent content in Me on Otto Deng</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
     <lastBuildDate>Sun, 11 Feb 2018 15:26:52 +0800</lastBuildDate>
@@ -18,7 +19,7 @@
       <pubDate>Sun, 11 Feb 2018 15:26:52 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>https://ottodeng.github.io/about/</guid>
-      <description> Info  Otto Deng Shenzhen, Guangdong, China 🇨🇳 Zhongkai University of Technology Agriculture and Engineering （仲恺农业工程学院） Major in System/Cloud Architect  技术历程  2010-2011 路由交换  CCIE(SP)#28297 @2011.03  2011-2015 应用交付，安全增值，系统集成，数据分析。  F5 Certified Technology Specialist @2014.01  2015-2016 Python, Django, CMDB开发 2016-2017 Openstack, VxLan, CEPH, Ansible自动化 2017-2018 Docker, Kubernetes  Certified Kubernates Administrator @2018.02  2018-至今 Major in Cloud Native  </description>
+      <description>Info Otto Deng Shenzhen, Guangdong, China 🇨🇳 Zhongkai University of Technology Agriculture and Engineering （仲恺农业工程学院） Major in System/Cloud Architect 技术历程 2010-2011 路由交换 CCIE(SP)#28297 @2011.03 2011-2015 应用交付，安全增值，系统集成，数据分析。 F5 Certified Technology Specialist @2014.01 2015-2016 Python, Django, C</description>
     </item>
     
   </channel>

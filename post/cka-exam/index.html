@@ -8,25 +8,11 @@
   <title>CKA Exam</title>
   <meta property="og:title" content="CKA Exam" />
   <meta name="twitter:title" content="CKA Exam" />
-  <meta name="description" content="在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。
-What is CKA? CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Cloud Native Computing Foundation)提供的认证项目，考试费用为300美金，考试过程为3个小时。
-如果考试第一次考试不通过，账号内会生成一个coupon code，在一年之内有一次免费重考的机会。 PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的朋友来带他入坑🤓
-考试环境准备和流程这里我就不说了，报名了之后，官方的guide都有提供，直接说最重要的吧。
-我的学习过程 我简单地说一下自己的学习过程吧，希望能给大家一个参考。
- 1. JimmySong的kubernetes-Handbook 2. LFS 158（在edX上的免费课程，还是很建议从0开始的同学们的） 3. LFS 258 (这个在我报名考试的时候，一起也买了，因为连同考试一起买，可以节省100美金) 4. Kelsey Hightower的Kubernetes-the-hard-way（这里面的实验是基于google cloud来做的，google cloud注册账号只要绑定一张信用卡，账号里面就有300美金的免费额度，实用时间为一年） 5. 官方k8s.io（考试最重要的就是这部分了，建议官方的每一个task都做一遍，考试的时候，是可以查k8s.io的，其实考试的内容，基本上都在这里面都有，就你熟悉的程度了） 6. 更多的资料参考Kubernetes Learning Resources  考试前准备 考试其实真的不难，甚至可以说是比较简单。对于中国的考生而言，只要前期做足了准备，相信大家还是很容易通过的。
- 科学上网 这里放在第一位，因为它真的真的真的很重要，具体就不详细介绍了。 mac比windows考试的时候更有优势，主要是因为可以command&#43;c/v，control&#43;w（在windwos的chrome里面，control&#43;w直接就关闭浏览器的当前标签了） 考试过程是可以上k8s.io和github等查资料的，所以收藏夹分好每个考点所涉及的yaml文件模版，能够迅速在考试的时候可以复制粘贴来修改； 掌握好kubectl &ndash;dry-run -o yaml，这可以在把kubectl命令直接输出成yaml文件，修改完毕之后再运行。 考试的实验环境是通过GateOne来远程到一台跳板机的，大家可以提前熟悉一下GateOne的操作，考试时的界面大概就是以下这样，左边是题目，一共25题，第1题是example，右边是GateOne的页面。每一题知识点基本上都是独立的，相互不会影响作答。   每条题目都会写有占比的分数，如果分数不高，自己又不熟悉的题目，就先略过吧，回头有时间再来做。 考试的题目是有英文和中文版的，但是中文翻译我估计真的就直接是google翻译直接转成中文的，真的很烂。。。建议大家直接看英文吧，题目比较短，很容易看懂，基本上就是让你直接做某个操作，或者查看某些内容，然后把答案写到特定路径的文件下面。  在考试结束之后，36个小时之内，cncf就会通过邮件告诉你考试成绩了，如果你的分数大于74%，那么恭喜你通过了！并且附件就直接会有你的通过的证书。如果考试不通过，你的账号上就会直接有一次schedule考试的机会。">
-  <meta property="og:description" content="在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。
-What is CKA? CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Cloud Native Computing Foundation)提供的认证项目，考试费用为300美金，考试过程为3个小时。
-如果考试第一次考试不通过，账号内会生成一个coupon code，在一年之内有一次免费重考的机会。 PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的朋友来带他入坑🤓
-考试环境准备和流程这里我就不说了，报名了之后，官方的guide都有提供，直接说最重要的吧。
-我的学习过程 我简单地说一下自己的学习过程吧，希望能给大家一个参考。
- 1. JimmySong的kubernetes-Handbook 2. LFS 158（在edX上的免费课程，还是很建议从0开始的同学们的） 3. LFS 258 (这个在我报名考试的时候，一起也买了，因为连同考试一起买，可以节省100美金) 4. Kelsey Hightower的Kubernetes-the-hard-way（这里面的实验是基于google cloud来做的，google cloud注册账号只要绑定一张信用卡，账号里面就有300美金的免费额度，实用时间为一年） 5. 官方k8s.io（考试最重要的就是这部分了，建议官方的每一个task都做一遍，考试的时候，是可以查k8s.io的，其实考试的内容，基本上都在这里面都有，就你熟悉的程度了） 6. 更多的资料参考Kubernetes Learning Resources  考试前准备 考试其实真的不难，甚至可以说是比较简单。对于中国的考生而言，只要前期做足了准备，相信大家还是很容易通过的。
- 科学上网 这里放在第一位，因为它真的真的真的很重要，具体就不详细介绍了。 mac比windows考试的时候更有优势，主要是因为可以command&#43;c/v，control&#43;w（在windwos的chrome里面，control&#43;w直接就关闭浏览器的当前标签了） 考试过程是可以上k8s.io和github等查资料的，所以收藏夹分好每个考点所涉及的yaml文件模版，能够迅速在考试的时候可以复制粘贴来修改； 掌握好kubectl &ndash;dry-run -o yaml，这可以在把kubectl命令直接输出成yaml文件，修改完毕之后再运行。 考试的实验环境是通过GateOne来远程到一台跳板机的，大家可以提前熟悉一下GateOne的操作，考试时的界面大概就是以下这样，左边是题目，一共25题，第1题是example，右边是GateOne的页面。每一题知识点基本上都是独立的，相互不会影响作答。   每条题目都会写有占比的分数，如果分数不高，自己又不熟悉的题目，就先略过吧，回头有时间再来做。 考试的题目是有英文和中文版的，但是中文翻译我估计真的就直接是google翻译直接转成中文的，真的很烂。。。建议大家直接看英文吧，题目比较短，很容易看懂，基本上就是让你直接做某个操作，或者查看某些内容，然后把答案写到特定路径的文件下面。  在考试结束之后，36个小时之内，cncf就会通过邮件告诉你考试成绩了，如果你的分数大于74%，那么恭喜你通过了！并且附件就直接会有你的通过的证书。如果考试不通过，你的账号上就会直接有一次schedule考试的机会。">
-  <meta name="twitter:description" content="在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。
-What is CKA? CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Cloud Native Computing Foundation)提供的认证项目，考试费用为300美金，考试过程为3个小时。
-如果考试第一次考试不通过，账号 …">
+  <meta name="description" content="在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。 What is CKA? CKA全称就是Ce">
+  <meta property="og:description" content="在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。 What is CKA? CKA全称就是Ce">
+  <meta name="twitter:description" content="在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。 What is CKA? CKA全称就是Ce">
   <meta name="author" content="Otto Deng"/>
-  <link href='https://ottodeng.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_128,w_128/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
   <meta name="twitter:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
   <meta name="twitter:card" content="summary" />
@@ -43,8 +29,7 @@ What is CKA? CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Clou
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="https://ottodeng.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://ottodeng.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://ottodeng.github.io/css/codeblock.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://ottodeng.github.io/css/syntax.css" /><link rel="stylesheet" href="https://ottodeng.github.io/css/codeblock.css" />
 
 
 
@@ -180,11 +165,8 @@ What is CKA? CKA全称就是Certified Kubernetes Adminsitrator，是由CNCF(Clou
                   <span class="post-meta">
   
   
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Feb 22, 12028
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on February 12, 2018
   
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (51 words)
   
   
 </span>
@@ -259,7 +241,7 @@ PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://ottodeng.github.io/post/change-log/" data-toggle="tooltip" data-placement="top" title="dockerk8s网站更新日志">&larr; Previous Post</a>
+              <a href="https://ottodeng.github.io/post/hello-world/" data-toggle="tooltip" data-placement="top" title="Hello world">&larr; Previous Post</a>
             </li>
           
           
@@ -267,9 +249,6 @@ PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的
       
 
 
-      
-        
-        
       
 
     </div>
@@ -356,10 +335,7 @@ PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://ottodeng.github.io/js/main.js"></script>
-<script src="https://ottodeng.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://ottodeng.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
 <script src="https://ottodeng.github.io/js/load-photoswipe.js"></script>
@@ -368,6 +344,21 @@ PS:如果一次通过，coupon code仍然会有的，所以可以给送给你的
 
 
 
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: '', 
+  owner: 'ottodeng',
+  repo: 'gitment',
+  oauth: {
+    client_id: '1104fea1a56f5c7bf8f1',
+    client_secret: 'd0f60fca18f17275aa7ebd591a048752dc9505c5',
+  },
+})
+gitment.render('container')
+</script>
 
   </body>
 </html>
