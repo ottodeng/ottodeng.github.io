@@ -123,6 +123,13 @@
         
 
         
+        
+        <li>
+          <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+            <span class="hidden-sm hidden-md hidden-lg">Search</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        
       </ul>
     </div>
 
@@ -164,12 +171,15 @@ var client = algoliasearch("ROLFLYASRK", "68051a824e77fa9a8f1dad341efad57a");
 var index = client.initIndex('dockerk8s-blog');
 autocomplete('#aa-search-input',
 { hint: false}, {
-    source: autocomplete.sources.hits(index, {hitsPerPage: 8}),
+    source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+    
     displayKey: 'name',
+    
     templates: {
+        
         suggestion: function(suggestion) {
-            console.log(suggestion);
-            return '<span>' + '<a href="/post/' + suggestion.slug + '">' +
+            
+            return '<span>' + '<a href="/' + suggestion.uri+ '">' +
             suggestion._highlightResult.title.value + '</a></span>';
         }
     }
@@ -235,7 +245,7 @@ autocomplete('#aa-search-input',
 <ul class="task-list">
 <li><label><input type="checkbox" checked disabled class="task-list-item"> Blog release</label></li>
 <li><label><input type="checkbox" disabled class="task-list-item"> 优化图片存储，目前只是简单地将图片上传到cloudinary中</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> 增加搜索框，计划使用 <a href="https://www.algolia.com/doc/tutorials/search-ui/instant-search/build-an-instant-search-results-page/instantsearchjs/">algolia</a></label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> 增加搜索框，计划使用 <a href="https://www.algolia.com/doc/tutorials/search-ui/instant-search/build-an-instant-search-results-page/instantsearchjs/">algolia</a></label></li>
 <li><label><input type="checkbox" disabled class="task-list-item"> 增加评论框</label></li>
 <li><label><input type="checkbox" disabled class="task-list-item"> 增加统计工具</label></li>
 <li><label><input type="checkbox" disabled class="task-list-item"> 增加cheatsheets来记录常用的命令</label></li>
@@ -261,6 +271,7 @@ autocomplete('#aa-search-input',
 
 <ol>
 <li>修正主页时间显示格式错误</li>
+<li>增加搜索框algolia</li>
 </ol>
 
       </article>

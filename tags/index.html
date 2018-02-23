@@ -120,6 +120,13 @@
         
 
         
+        
+        <li>
+          <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+            <span class="hidden-sm hidden-md hidden-lg">Search</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        
       </ul>
     </div>
 
@@ -161,12 +168,15 @@ var client = algoliasearch("ROLFLYASRK", "68051a824e77fa9a8f1dad341efad57a");
 var index = client.initIndex('dockerk8s-blog');
 autocomplete('#aa-search-input',
 { hint: false}, {
-    source: autocomplete.sources.hits(index, {hitsPerPage: 8}),
+    source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+    
     displayKey: 'name',
+    
     templates: {
+        
         suggestion: function(suggestion) {
-            console.log(suggestion);
-            return '<span>' + '<a href="/post/' + suggestion.slug + '">' +
+            
+            return '<span>' + '<a href="/' + suggestion.uri+ '">' +
             suggestion._highlightResult.title.value + '</a></span>';
         }
     }
