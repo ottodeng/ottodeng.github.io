@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Otto Deng</title>
-    <link>http://dockerk8s.com/</link>
+    <link>http://ottodeng.io/</link>
     <description>Recent content on Otto Deng</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
@@ -10,60 +10,60 @@
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
     <lastBuildDate>Wed, 04 Apr 2018 10:18:03 +0800</lastBuildDate>
     
-	<atom:link href="http://dockerk8s.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://ottodeng.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Resume</title>
-      <link>http://dockerk8s.com/resume_en/</link>
+      <link>http://ottodeng.io/resume_en/</link>
       <pubDate>Wed, 04 Apr 2018 10:18:03 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://dockerk8s.com/resume_en/</guid>
+      <guid>http://ottodeng.io/resume_en/</guid>
       <description>Personal info  Otto Deng / 1988 Shenzhen, Guangdong, China Zhongkai University of Technology Agriculture and Engineering Major in System/Cloud Architect, Application Delivery Blog: dockerk8s.com Target:  Location：Guangzhou Function/Position：Tech Leader / Cloud Architect   Contact  Mobile：18675625750 Email：otto.dengzt@gmail.com WeChat：dengoxygen  About Me  7 years of Infrastructure Architecture and operations experience 3 years of IaaS, PaaS, Containerization and Serverless Architect experience Consulting / Customer serving experience, with good presentation skills Excellent troubleshooting skills Excellent communication (written and oral) and interpersonal skills Excellent leadership and management skills Love learning and introducing new technology in order to help colleagues and customers embrace and adopt new technology  Work Experience Wal-Mart (12/2015 - Now) System Architect</description>
     </item>
     
     <item>
       <title>个人简历</title>
-      <link>http://dockerk8s.com/resume_cn/</link>
+      <link>http://ottodeng.io/resume_cn/</link>
       <pubDate>Wed, 04 Apr 2018 10:17:56 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://dockerk8s.com/resume_cn/</guid>
+      <guid>http://ottodeng.io/resume_cn/</guid>
       <description>个人资料 邓子涛 / 1988 广东深圳 仲恺农业工程学院 System/Cloud Architect, 应用交付专家 个人博客: dockerk8s.com 目标: 工作地点：广州 职位：Tech Leader / Cloud Architect 联系方式 手机：1867562</description>
     </item>
     
     <item>
       <title>CKA Exam</title>
-      <link>http://dockerk8s.com/post/cka-exam/</link>
+      <link>http://ottodeng.io/post/cka-exam/</link>
       <pubDate>Mon, 12 Feb 2018 13:12:45 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://dockerk8s.com/post/cka-exam/</guid>
+      <guid>http://ottodeng.io/post/cka-exam/</guid>
       <description>在放假前，终于把cka考完了，从报名到考试通过，一共是20多天吧，反正这段时间里面，除了睡觉吃饭就是敲实验了🤢。。。 What is CKA? CKA全称就是Ce</description>
     </item>
     
     <item>
       <title>Hello world</title>
-      <link>http://dockerk8s.com/post/hello-world/</link>
+      <link>http://ottodeng.io/post/hello-world/</link>
       <pubDate>Mon, 12 Feb 2018 12:34:13 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://dockerk8s.com/post/hello-world/</guid>
+      <guid>http://ottodeng.io/post/hello-world/</guid>
       <description>在年前休假的带娃这段时间，各种挤时间，终于把blog发布了。🎈💐👏 blog的框架使用hugo，页面托管在GitHub pages上，里面的图片</description>
     </item>
     
     <item>
       <title>dockerk8s网站更新日志</title>
-      <link>http://dockerk8s.com/post/change-log/</link>
+      <link>http://ottodeng.io/post/change-log/</link>
       <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://dockerk8s.com/post/change-log/</guid>
+      <guid>http://ottodeng.io/post/change-log/</guid>
       <description>TODO Blog release 优化图片存储，目前只是简单地将图片上传到cloudinary中 增加搜索框，计划使用 algolia 增加评论框 增加统计工具 增加cheatsheets来</description>
     </item>
     
     <item>
       <title>About Me</title>
-      <link>http://dockerk8s.com/about/</link>
+      <link>http://ottodeng.io/about/</link>
       <pubDate>Sun, 11 Feb 2018 15:26:52 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://dockerk8s.com/about/</guid>
+      <guid>http://ottodeng.io/about/</guid>
       <description>Info Otto Deng Shenzhen, Guangdong, China 🇨🇳 Zhongkai University of Technology Agriculture and Engineering （仲恺农业工程学院） Major in System/Cloud Architect 技术历程 2010-2011 路由交换 CCIE(SP)#28297 @2011.03 2011-2015 应用交付，安全增值，系统集成，数据分析。 F5 Certified Technology Specialist @2014.01 2015-2016 Python, Django, C</description>
     </item>
     
