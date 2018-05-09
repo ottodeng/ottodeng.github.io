@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Infra as a Code on Otto Deng</title>
+    <link>http://ottodeng.io/tags/infra-as-a-code/</link>
+    <description>Recent content in Infra as a Code on Otto Deng</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
+    <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
+    <lastBuildDate>Wed, 09 May 2018 18:20:39 +0800</lastBuildDate>
+    
+	<atom:link href="http://ottodeng.io/tags/infra-as-a-code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用Terraform为k8s创建vsphere VMs</title>
+      <link>http://ottodeng.io/post/terraform/</link>
+      <pubDate>Wed, 09 May 2018 18:20:39 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/terraform/</guid>
+      <description>Deploy Kubernetes VMs with Terraform Terraform是什么？以下是官方具体的解析，其实说白了，就是Write, Plan, and create Infrastructure as Code Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers</description>
+    </item>
+    
+  </channel>
+</rss>

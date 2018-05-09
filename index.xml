@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Mon, 09 Apr 2018 13:58:12 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 May 2018 18:20:39 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用Terraform为k8s创建vsphere VMs</title>
+      <link>http://ottodeng.io/post/terraform/</link>
+      <pubDate>Wed, 09 May 2018 18:20:39 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/terraform/</guid>
+      <description>Deploy Kubernetes VMs with Terraform Terraform是什么？以下是官方具体的解析，其实说白了，就是Write, Plan, and create Infrastructure as Code Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers</description>
+    </item>
     
     <item>
       <title>Change Domain</title>

@@ -41,6 +41,15 @@
     </item>
     
     <item>
+      <title>Infra as a Code</title>
+      <link>http://ottodeng.io/tags/infra-as-a-code/</link>
+      <pubDate>Wed, 09 May 2018 18:20:39 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/tags/infra-as-a-code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Kubernetes</title>
       <link>http://ottodeng.io/tags/kubernetes/</link>
       <pubDate>Mon, 12 Feb 2018 13:12:45 +0800</pubDate>
@@ -55,6 +64,24 @@
       <pubDate>Sun, 11 Feb 2018 15:26:52 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>http://ottodeng.io/tags/me/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>http://ottodeng.io/tags/terraform/</link>
+      <pubDate>Wed, 09 May 2018 18:20:39 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/tags/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vsphere</title>
+      <link>http://ottodeng.io/tags/vsphere/</link>
+      <pubDate>Wed, 09 May 2018 18:20:39 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/tags/vsphere/</guid>
       <description></description>
     </item>
     

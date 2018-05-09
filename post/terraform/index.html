@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>使用Terraform为k8s创建vsphere VMs</title>
+  <meta property="og:title" content="使用Terraform为k8s创建vsphere VMs" />
+  <meta name="twitter:title" content="使用Terraform为k8s创建vsphere VMs" />
+  <meta name="description" content="Deploy Kubernetes VMs with Terraform Terraform是什么？以下是官方具体的解析，其实说白了，就是Write, Plan, and create Infrastructure as Code Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers">
+  <meta property="og:description" content="Deploy Kubernetes VMs with Terraform Terraform是什么？以下是官方具体的解析，其实说白了，就是Write, Plan, and create Infrastructure as Code Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers">
+  <meta name="twitter:description" content="Deploy Kubernetes VMs with Terraform Terraform是什么？以下是官方具体的解析，其实说白了，就是Write, Plan, and create Infrastructure as Code Terraform is a tool for building, changing, and versioning infrastructure safely and …">
+  <meta name="author" content="Otto Deng"/>
+  <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@otto_deng" />
+  <meta name="twitter:creator" content="@otto_deng" />
+  <meta property="og:url" content="http://ottodeng.io/post/terraform/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Otto Deng" />
+
+  <meta name="generator" content="Hugo 0.35" />
+  <link rel="canonical" href="http://ottodeng.io/post/terraform/" />
+  <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="Otto Deng">
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/katex.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="http://ottodeng.io/css/main.css" />
+  <link rel="stylesheet" href="http://ottodeng.io/css/search.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://ottodeng.io/css/syntax.css" /><link rel="stylesheet" href="http://ottodeng.io/css/codeblock.css" />
+
+
+
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/photoswipe.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/default-skin.min.css">
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://ottodeng.io">Otto Deng</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" href="javascript:void(0)">About</a>
+              <div class="navlinks-children">
+                
+                  <a href="/about">About Me</a>
+                
+                  <a href="/resume_cn">个人简历</a>
+                
+                  <a href="/resume_en">Resume</a>
+                
+              </div>
+            </li>
+          
+        
+
+        
+
+        
+        
+        <li>
+          <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+            <span class="hidden-sm hidden-md hidden-lg">Search</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Otto Deng" href="http://ottodeng.io">
+            <img class="avatar-img" src="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" alt="Otto Deng" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+
+<div id="modalSearch" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Search blog.qikqiak.com</h4>
+      </div>
+      <div class="modal-body">
+          <div class="aa-input-container" id="aa-input-container">
+    <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Search for titles or URIs..." name="search" autocomplete="off" />
+    <svg class="aa-input-icon" viewBox="654 -372 1664 1664">
+        <path d="M1806,332c0-123.3-43.8-228.8-131.5-316.5C1586.8-72.2,1481.3-116,1358-116s-228.8,43.8-316.5,131.5  C953.8,103.2,910,208.7,910,332s43.8,228.8,131.5,316.5C1129.2,736.2,1234.7,780,1358,780s228.8-43.8,316.5-131.5  C1762.2,560.8,1806,455.3,1806,332z M2318,1164c0,34.7-12.7,64.7-38,90s-55.3,38-90,38c-36,0-66-12.7-90-38l-343-342  c-119.3,82.7-252.3,124-399,124c-95.3,0-186.5-18.5-273.5-55.5s-162-87-225-150s-113-138-150-225S654,427.3,654,332  s18.5-186.5,55.5-273.5s87-162,150-225s138-113,225-150S1262.7-372,1358-372s186.5,18.5,273.5,55.5s162,87,225,150s113,138,150,225  S2062,236.7,2062,332c0,146.7-41.3,279.7-124,399l343,343C2305.7,1098.7,2318,1128.7,2318,1164z" />
+    </svg>
+</div>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/algoliasearch.min.js"></script>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/autocomplete.min.js"></script>
+<script>
+var client = algoliasearch("ROLFLYASRK", "68051a824e77fa9a8f1dad341efad57a");
+var index = client.initIndex('dockerk8s-blog');
+autocomplete('#aa-search-input',
+{ hint: false}, {
+    source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+    
+    displayKey: 'name',
+    
+    templates: {
+        
+        suggestion: function(suggestion) {
+            
+            return '<span>' + '<a href="/' + suggestion.uri+ '">' +
+            suggestion._highlightResult.title.value + '</a></span>';
+        }
+    }
+});
+</script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>使用Terraform为k8s创建vsphere VMs</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on May 9, 2018
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="deploy-kubernetes-vms-with-terraform">Deploy Kubernetes VMs with Terraform</h1>
+
+<p>Terraform是什么？以下是官方具体的解析，其实说白了，就是<strong>Write, Plan, and create Infrastructure as Code</strong></p>
+
+<p>Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.</p>
+
+<p>Configuration files describe to Terraform the components needed to run a single application or your entire datacenter. Terraform generates an execution plan describing what it will do to reach the desired state, and then executes it to build the described infrastructure. As the configuration changes, Terraform is able to determine what changed and create incremental execution plans which can be applied.</p>
+
+<p>The infrastructure Terraform can manage includes low-level components such as compute instances, storage, and networking, as well as high-level components such as DNS entries, SaaS features, etc.</p>
+
+<p>具体环境如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>ESXi HOST</th>
+<th>IP</th>
+<th>Remark</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>esxi-host01</td>
+<td>10.0.0.11</td>
+<td>#ESXi host01</td>
+</tr>
+
+<tr>
+<td>esxi-host02</td>
+<td>10.0.0.12</td>
+<td>#ESXi host02</td>
+</tr>
+
+<tr>
+<td>esxi-host03</td>
+<td>10.0.0.13</td>
+<td>#ESXi host03</td>
+</tr>
+
+<tr>
+<td>esxi-host04</td>
+<td>10.0.0.14</td>
+<td>#ESXi host04</td>
+</tr>
+
+<tr>
+<td>esxi-host05</td>
+<td>10.0.0.15</td>
+<td>#ESXi host05</td>
+</tr>
+
+<tr>
+<td>vCenter</td>
+<td>10.0.0.10</td>
+<td>#vCenter</td>
+</tr>
+
+<tr>
+<td>Terraform</td>
+<td>10.0.0.5</td>
+<td>#Terraform Node</td>
+</tr>
+
+<tr>
+<td>k8s-deploy</td>
+<td>10.0.0.9</td>
+<td>#Deploy Node</td>
+</tr>
+
+<tr>
+<td>k8s-master01</td>
+<td>10.0.0.21</td>
+<td>#Master Node</td>
+</tr>
+
+<tr>
+<td>k8s-master02</td>
+<td>10.0.0.22</td>
+<td>#Master Node</td>
+</tr>
+
+<tr>
+<td>k8s-master03</td>
+<td>10.0.0.23</td>
+<td>#Master Node</td>
+</tr>
+
+<tr>
+<td>k8s-node01</td>
+<td>10.0.0.31</td>
+<td>#Workder Node</td>
+</tr>
+
+<tr>
+<td>k8s-node02</td>
+<td>10.0.0.32</td>
+<td>#Workder Node</td>
+</tr>
+
+<tr>
+<td>k8s-node03</td>
+<td>10.0.0.33</td>
+<td>#Workder Node</td>
+</tr>
+
+<tr>
+<td>k8s-node04</td>
+<td>10.0.0.34</td>
+<td>#Workder Node</td>
+</tr>
+
+<tr>
+<td>k8s-node05</td>
+<td>10.0.0.35</td>
+<td>#Workder Node</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+<tr>
+<th>OS</th>
+<th>VERSION</th>
+<th>Kernel</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Ubuntu</td>
+<td>16.04</td>
+<td>4.4.0-116</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+<tr>
+<th>Components</th>
+<th>VERSION</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>kubernetes</td>
+<td>1.9.5</td>
+</tr>
+
+<tr>
+<td>etcd</td>
+<td>3.2.4</td>
+</tr>
+
+<tr>
+<td>calico</td>
+<td>2.6.8</td>
+</tr>
+
+<tr>
+<td>docker</td>
+<td>17.03-ce</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="terraform">Terraform</h2>
+
+<hr />
+
+<p>首先我们来安装Terraform</p>
+
+<h3 id="1-1-install-go-1-10">1.1 Install GO 1.10</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.10.1.linux-amd64.tar.gz
+<span style="color:#999">export</span> <span style="color:#008080">PATH</span><span style="font-weight:bold">=</span>/usr/local/go/bin:<span style="color:#008080">$PATH</span>
+<span style="color:#999">export</span> <span style="color:#008080">GOPATH</span><span style="font-weight:bold">=</span>/root/go
+<span style="color:#999">export</span> <span style="color:#008080">GOROOT</span><span style="font-weight:bold">=</span>/usr/local/go</code></pre></div>
+<h3 id="1-2-install-terraform-0-11-7">1.2 Install Terraform 0.11.7</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
+unzip terraform_0.11.7_linux_amd64.zip
+cp terraform /usr/local/bin/</code></pre></div>
+<h3 id="1-3-terraform-文件">1.3 Terraform 文件</h3>
+
+<p>为了逻辑清晰，我将所有配置分成4个文件</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform/lab-k8sz1-tf# ls
+data_sources.tf k8s.tf terraform.tfvars variables.tf</code></pre></div>
+<p><code>data_sources.tf</code>
+存放vsphere已有的资源变量</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_datacenter&#34;</span> <span style="color:#b84">&#34;datacenter&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_datacenter}&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_host&#34;</span> <span style="color:#b84">&#34;hosts&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">count</span>         <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${length(var.esxi_hosts)}&#34;</span>
+  <span style="color:#008080">name</span>          <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.esxi_hosts[count.index]}&#34;</span>
+  <span style="color:#008080">datacenter_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datacenter.datacenter.id}&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_resource_pool&#34;</span> <span style="color:#b84">&#34;resource_pool&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">name</span>          <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_resource_pool}&#34;</span>
+  <span style="color:#008080">datacenter_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datacenter.datacenter.id}&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_virtual_machine&#34;</span> <span style="color:#b84">&#34;template&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">name</span>          <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_vm_template}&#34;</span>
+  <span style="color:#008080">datacenter_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datacenter.datacenter.id}&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_datastore&#34;</span> <span style="color:#b84">&#34;datastore&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">name</span>          <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_datastore}&#34;</span>
+  <span style="color:#008080">datacenter_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datacenter.datacenter.id}&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_network&#34;</span> <span style="color:#b84">&#34;network&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">name</span>          <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_port_group}&#34;</span>
+  <span style="color:#008080">datacenter_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datacenter.datacenter.id}&#34;</span>
+<span style="font-weight:bold">}</span></code></pre></div>
+<p><code>k8s.tf</code></p>
+
+<p>存放具体需要创建的k8s的VM资源</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#998;font-style:italic"># Configure vSphere provider
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">provider</span> <span style="color:#b84">&#34;vsphere&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">vsphere_server</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_vcenter}&#34;</span>
+        <span style="color:#008080">user</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_user}&#34;</span>
+        <span style="color:#008080">password</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_password}&#34;</span>
+        <span style="color:#008080">allow_unverified_ssl</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_unverified_ssl}&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#998;font-style:italic"># Create a vSphere VM folder
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">resource</span> <span style="color:#b84">&#34;vsphere_folder&#34;</span> <span style="color:#b84">&#34;vm_folder&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">datacenter_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datacenter.datacenter.id}&#34;</span>
+        <span style="color:#008080">type</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;vm&#34;</span>
+        <span style="color:#008080">path</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_vm_folder}&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#998;font-style:italic"># Create a vSphere VM in the k8s-vms folder
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">resource</span> <span style="color:#b84">&#34;vsphere_virtual_machine&#34;</span> <span style="color:#b84">&#34;k8s-masters&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">count</span>            <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_master_count}&#34;</span>
+  <span style="color:#008080">name</span>             <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_master_name}${count.index + 1}&#34;</span>
+  <span style="color:#008080">resource_pool_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_resource_pool.resource_pool.id}&#34;</span>
+  <span style="color:#008080">datastore_id</span>     <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datastore.datastore.id}&#34;</span>
+  <span style="color:#008080">host_system_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_host.hosts.*.id[count.index]}&#34;</span>
+  <span style="color:#008080">folder</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${vsphere_folder.vm_folder.path}&#34;</span>
+
+  <span style="color:#008080">num_cpus</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_master_cpu}&#34;</span>
+  <span style="color:#999">memory</span>   <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_master_memory}&#34;</span>
+  <span style="color:#008080">guest_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.guest_id}&#34;</span>
+  <span style="color:#008080">enable_disk_uuid</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;true&#34;</span>
+
+  <span style="color:#008080">network_interface</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">network_id</span>   <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_network.network.id}&#34;</span>
+  <span style="font-weight:bold">}</span>
+
+  <span style="color:#008080">disk</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">label</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;disk0&#34;</span> 
+    size <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.disks.0.size}&#34;</span>
+  <span style="font-weight:bold">}</span>
+
+  <span style="color:#008080">clone</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">template_uuid</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.id}&#34;</span>
+
+    <span style="color:#008080">customize</span> <span style="font-weight:bold">{</span>
+      <span style="color:#008080">linux_options</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">host_name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_master_name}${count.index + 1}&#34;</span>
+        <span style="color:#008080">domain</span>    <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.virtual_machine_domain}&#34;</span>
+        <span style="color:#008080">time_zone</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_time_zone}&#34;</span>
+      <span style="font-weight:bold">}</span>
+
+      <span style="color:#008080">network_interface</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">ipv4_address</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_address}${21 + count.index}&#34;</span>
+        <span style="color:#008080">ipv4_netmask</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_netmask}&#34;</span>
+      <span style="font-weight:bold">}</span>
+
+      <span style="color:#008080">ipv4_gateway</span>    <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_gateway}&#34;</span>
+      <span style="color:#008080">dns_suffix_list</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.virtual_machine_search_domain}&#34;</span>
+      <span style="color:#008080">dns_server_list</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_dns_servers}&#34;</span>
+    <span style="font-weight:bold">}</span>
+  <span style="font-weight:bold">}</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#008080">resource</span> <span style="color:#b84">&#34;vsphere_virtual_machine&#34;</span> <span style="color:#b84">&#34;k8s-nodes&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#008080">count</span>            <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_node_count}&#34;</span>
+  <span style="color:#008080">name</span>             <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_node_name}${count.index + 1}&#34;</span>
+  <span style="color:#008080">resource_pool_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_resource_pool.resource_pool.id}&#34;</span>
+  <span style="color:#008080">datastore_id</span>     <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datastore.datastore.id}&#34;</span>
+  <span style="color:#008080">host_system_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_host.hosts.*.id[count.index]}&#34;</span>
+  <span style="color:#008080">folder</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${vsphere_folder.vm_folder.path}&#34;</span>
+
+  <span style="color:#008080">num_cpus</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_node_cpu}&#34;</span>
+  <span style="color:#999">memory</span>   <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_node_memory}&#34;</span>
+  <span style="color:#008080">guest_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.guest_id}&#34;</span>
+  <span style="color:#008080">enable_disk_uuid</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;true&#34;</span>
+
+  <span style="color:#008080">network_interface</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">network_id</span>   <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_network.network.id}&#34;</span>
+  <span style="font-weight:bold">}</span>
+
+  <span style="color:#008080">disk</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">label</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;disk0&#34;</span> 
+    size <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.disks.0.size}&#34;</span>
+  <span style="font-weight:bold">}</span>
+
+  <span style="color:#008080">clone</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">template_uuid</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.id}&#34;</span>
+
+    <span style="color:#008080">customize</span> <span style="font-weight:bold">{</span>
+      <span style="color:#008080">linux_options</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">host_name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_node_name}${count.index + 1}&#34;</span>
+        <span style="color:#008080">domain</span>    <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.virtual_machine_domain}&#34;</span>
+        <span style="color:#008080">time_zone</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_time_zone}&#34;</span>
+      <span style="font-weight:bold">}</span>
+
+      <span style="color:#008080">network_interface</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">ipv4_address</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_address}${31 + count.index}&#34;</span>
+        <span style="color:#008080">ipv4_netmask</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_netmask}&#34;</span>
+      <span style="font-weight:bold">}</span>
+
+      <span style="color:#008080">ipv4_gateway</span>    <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_gateway}&#34;</span>
+      <span style="color:#008080">dns_suffix_list</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.virtual_machine_search_domain}&#34;</span>
+      <span style="color:#008080">dns_server_list</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_dns_servers}&#34;</span>
+    <span style="font-weight:bold">}</span>
+  <span style="font-weight:bold">}</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#008080">resource</span> <span style="color:#b84">&#34;vsphere_virtual_machine&#34;</span> <span style="color:#b84">&#34;k8s-deploy&#34;</span> <span style="font-weight:bold">{</span>
+  <span style="color:#998;font-style:italic">#count            = &#34;1&#34;
+</span><span style="color:#998;font-style:italic"></span>  <span style="color:#008080">name</span>             <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_deploy_name}&#34;</span>
+  <span style="color:#008080">resource_pool_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_resource_pool.resource_pool.id}&#34;</span>
+  <span style="color:#008080">datastore_id</span>     <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datastore.datastore.id}&#34;</span>
+  <span style="color:#998;font-style:italic">#host_system_id = &#34;${data.vsphere_host.hosts.*.id[count.index]}&#34;
+</span><span style="color:#998;font-style:italic"></span>  <span style="color:#008080">folder</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${vsphere_folder.vm_folder.path}&#34;</span>
+
+  <span style="color:#008080">num_cpus</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_deploy_cpu}&#34;</span>
+  <span style="color:#999">memory</span>   <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_deploy_memory}&#34;</span>
+  <span style="color:#008080">guest_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.guest_id}&#34;</span>
+  <span style="color:#998;font-style:italic">#enable_disk_uuid = &#34;true&#34;
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic"></span>  <span style="color:#008080">network_interface</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">network_id</span>   <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_network.network.id}&#34;</span>
+  <span style="font-weight:bold">}</span>
+
+  <span style="color:#008080">disk</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">label</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;disk0&#34;</span> 
+    size <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.disks.0.size}&#34;</span>
+  <span style="font-weight:bold">}</span>
+
+  <span style="color:#008080">clone</span> <span style="font-weight:bold">{</span>
+    <span style="color:#008080">template_uuid</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_virtual_machine.template.id}&#34;</span>
+
+    <span style="color:#008080">customize</span> <span style="font-weight:bold">{</span>
+      <span style="color:#008080">linux_options</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">host_name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.k8s_deploy_name}&#34;</span>
+        <span style="color:#008080">domain</span>    <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.virtual_machine_domain}&#34;</span>
+        <span style="color:#008080">time_zone</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_time_zone}&#34;</span>
+      <span style="font-weight:bold">}</span>
+
+      <span style="color:#008080">network_interface</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">ipv4_address</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_address}9&#34;</span>
+        <span style="color:#008080">ipv4_netmask</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_netmask}&#34;</span>
+      <span style="font-weight:bold">}</span>
+
+      <span style="color:#008080">ipv4_gateway</span>    <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_ipv4_gateway}&#34;</span>
+      <span style="color:#008080">dns_suffix_list</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.virtual_machine_search_domain}&#34;</span>
+      <span style="color:#008080">dns_server_list</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_dns_servers}&#34;</span>
+    <span style="font-weight:bold">}</span>
+  <span style="font-weight:bold">}</span>
+<span style="font-weight:bold">}</span></code></pre></div>
+<p><code>variables.tf</code>
+用来存放变量</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#998;font-style:italic"># vCenter connection
+</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_user&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;vSphere user name&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_password&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;vSphere password&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_vcenter&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;vCenter server FQDN or IP&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_unverified_ssl&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;Is the vCenter using a self signed certificate (true/false)&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#998;font-style:italic"># VM specifications
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_datacenter&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;In which datacenter the VM will be deployed&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="color:#998;font-style:italic">#variable &#34;vsphere_vm_name&#34; {
+</span><span style="color:#998;font-style:italic">#        description = &#34;What is the name of the VM&#34;
+</span><span style="color:#998;font-style:italic">#}
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_vm_template&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;Where is the VM template located&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_vm_folder&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;In which folder the VM will be store&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_cluster&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;In which cluster the VM will be deployed&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_resource_pool&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;Resource Pool&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_vcpu_number&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;How many vCPU will be assigned to the VM (default: 1)&#34;</span>
+        <span style="color:#008080">default</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;1&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_memory_size&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;How much RAM will be assigned to the VM (default: 1024)&#34;</span>
+        <span style="color:#008080">default</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;1024&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_datastore&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;What is the name of the VM datastore&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_port_group&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;In which port group the VM NIC will be configured (default: VM Network)&#34;</span>
+        <span style="color:#008080">default</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;VM Network&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_ipv4_address&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;What is the IPv4 address of the VM&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_ipv4_netmask&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;What is the IPv4 netmask of the VM (default: 24)&#34;</span>
+        <span style="color:#008080">default</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;24&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_ipv4_gateway&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;What is the IPv4 gateway of the VM&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_dns_servers&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;DNS server list&#34;</span>
+        <span style="color:#008080">type</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;list&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;virtual_machine_search_domain&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;DNS search domain list&#34;</span>
+        <span style="color:#008080">type</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;list&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_time_zone&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;What is the timezone of the VM (default: UTC)&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;virtual_machine_domain&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;virtual machine domain&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_master_name&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s master name&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_master_cpu&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s master cpu&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_master_memory&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s master memory&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_master_count&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s master count&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_node_name&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s node name&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_node_cpu&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s node cpu&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_node_memory&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s node memory&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_node_count&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s node count&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_deploy_name&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s deployment node name&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_deploy_cpu&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s deploy cpu&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;k8s_deploy_memory&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s deploy memory&#34;</span>
+<span style="font-weight:bold">}</span>
+
+<span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;esxi_hosts&#34;</span> <span style="font-weight:bold">{</span>
+        <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;ESXi HOSTs&#34;</span>
+        <span style="color:#008080">type</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;map&#34;</span>
+<span style="font-weight:bold">}</span></code></pre></div>
+<p><code>terraform.tfvars</code>
+用来存放所有变量的实例，基本上我们只需要修改这个文件中的内容</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#998;font-style:italic"># vCenter connection
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">vsphere_vcenter</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.10&#34;</span>
+<span style="color:#008080">vsphere_user</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;administrator@vsphere.local&#34;</span>
+<span style="color:#008080">vsphere_password</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;CHANGEME&#34;</span>
+<span style="color:#008080">vsphere_unverified_ssl</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;true&#34;</span>
+
+<span style="color:#998;font-style:italic"># VM specifications
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">vsphere_datacenter</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;DataCenter&#34;</span>
+<span style="color:#008080">vsphere_resource_pool</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s-cluster-RP&#34;</span>
+<span style="color:#008080">vsphere_vm_folder</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s-vms&#34;</span>
+<span style="color:#008080">vsphere_vm_template</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;ubuntu16.04-template&#34;</span>
+<span style="color:#008080">vsphere_cluster</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s-Cluster&#34;</span>
+<span style="color:#008080">vsphere_datastore</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;vsanDatastore&#34;</span>
+<span style="color:#008080">vsphere_port_group</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;VM Network&#34;</span>
+<span style="color:#008080">vsphere_ipv4_address</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.&#34;</span>
+<span style="color:#008080">vsphere_ipv4_netmask</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;24&#34;</span>
+<span style="color:#008080">vsphere_ipv4_gateway</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.1&#34;</span>
+<span style="color:#008080">vsphere_dns_servers</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="font-weight:bold">[</span><span style="color:#b84">&#34;114.114.114.114&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span><span style="color:#b84">&#34;223.5.5.5&#34;</span><span style="font-weight:bold">]</span>
+<span style="color:#008080">vsphere_time_zone</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;Asia/Shanghai&#34;</span>
+ 
+<span style="color:#008080">k8s_deploy_name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s-deploy&#34;</span>
+<span style="color:#008080">k8s_deploy_cpu</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;2&#34;</span>
+<span style="color:#008080">k8s_deploy_memory</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;4096&#34;</span>
+<span style="color:#998;font-style:italic">#k8s deploy node IP is $vsphere_ipv4_address.9
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">k8s_master_name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s-master0&#34;</span>
+<span style="color:#008080">k8s_master_cpu</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;2&#34;</span>
+<span style="color:#008080">k8s_master_memory</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;8196&#34;</span>
+<span style="color:#008080">k8s_master_count</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;3&#34;</span>
+<span style="color:#998;font-style:italic">#k8s master node IP is starts with $vsphere_ipv4_address.21
+</span><span style="color:#998;font-style:italic">#Don&#39;t deploy master node count more than 10
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">k8s_node_name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;k8s-node0&#34;</span>
+<span style="color:#008080">k8s_node_cpu</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;8&#34;</span>
+<span style="color:#008080">k8s_node_memory</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;16384&#34;</span>
+<span style="color:#008080">k8s_node_count</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;5&#34;</span>
+<span style="color:#998;font-style:italic">#k8s master node IP is starts with $vsphere_ipv4_address.31
+</span><span style="color:#998;font-style:italic">#Don&#39;t deploy worker node count more than 10
+</span><span style="color:#998;font-style:italic">
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">esxi_hosts</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="font-weight:bold">{</span>
+<span style="color:#b84">&#34;0&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.11&#34;</span>
+<span style="color:#b84">&#34;1&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.12&#34;</span>
+<span style="color:#b84">&#34;2&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.13&#34;</span>
+<span style="color:#b84">&#34;3&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.14&#34;</span>
+<span style="color:#b84">&#34;4&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.15&#34;</span>
+<span style="font-weight:bold">}</span></code></pre></div>
+<h3 id="1-4-在vcenter里面创建预置的资源">1.4 在vCenter里面创建预置的资源</h3>
+
+<p>1.4.1 创建Resource Pool，并且名字设置为<code>k8s-cluster-RP</code>
+1.4.2 创建VM Template，我们可以使用ubuntu16.04的ISO安装完毕之后，就可以直接关机并且转换为tempalte，并且名字设置为<code>ubuntu16.04-template</code>
+这步具体就不演示了，比较简单。</p>
+
+<h3 id="1-5-terraform-gogogo">1.5 Terraform GOGOGO</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# terraform init
+
+Initializing provider plugins...
+- Checking <span style="font-weight:bold">for</span> available provider plugins on https://releases.hashicorp.com...
+- Downloading plugin <span style="font-weight:bold">for</span> provider <span style="color:#b84">&#34;vsphere&#34;</span> <span style="font-weight:bold">(</span><span style="color:#099">1</span>.4.1<span style="font-weight:bold">)</span>...
+
+The following providers <span style="font-weight:bold">do</span> not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add <span style="color:#008080">version</span> <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;...&#34;</span> constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.vsphere: <span style="color:#008080">version</span> <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;~&gt; 1.4&#34;</span>
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running <span style="color:#b84">&#34;terraform plan&#34;</span> to see
+any changes that are required <span style="font-weight:bold">for</span> your infrastructure. All Terraform commands
+should now work.
+
+If you ever <span style="color:#999">set</span> or change modules or backend configuration <span style="font-weight:bold">for</span> Terraform,
+rerun this <span style="color:#999">command</span> to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to <span style="font-weight:bold">do</span> so <span style="font-weight:bold">if</span> necessary.
+root@terraform:~/terraform#</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# terraform plan
+
+#如果没有配置错误，这里会出现每个创建的资源的详细配置项</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# terraform apply
+ 
+vsphere_virtual_machine.k8s-masters.1: Still creating... <span style="font-weight:bold">(</span>1m20s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes.4: Still creating... <span style="font-weight:bold">(</span>1m20s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-deploy: Creation <span style="color:#999">complete</span> after 1m29s <span style="font-weight:bold">(</span>ID: 42187d77-86a2-ef21-f7aa-b443576029ae<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span><span style="color:#099">2</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m29s <span style="font-weight:bold">(</span>ID: 4218bd31-cbb1-b181-2699-6af3f00563b5<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters.0: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes.2: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes.1: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes.0: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes.3: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters.1: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes.4: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">4</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m34s <span style="font-weight:bold">(</span>ID: 4218e1b4-ea21-ca96-1e78-6d6c30b655e9<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">0</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m35s <span style="font-weight:bold">(</span>ID: 42182c7f-cffe-4109-33e9-0df8cc113261<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span><span style="color:#099">0</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m36s <span style="font-weight:bold">(</span>ID: 4218dbe8-a641-7db6-982a-5b215cd0571f<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span><span style="color:#099">1</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m37s <span style="font-weight:bold">(</span>ID: <span style="color:#099">42185559</span>-a55f-7aab-37c3-6706494c061d<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">1</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m37s <span style="font-weight:bold">(</span>ID: <span style="color:#099">42184531</span>-0cbc-6ed5-e025-98b9ca6dc312<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">3</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m39s <span style="font-weight:bold">(</span>ID: 4218ed5b-f131-d96e-24a7-4d9b0e5b9c89<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">2</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m39s <span style="font-weight:bold">(</span>ID: 421855f2-6d31-1b7f-18d1-5870a0548bac<span style="font-weight:bold">)</span>
+
+Apply complete! Resources: <span style="color:#099">10</span> added, <span style="color:#099">0</span> changed, <span style="color:#099">0</span> destroyed.
+root@terraform:~/terraform#</code></pre></div>
+<p>执行完毕之后，就能看到vCenter里面已经创建好所有的k8s集群的主机</p>
+
+<p><code>terraform show</code>能够看到创建的所有资源的详细信息</p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://ottodeng.io/post/change-domain/" data-toggle="tooltip" data-placement="top" title="Change Domain">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:otto.dengzt@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/ottodeng" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/otto_deng" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/otto-deng-8239751" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="http://ottodeng.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Otto Deng
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://ottodeng.io">Otto Deng</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376077/katex.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/auto-render.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376066/jquery-1.12.4.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376461/bootstrap.min.js"></script>
+<script src="http://ottodeng.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/photoswipe.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/photoswipe-ui-default.min.js"></script>
+<script src="http://ottodeng.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

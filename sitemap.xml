@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://ottodeng.io/post/terraform/</loc>
+    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://ottodeng.io/post/change-domain/</loc>
     <lastmod>2018-04-09T13:58:12+08:00</lastmod>
   </url>
@@ -39,7 +44,7 @@
   
   <url>
     <loc>http://ottodeng.io/</loc>
-    <lastmod>2018-04-09T13:58:12+08:00</lastmod>
+    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
   </url>
   
   <url>
@@ -66,6 +71,12 @@
   </url>
   
   <url>
+    <loc>http://ottodeng.io/tags/infra-as-a-code/</loc>
+    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://ottodeng.io/tags/kubernetes/</loc>
     <lastmod>2018-02-12T13:12:45+08:00</lastmod>
     <priority>0</priority>
@@ -79,13 +90,25 @@
   
   <url>
     <loc>http://ottodeng.io/post/</loc>
-    <lastmod>2018-04-09T13:58:12+08:00</lastmod>
+    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://ottodeng.io/tags/</loc>
     <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/terraform/</loc>
+    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/vsphere/</loc>
+    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
     <priority>0</priority>
   </url>
   
