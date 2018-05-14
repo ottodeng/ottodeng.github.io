@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Wed, 09 May 2018 18:20:39 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 May 2018 09:10:34 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubespray自动化部署生产级别k8s集群</title>
+      <link>http://ottodeng.io/post/kubespray/</link>
+      <pubDate>Mon, 14 May 2018 09:10:34 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/kubespray/</guid>
+      <description>Deploy a Production Ready Kubernetes Cluster Kubespray是Kubernetes incubator中的项目，目标是提供Production Ready Kubernetes部署方案</description>
+    </item>
     
     <item>
       <title>使用Terraform为k8s创建vsphere VMs</title>
