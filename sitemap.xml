@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://ottodeng.io/post/ckad-exam/</loc>
+    <lastmod>2018-07-09T21:26:29+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://ottodeng.io/post/kubespray/</loc>
     <lastmod>2018-05-14T09:10:34+08:00</lastmod>
   </url>
@@ -49,7 +54,7 @@
   
   <url>
     <loc>http://ottodeng.io/</loc>
-    <lastmod>2018-05-14T09:10:34+08:00</lastmod>
+    <lastmod>2018-07-09T21:26:29+08:00</lastmod>
   </url>
   
   <url>
@@ -77,7 +82,7 @@
   
   <url>
     <loc>http://ottodeng.io/tags/kubernetes/</loc>
-    <lastmod>2018-05-14T09:10:34+08:00</lastmod>
+    <lastmod>2018-07-09T21:26:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -95,7 +100,7 @@
   
   <url>
     <loc>http://ottodeng.io/post/</loc>
-    <lastmod>2018-05-14T09:10:34+08:00</lastmod>
+    <lastmod>2018-07-09T21:26:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   

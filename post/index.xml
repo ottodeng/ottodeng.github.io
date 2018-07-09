@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Mon, 14 May 2018 09:10:34 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Jul 2018 21:26:29 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CKAD Exam</title>
+      <link>http://ottodeng.io/post/ckad-exam/</link>
+      <pubDate>Mon, 09 Jul 2018 21:26:29 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/ckad-exam/</guid>
+      <description>What is CKAD? CKAD全称就是Certified Kubernetes Application Developer，是由CNCF(Cloud Native Computing Foundation)提供的认证项目，考试费用为</description>
+    </item>
     
     <item>
       <title>kubespray自动化部署生产级别k8s集群</title>
