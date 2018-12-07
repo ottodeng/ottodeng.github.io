@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Mon, 09 Jul 2018 21:26:29 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Dec 2018 14:16:17 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CJE exam</title>
+      <link>http://ottodeng.io/post/cje/</link>
+      <pubDate>Fri, 07 Dec 2018 14:16:17 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/cje/</guid>
+      <description>What is CJE? CJE 全称（Certified Jenkins Engineer），是由CloudBee公司认证的Jenkins工程师认证，主要针对在DevOps领域的一</description>
+    </item>
     
     <item>
       <title>CKAD Exam</title>
