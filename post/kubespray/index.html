@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Otto Deng" />
 
-  <meta name="generator" content="Hugo 0.35" />
+  <meta name="generator" content="Hugo 0.49.2" />
   <link rel="canonical" href="http://ottodeng.io/post/kubespray/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="Otto Deng">
 
@@ -690,7 +690,7 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#b84">#azure_route_table_name:
 </span><span style="color:#b84">
 </span><span style="color:#b84">## When OpenStack is used, Cinder version can be explicitly specified if autodetection fails (Fixed in 1.9: https://github.com/kubernetes/kubernetes/issues/50461)
-</span><span style="color:#b84">#openstack_blockstorage_version: &#34;</span>v<span style="color:#099">1</span>/v<span style="color:#099">2</span>/auto<span style="color:#bbb"> </span>(default)<span style="color:#b84">&#34;
+</span><span style="color:#b84">#openstack_blockstorage_version: &#34;</span>v1/v2/auto<span style="color:#bbb"> </span>(default)<span style="color:#b84">&#34;
 </span><span style="color:#b84">## When OpenStack is used, if LBaaSv2 is available you can enable it with the following 2 variables.
 </span><span style="color:#b84">#openstack_lbaas_enabled: True
 </span><span style="color:#b84">#openstack_lbaas_subnet_id: &#34;</span>Neutron<span style="color:#bbb"> </span>subnet<span style="color:#bbb"> </span>ID<span style="color:#bbb"> </span>(not<span style="color:#bbb"> </span>network<span style="color:#bbb"> </span>ID)<span style="color:#bbb"> </span>to<span style="color:#bbb"> </span>create<span style="color:#bbb"> </span>LBaaS<span style="color:#bbb"> </span>VIP<span style="color:#b84">&#34;
@@ -768,7 +768,7 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#bbb"></span>kube_api_anonymous_auth:<span style="color:#bbb"> </span><span style="font-weight:bold">true</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## Change this to use another Kubernetes version, e.g. a current beta release</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_version:<span style="color:#bbb"> </span>v<span style="color:#099">1.9</span>.<span style="color:#099">5</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>kube_version:<span style="color:#bbb"> </span>v1.<span style="color:#099">9.5</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Where the binaries will be downloaded.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Note: ensure that you&#39;ve enough disk space (about 1G)</span><span style="color:#bbb">
@@ -1113,7 +1113,7 @@ No IPv6 peers found.</code></pre></div>
 <p>创建StorageClass和PV</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat<span style="color:#bbb"> </span>vsphere-volume-sc-fast.yaml<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>apiVersion:<span style="color:#bbb"> </span>storage.k8s.io/v<span style="color:#099">1</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>apiVersion:<span style="color:#bbb"> </span>storage.k8s.io/v1<span style="color:#bbb">
 </span><span style="color:#bbb"></span>kind:<span style="color:#bbb"> </span>StorageClass<span style="color:#bbb">
 </span><span style="color:#bbb"></span>metadata:<span style="color:#bbb"> 
 </span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span>fast<span style="color:#bbb">
@@ -1121,12 +1121,12 @@ No IPv6 peers found.</code></pre></div>
 </span><span style="color:#bbb"></span>parameters:<span style="color:#bbb"> 
 </span><span style="color:#bbb">  </span>datastore:<span style="color:#bbb"> </span>vsanDatastore<span style="color:#bbb">
 </span><span style="color:#bbb">  </span>diskformat:<span style="color:#bbb"> </span>thin<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>fstype:<span style="color:#bbb"> </span>ext<span style="color:#099">3</span></code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat<span style="color:#bbb"> </span>vsphere-volume-pvcsc.yaml<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>fstype:<span style="color:#bbb"> </span>ext3</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat<span style="color:#bbb"> </span>vsphere-volume-pvcsc.yaml<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span>kind:<span style="color:#bbb"> </span>PersistentVolumeClaim<span style="color:#bbb">
-</span><span style="color:#bbb"></span>apiVersion:<span style="color:#bbb"> </span>v<span style="color:#099">1</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>apiVersion:<span style="color:#bbb"> </span>v1<span style="color:#bbb">
 </span><span style="color:#bbb"></span>metadata:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span>pvcsc<span style="color:#099">001</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span>pvcsc001<span style="color:#bbb">
 </span><span style="color:#bbb">  </span>annotations:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span>volume.beta.kubernetes.io/storage-class:<span style="color:#bbb"> </span>fast<span style="color:#bbb">
 </span><span style="color:#bbb"></span>spec:<span style="color:#bbb">
@@ -1248,7 +1248,7 @@ root@k8s-master01:~#</code></pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.49.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>
