@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Tue, 07 May 2019 11:31:03 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 23 Jun 2019 10:42:35 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「1」数字化转型</title>
+      <link>http://ottodeng.io/post/f5-supernetops-1/</link>
+      <pubDate>Sun, 23 Jun 2019 10:42:35 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-1/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「1」数字化转型 数字化转型 数字化转型是指通过利用现代技术和通信手段，改变企业为客户创造</description>
+    </item>
     
     <item>
       <title>「F5 连接NetOps/SecOps与DevOps」</title>
