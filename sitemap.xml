@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://ottodeng.io/post/f5-supernetops-2/</loc>
+    <lastmod>2019-07-08T10:45:53+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://ottodeng.io/post/f5-supernetops-1/</loc>
     <lastmod>2019-06-23T10:42:35+08:00</lastmod>
   </url>
@@ -69,7 +74,7 @@
   
   <url>
     <loc>http://ottodeng.io/</loc>
-    <lastmod>2019-06-23T10:42:35+08:00</lastmod>
+    <lastmod>2019-07-08T10:45:53+08:00</lastmod>
   </url>
   
   <url>
@@ -85,7 +90,7 @@
   
   <url>
     <loc>http://ottodeng.io/tags/f5/</loc>
-    <lastmod>2019-06-23T10:42:35+08:00</lastmod>
+    <lastmod>2019-07-08T10:45:53+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -127,13 +132,13 @@
   
   <url>
     <loc>http://ottodeng.io/post/</loc>
-    <lastmod>2019-06-23T10:42:35+08:00</lastmod>
+    <lastmod>2019-07-08T10:45:53+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://ottodeng.io/tags/super-netops/</loc>
-    <lastmod>2019-06-23T10:42:35+08:00</lastmod>
+    <lastmod>2019-07-08T10:45:53+08:00</lastmod>
     <priority>0</priority>
   </url>
   

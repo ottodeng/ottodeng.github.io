@@ -5,9 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>F5</title>
-  <meta property="og:title" content="F5" />
-  <meta name="twitter:title" content="F5" />
+  <title>F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</title>
+  <meta property="og:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code" />
+  <meta name="twitter:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code" />
+  <meta name="description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure">
+  <meta property="og:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure">
+  <meta name="twitter:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure">
   <meta name="author" content="Otto Deng"/>
   <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
@@ -15,13 +18,13 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@otto_deng" />
   <meta name="twitter:creator" content="@otto_deng" />
-  <meta property="og:url" content="http://ottodeng.io/tags/f5/" />
+  <meta property="og:url" content="http://ottodeng.io/post/f5-supernetops-2/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
   <meta name="generator" content="Hugo 0.49.2" />
-  <link rel="canonical" href="http://ottodeng.io/tags/f5/" />
-  <link rel="alternate" href="http://ottodeng.io/tags/f5/index.xml" type="application/rss+xml" title="">
+  <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-2/" />
+  <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
 
 
@@ -201,14 +204,37 @@ autocomplete('#aa-search-input',
 </div>
 
     
+  
+  
+  
+
+
+
+
+  
+
   <header class="header-section ">
+    
     <div class="intro-header no-img">
+      
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h1>#F5</h1>
-              <hr class="small">
+            <div class="post-heading">
+              <h1>F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on July 8, 2019
+  
+  
+  
+</span>
+
+
+                
             </div>
           </div>
         </div>
@@ -216,105 +242,97 @@ autocomplete('#aa-search-input',
     </div>
   </header>
 
+
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
         
-        <div class="posts-list">
+
+<h1 id="f5-连接netops-secops与devops-2-infrastructure-as-code">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code</h1>
+
+<p>本文主要分享什么叫做Infrastructure as Code, 还有实现它的两种方式：</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/14.png" alt="InfraAsCode" /></p>
+
+<p>基础设施即代码(以下均简称IaC)是一种用描述性的方式来管理基础设施（包括网络，虚拟机，存储，负载均衡等），IaC模型在每次应用时都生成相同的环境，它是与DevOps结合的关键时间，与持续交付(Continue Delivery)结合使用。</p>
+
+<p>IaC的发展，解决了CD流水线中的环境飘移问题。如果没有IaC，团队必须维护各个环境的设置。随着时间的推移，每个环境都会成为了信息孤岛，无法自动复制相同的配置。环境之间的不一致会导致部署期间出现问题，最后会导致基础设施的管理，变得非常难以跟踪，并且只能通过手动进行单独的维护。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/10.png" alt="IaC" /></p>
+
+<h2 id="与devops的关系">与DevOps的关系</h2>
+
+<p>IaC可以成为在DevOps中实现最佳实践的关键属性，开发人员可以更多地参与定义配置，Ops团队在开发过程的早期阶段就参与其中。利用IaC的工具可以提高服务器状态和配置的可见性，最终为企业内的用户提供可视性，旨在将团队聚集在一起，最大限度地发挥他们的作用。自动化通常旨在解决手动过程中的混乱和容易出错的问题，并使其更高效，更高效。允许创建更好的软件和应用程序，灵活，减少停机时间，并为公司提供整体成本效益的方式。IaC旨在降低从手动配置中带来的复杂性。自动化和协作被认为是DevOps的核心要点，基础架构自动化工具通常作为DevOps工具链的重要一环。</p>
+
+<h2 id="iac的特点">IaC的特点：</h2>
+
+<h5 id="1-版本控制和历史管理">1. 版本控制和历史管理</h5>
+
+<h5 id="2-所有操作可以追溯和进行审计">2. 所有操作可以追溯和进行审计</h5>
+
+<h5 id="3-快速简单-容易回滚">3. 快速简单，容易回滚</h5>
+
+<h5 id="4-方面团队协作-共同维护">4. 方面团队协作，共同维护</h5>
+
+<h5 id="5-幂等性-idempotence">5. 幂等性(Idempotence)</h5>
+
+<p>而幂等性是这里面一个很重要的规范原则，无论环境的起始状态如何，这个部署指令执行了多少次，它都可以保证环境最终的状态是一致的。因此，通过IaC，团队对环境描述进行更改并对配置模型进行版本化，通常会采用标准化并容易理解的代码格式（如JSON，YAML）。持续交付Pipeline以IaC方式配置目标环境。如果团队需要进行更改，他们会编辑源，而不是目标。记住，<code>Source of the truth</code>!</p>
+
+<h2 id="iac主要带来三个主要的价值">IaC主要带来三个主要的价值：</h2>
+
+<h5 id="1-成本-减少">1. 成本（减少）</h5>
+
+<h5 id="2-速度-更快的执行">2. 速度（更快的执行）</h5>
+
+<h5 id="3-风险-人为的操作错误所带来的安全隐患">3. 风险（人为的操作错误所带来的安全隐患）</h5>
+
+<p>实施IaC的团队可以快速，大规模地提供稳定的环境。团队通过代码表示环境的最终期望状态，从而避免手动配置环境并强制实现一致性。使用IaC进行基础架构部署都是可重复的，可防止因配置偏差或缺少依赖性而导致的运行时问题。DevOps团队可以与统一的实践和工具协同工作，快速，可靠，大规模地交付应用程序及其支持基础架构。</p>
+
+<h2 id="实现iac通常有两种方法">实现IaC通常有两种方法：</h2>
+
+<h5 id="1-imperative-命令式">1. Imperative（命令式）</h5>
+
+<h5 id="2-declarative-声明式">2. Declarative（声明式）</h5>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/15.png" alt="IaC" /></p>
+
+<p>命令式的特点非常明显，如果需要达到最终的目的，你要以适当的顺序执行特定的命令，比如你执行的顺序是123，就绝对不能是321。并且每一步操作，你都需要执行对应的API或者指令应该在哪里。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/16.png" alt="Imperative" /></p>
+
+<p>而声明式就非常简单了，只需要描述你所需环境的最终状态，然后通过少量的API任务，post过去，最终环境就可以根据你所需要的描述，生成最终的状态，所以也非常受开发者喜爱。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/17.png" alt="Declarative" /></p>
+
+<p>而f5有4种声明式的组件来匹配在持续交付流水线中的每一个环节：部署，上线，配置，监控。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/19.png" alt="cd-pipeline" /></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/18.png" alt="tools" /></p>
+
+<p>下一章开始，我将会具体的展开每一个组件（Cloud Template, Declarative Onboarding, Application Services 3 Extension, Telemetry Streaming)具体的作用和使用的方法以及场景。</p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
           
-            <article class="post-preview">
-              <a href="http://ottodeng.io/post/f5-supernetops-2/">
-                <h2 class="post-title">F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                Posted on July 8, 2019
-              </p>
-              <div class="post-entry">
-                
-                  「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure
-                  <a href="http://ottodeng.io/post/f5-supernetops-2/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="http://ottodeng.io/tags/super-netops/">super-netops</a>&nbsp;
-                  
-                    #<a href="http://ottodeng.io/tags/f5/">f5</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
+            <li class="previous">
+              <a href="http://ottodeng.io/post/f5-supernetops-1/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「1」数字化转型">&larr; Previous Post</a>
+            </li>
           
-            <article class="post-preview">
-              <a href="http://ottodeng.io/post/f5-supernetops-1/">
-                <h2 class="post-title">F5 连接NetOps/SecOps与DevOps」 -- 「1」数字化转型</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                Posted on June 23, 2019
-              </p>
-              <div class="post-entry">
-                
-                  「F5 连接NetOps/SecOps与DevOps」 &ndash; 「1」数字化转型 数字化转型 数字化转型是指通过利用现代技术和通信手段，改变企业为客户创造
-                  <a href="http://ottodeng.io/post/f5-supernetops-1/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="http://ottodeng.io/tags/super-netops/">super-netops</a>&nbsp;
-                  
-                    #<a href="http://ottodeng.io/tags/f5/">f5</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
           
-            <article class="post-preview">
-              <a href="http://ottodeng.io/post/f5-supernetops-0/">
-                <h2 class="post-title">「F5 连接NetOps/SecOps与DevOps」</h2>
+        </ul>
+      
 
-                
-              </a>
 
-              <p class="post-meta">
-                Posted on May 7, 2019
-              </p>
-              <div class="post-entry">
-                
-                  「F5 连接NetOps/SecOps与DevOps」 &ndash; 介绍篇 「F5 连接NetOps/SecOps与DevOps」是一个从零开始学习并打造一个
-                  <a href="http://ottodeng.io/post/f5-supernetops-0/" class="post-read-more">[Read More]</a>
-                
-              </div>
+      
 
-              
-                <span class="post-meta">
-                  
-                    #<a href="http://ottodeng.io/tags/super-netops/">super-netops</a>&nbsp;
-                  
-                    #<a href="http://ottodeng.io/tags/f5/">f5</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-        </div>
-        
-      </div>
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">
@@ -357,7 +375,7 @@ autocomplete('#aa-search-input',
           
           <li>
             
-            <a href="http://ottodeng.io/tags/f5/index.xml" title="RSS">
+            <a href="http://ottodeng.io/index.xml" title="RSS">
             
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
