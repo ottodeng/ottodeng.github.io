@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Mon, 08 Jul 2019 10:45:53 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2019 12:12:11 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/tags/super-netops/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates</title>
+      <link>http://ottodeng.io/post/f5-supernetops-3/</link>
+      <pubDate>Mon, 29 Jul 2019 12:12:11 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-3/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「3」Cloud Templates 本文主要介绍的第一个F5声明式组件 &amp;ndash; Cloud Templates 在上一篇系列文章中有提到，在</description>
+    </item>
     
     <item>
       <title>F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</title>

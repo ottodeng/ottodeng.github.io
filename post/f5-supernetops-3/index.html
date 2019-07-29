@@ -5,9 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <meta name="description" content="Otto Deng(邓子涛) is a Solution Consultant working in F5 Networks, used to be a application delivery expert. In recent years, I keep growing my exposure on Cloud, Docker, K8s, DevOps.">
-  <meta property="og:description" content="Otto Deng(邓子涛) is a Solution Consultant working in F5 Networks, used to be a application delivery expert. In recent years, I keep growing my exposure on Cloud, Docker, K8s, DevOps.">
-  <meta name="twitter:description" content="Otto Deng(邓子涛) is a Solution Consultant working in F5 Networks, used to be a application delivery expert. In recent years, I keep growing my exposure on Cloud, Docker, K8s, DevOps.">
+  <title>F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates</title>
+  <meta property="og:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates" />
+  <meta name="twitter:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates" />
+  <meta name="description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「3」Cloud Templates 本文主要介绍的第一个F5声明式组件 &ndash; Cloud Templates 在上一篇系列文章中有提到，在">
+  <meta property="og:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「3」Cloud Templates 本文主要介绍的第一个F5声明式组件 &ndash; Cloud Templates 在上一篇系列文章中有提到，在">
+  <meta name="twitter:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「3」Cloud Templates 本文主要介绍的第一个F5声明式组件 &ndash; Cloud Templates 在上一篇系列文章中有提到，在">
   <meta name="author" content="Otto Deng"/>
   <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
@@ -15,12 +18,12 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@otto_deng" />
   <meta name="twitter:creator" content="@otto_deng" />
-  <meta property="og:url" content="http://ottodeng.io/" />
+  <meta property="og:url" content="http://ottodeng.io/post/f5-supernetops-3/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
   <meta name="generator" content="Hugo 0.49.2" />
-  <link rel="canonical" href="http://ottodeng.io/" />
+  <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-3/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
 
@@ -209,35 +212,28 @@ autocomplete('#aa-search-input',
 
 
   
-    <div id="header-big-imgs" data-num-img=3 data-img-src-1="https://res.cloudinary.com/ottodeng/image/upload/v1544235891/WechatIMG91.jpg" data-img-src-2="https://res.cloudinary.com/ottodeng/image/upload/v1544236253/WechatIMG92.jpg" data-img-src-3="https://res.cloudinary.com/ottodeng/image/upload/v1544236840/WechatIMG95.jpg" ></div>
-  
 
-  <header class="header-section has-img">
-    
-      <div class="intro-header big-img">
-        
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-              <div class="page-heading">
-                <h1><br/></h1>
-                  
-                  
-              </div>
-            </div>
-          </div>
-        </div>
-        <span class="img-desc" style="display: inline;"></span>
-      </div>
+  <header class="header-section ">
     
     <div class="intro-header no-img">
       
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h1><br/></h1>
+            <div class="post-heading">
+              <h1>F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates</h1>
                 
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on July 29, 2019
+  
+  
+  
+</span>
+
+
                 
             </div>
           </div>
@@ -248,99 +244,84 @@ autocomplete('#aa-search-input',
 
 
     
-  <div role="main" class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-          <div class="well">
-            <p><a href="/about">Otto Deng(邓子涛)</a> is a Solution Consultant working in F5 Networks, used to be a application delivery expert.
-In recent years, I keep growing my exposure on Cloud, Docker, K8s, DevOps.</p>
-
-          </div>
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
         
 
-        <div class="posts-list">
+<h1 id="f5-连接netops-secops与devops-3-cloud-templates">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「3」Cloud Templates</h1>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/20.png" alt="Cloud Templates" /></p>
+
+<p>本文主要介绍的第一个F5声明式组件 &ndash; Cloud Templates</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/19.png" alt="cd-pipeline" /></p>
+
+<p>在上一篇系列文章中有提到，在持续交付流水线中，包含部署，上线，配置，监控等环节，而第一步就是需要在不同的环境中部署对应的资源，对于很多运维人员来说，他们需要根据特定应用程序的不同配置以及云提供商之间的差异，手动地根据这些特点部署到不同的云环境中，而这些步骤，有大部分都是重复的步骤，而F5的Cloud templates正好可以解决这些不同环境差异化的问题，它主要有以下特点：</p>
+
+<h3 id="1-快速-可靠">1. 快速、可靠</h3>
+
+<p>手动配置应用程序服务耗时且容易出错；Cloud Templates可以在几分钟内部署应用程序服务，这些服务由F5专家根据云最佳实践进行设计和测试，以满足不同的架构而设计，您无需预先了解很多BIGIP关于部署方面的知识，只需要按照模板填写一些基本的信息即可。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/26.png" alt="ct" /></p>
+
+<h3 id="2-简单-自动化">2. 简单、自动化</h3>
+
+<p>随着基础设施复杂性的增加，对自动化和协调的需求也在增加。模板化应用程序服务可以轻松地与第三方自动化工具（如Ansible, Chef, Puppet, Terraform等）集成，以提高效率，同时降低部署的成本、可变性和风险。</p>
+
+<h3 id="3-多云的通用部署">3. 多云的通用部署</h3>
+
+<p>随着多云环境的需求日益增多，F5提供多个公有云和私有云的Cloud Templates，以实现跨多个云平台的应用程序服务快速简单复制。</p>
+
+<p>Cloud Templates对于主流公有云的支持如下：<br />
+<img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/21.png" alt="Public-templates" /></p>
+
+<p>Cloud Templates对于主流私有云的支持如下：<br />
+<img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/22.png" alt="Private-templates" /></p>
+
+<p>以下是一些公有云中的参考架构（以AWS为例）：</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/23.png" alt="aws-1" /></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/24.png" alt="aws-2" /></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/25.png" alt="aws-3" /></p>
+
+<p>详细的AWS的模版支持列表，请参考：<br />
+<a href="https://github.com/F5Networks/f5-aws-cloudformation/blob/master/template-index.md">https://github.com/F5Networks/f5-aws-cloudformation/blob/master/template-index.md</a></p>
+
+<p>有了这些不同的Cloud Templates，可以帮助我们快速地部署BIGIP到对应的环境中，缩短环境交付所需要的时间，最终可以通过自动化工具调用对用的公有云/私有云的模版，就可以轻松地bootstrap对应的BIGIP资源，部署到不同的云环境中。</p>
+
+<p>Every App, Anywhere.</p>
+
+<p>有关更多的Cloud Template资料和部署文档，请参考以下链接：<br />
+<code>AWS</code>: <a href="https://github.com/F5Networks/f5-aws-cloudformation">https://github.com/F5Networks/f5-aws-cloudformation</a><br />
+<code>Azure</code>: <a href="https://github.com/F5Networks/f5-azure-arm-templates">https://github.com/F5Networks/f5-azure-arm-templates</a><br />
+<code>Google</code>: <a href="https://github.com/F5Networks/f5-google-gdm-templates">https://github.com/F5Networks/f5-google-gdm-templates</a><br />
+<code>Azure Stack</code>: <a href="https://github.com/F5Networks/f5-azure-stack-arm-templates">https://github.com/F5Networks/f5-azure-stack-arm-templates</a><br />
+<code>OpenStack</code>: <a href="https://github.com/F5Networks/f5-openstack-hot">https://github.com/F5Networks/f5-openstack-hot</a><br />
+<code>VMware</code>: <a href="https://github.com/F5Networks/f5-vmware-vcenter-templates">https://github.com/F5Networks/f5-vmware-vcenter-templates</a></p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://ottodeng.io/post/f5-supernetops-2/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code">&larr; Previous Post</a>
+            </li>
           
           
-            <article class="post-preview">
-              <a href="http://ottodeng.io/post/hello-world/">
-                <h2 class="post-title">Hello world</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on February 12, 2018
-  
-  
-  
-</span>
+        </ul>
+      
 
 
-              <div class="post-entry">
-                
-                  在年前休假的带娃这段时间，各种挤时间，终于把blog发布了。🎈💐👏 blog的框架使用hugo，页面托管在GitHub pages上，里面的图片
-                  <a href="http://ottodeng.io/post/hello-world/" class="post-read-more">[Read More]</a>
-                
-              </div>
+      
 
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="http://ottodeng.io/post/change-log/">
-                <h2 class="post-title">ottodeng.io网站更新日志</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on February 12, 2018
-  
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  TODO Blog release 优化图片存储，目前只是简单地将图片上传到cloudinary中 增加搜索框，计划使用 algolia 增加评论框 增加统计工具 增加cheatsheets来
-                  <a href="http://ottodeng.io/post/change-log/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                
-                  #<a href="http://ottodeng.io/tags/github-pages/">github-pages</a>&nbsp;
-                
-                  #<a href="http://ottodeng.io/tags/github/">github</a>&nbsp;
-                
-                  #<a href="http://ottodeng.io/tags/hugo/">hugo</a>&nbsp;
-                
-                </span>
-              
-            </article>
-          
-        </div>
-
-        
-          <ul class="pager main-pager">
-            
-              <li class="previous">
-                <a href="/page/1/">&larr; Newer Posts</a>
-              </li>
-            
-            
-          </ul>
-        
-      </div>
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">
