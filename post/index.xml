@@ -8,10 +8,28 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Mon, 29 Jul 2019 12:12:11 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2019 15:22:58 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「5」Application Services 3 Extension</title>
+      <link>http://ottodeng.io/post/f5-supernetops-5/</link>
+      <pubDate>Fri, 20 Sep 2019 15:22:58 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-5/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「5」Application Services 3 Extension 本文主要介绍第三个声明式组件Application Services</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「4」Declarative Onboarding</title>
+      <link>http://ottodeng.io/post/f5-supernetops-4/</link>
+      <pubDate>Fri, 20 Sep 2019 11:12:02 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-4/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「4」Declarative Onboarding 本文主要介绍的第二个F5声明式组件 &amp;ndash; Declarative Onboarding Declarative Onboard</description>
+    </item>
     
     <item>
       <title>F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates</title>
