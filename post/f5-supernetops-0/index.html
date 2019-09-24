@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>「F5 连接NetOps/SecOps与DevOps」</title>
+  <meta property="og:title" content="「F5 连接NetOps/SecOps与DevOps」" />
+  <meta name="twitter:title" content="「F5 连接NetOps/SecOps与DevOps」" />
+  <meta name="description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 介绍篇 「F5 连接NetOps/SecOps与DevOps」是一个从零开始学习并打造一个">
+  <meta property="og:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 介绍篇 「F5 连接NetOps/SecOps与DevOps」是一个从零开始学习并打造一个">
+  <meta name="twitter:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 介绍篇 「F5 连接NetOps/SecOps与DevOps」是一个从零开始学习并打造一个">
+  <meta name="author" content="Otto Deng"/>
+  <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@otto_deng" />
+  <meta name="twitter:creator" content="@otto_deng" />
+  <meta property="og:url" content="http://ottodeng.io/post/f5-supernetops-0/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="" />
+
+  <meta name="generator" content="Hugo 0.35" />
+  <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-0/" />
+  <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/katex.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="http://ottodeng.io/css/main.css" />
+  <link rel="stylesheet" href="http://ottodeng.io/css/search.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://ottodeng.io/css/syntax.css" /><link rel="stylesheet" href="http://ottodeng.io/css/codeblock.css" />
+
+
+
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/photoswipe.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/default-skin.min.css">
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://ottodeng.io"></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+
+        
+
+        
+        
+        <li>
+          <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+            <span class="hidden-sm hidden-md hidden-lg">Search</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="" href="http://ottodeng.io">
+            <img class="avatar-img" src="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" alt="" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+
+<div id="modalSearch" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Search blog.qikqiak.com</h4>
+      </div>
+      <div class="modal-body">
+          <div class="aa-input-container" id="aa-input-container">
+    <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Search for titles or URIs..." name="search" autocomplete="off" />
+    <svg class="aa-input-icon" viewBox="654 -372 1664 1664">
+        <path d="M1806,332c0-123.3-43.8-228.8-131.5-316.5C1586.8-72.2,1481.3-116,1358-116s-228.8,43.8-316.5,131.5  C953.8,103.2,910,208.7,910,332s43.8,228.8,131.5,316.5C1129.2,736.2,1234.7,780,1358,780s228.8-43.8,316.5-131.5  C1762.2,560.8,1806,455.3,1806,332z M2318,1164c0,34.7-12.7,64.7-38,90s-55.3,38-90,38c-36,0-66-12.7-90-38l-343-342  c-119.3,82.7-252.3,124-399,124c-95.3,0-186.5-18.5-273.5-55.5s-162-87-225-150s-113-138-150-225S654,427.3,654,332  s18.5-186.5,55.5-273.5s87-162,150-225s138-113,225-150S1262.7-372,1358-372s186.5,18.5,273.5,55.5s162,87,225,150s113,138,150,225  S2062,236.7,2062,332c0,146.7-41.3,279.7-124,399l343,343C2305.7,1098.7,2318,1128.7,2318,1164z" />
+    </svg>
+</div>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/algoliasearch.min.js"></script>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/autocomplete.min.js"></script>
+<script>
+var client = algoliasearch("ROLFLYASRK", "68051a824e77fa9a8f1dad341efad57a");
+var index = client.initIndex('dockerk8s-blog');
+autocomplete('#aa-search-input',
+{ hint: false}, {
+    source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+    
+    displayKey: 'name',
+    
+    templates: {
+        
+        suggestion: function(suggestion) {
+            
+            return '<span>' + '<a href="/' + suggestion.uri+ '">' +
+            suggestion._highlightResult.title.value + '</a></span>';
+        }
+    }
+});
+</script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>「F5 连接NetOps/SecOps与DevOps」</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on May 7, 2019
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="f5-连接netops-secops与devops-介绍篇">「F5 连接NetOps/SecOps与DevOps」 &ndash;  介绍篇</h1>
+
+<p>「F5 连接NetOps/SecOps与DevOps」是一个从零开始学习并打造一个完整的CI/CD流水线的系列教程，主要是希望帮助NetOps/SecOps工程师转向SuperNetOps，更好地帮助公司对DevOps，敏捷开发的转型。</p>
+
+<h3 id="本系列主要有以下几个特点">本系列主要有以下几个特点：</h3>
+
+<ul>
+<li>讲解当今IT最流行的话题，数字化转型、敏捷开发、DevOps，Infrastructure as Code，持续集成，持续交付（也许你已经对这些话题已经感兴趣了，所以才会看到这篇文章）</li>
+<li>着重实践并兼顾理论知识，从实际操作让大家可以从零，一步一步地如何打造一个适合&rdquo;You&rdquo;的CI/CD流水线。</li>
+<li>重点会强调f5如何帮助用户构建一个敏捷的架构。</li>
+<li>需要有f5的基础知识（达到f5 101/201认证水平的工程师）</li>
+<li>为了降低学习的难度并且考虑到移动端碎片化阅读的特点，每次推送的内容大家只需要花5-10分钟就能看完（注意这里说的是看完，有时候要完全理解可能需要更多时间），每次推送只会有1-2个知识点，而且有一些知识点会逐步展开，可能每一个小的分支也会作为一个推送。</li>
+</ul>
+
+<h3 id="写给谁看">写给谁看？</h3>
+
+<p>这套系列文章的目标读者包括：</p>
+
+<p><strong><code>IT实施和运维工程师</code></strong><br />
+已有各方面的基础架构基础知识，希望可以通过某些手段自动化运维f5设备（或者其他设备），彻底改变&rdquo;人肉运维&rdquo;的方式。</p>
+
+<p><strong><code>SecOps工程师</code></strong><br />
+希望通过某些方式应对千变万化的安全攻击行为，真正实现一个攻防式的对抗平台。</p>
+
+<p><strong><code>&quot;DevOps工程师&quot;</code></strong><br />
+目前已经在打造和维护CI/CD的流水线，希望可以将更多的环节添加进来，帮助公司加快应用更新迭代的速度。</p>
+
+<p><strong><code>一个想改变的&quot;你&quot;（包括我自己）</code></strong><br />
+希望通过学习，了解更多新的技术，提升自己，改变目前的工作状态。<br />
+而对于我自己，只有把这些东西写出来并能够让其他人理解才能真正说明自己掌握了这项知识。</p>
+
+<h3 id="这系列文章主要包含的内容">这系列文章主要包含的内容：</h3>
+
+<p><img src="http://ottodeng.oss-cn-shenzhen.aliyuncs.com/1.png" alt="内容MindSet" /></p>
+
+<p><strong>1) 数字化转型</strong><br />
+主要讲解如何帮助企业进行数字化转型，相关名次的解释。</p>
+
+<p><strong>2) Infrastructure as Code</strong><br />
+讲解Imperative（命令式）和Declarative（声明式）这两种方式的特点。</p>
+
+<p><strong>3) F5各声明式组件的介绍和使用</strong><br />
+* Cloud Template<br />
+* Declarative OnBoarding<br />
+* Application Service 3 Extension<br />
+* Telemetry Streaming</p>
+
+<p>讲解这些组件的用途和使用方法，一步一步地熟悉，调试，到应用到实际环境中。</p>
+
+<p><strong>4) 从零开始打造CI/CD的流水线</strong><br />
+CI/CD主流工具的介绍和使用方法，例如Git, Jenkins, Ansible, Docker等工具，从零开始构建适合你的持续交付流水线。</p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://ottodeng.io/post/cje/" data-toggle="tooltip" data-placement="top" title="CJE exam">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://ottodeng.io/post/f5-supernetops-1/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「1」数字化转型">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:otto.dengzt@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/ottodeng" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/otto_deng" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/otto-deng-8239751" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="http://ottodeng.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Otto Deng
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2019
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376077/katex.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/auto-render.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376066/jquery-1.12.4.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376461/bootstrap.min.js"></script>
+<script src="http://ottodeng.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/photoswipe.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/photoswipe-ui-default.min.js"></script>
+<script src="http://ottodeng.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

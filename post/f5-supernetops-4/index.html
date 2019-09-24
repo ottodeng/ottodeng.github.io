@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>F5 连接NetOps/SecOps与DevOps」 -- 「4」Declarative Onboarding</title>
+  <meta property="og:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「4」Declarative Onboarding" />
+  <meta name="twitter:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「4」Declarative Onboarding" />
+  <meta name="description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「4」Declarative Onboarding 本文主要介绍的第二个F5声明式组件 &ndash; Declarative Onboarding Declarative Onboard">
+  <meta property="og:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「4」Declarative Onboarding 本文主要介绍的第二个F5声明式组件 &ndash; Declarative Onboarding Declarative Onboard">
+  <meta name="twitter:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「4」Declarative Onboarding 本文主要介绍的第二个F5声明式组件 &ndash; Declarative Onboarding Declarative Onboard">
+  <meta name="author" content="Otto Deng"/>
+  <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@otto_deng" />
+  <meta name="twitter:creator" content="@otto_deng" />
+  <meta property="og:url" content="http://ottodeng.io/post/f5-supernetops-4/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="" />
+
+  <meta name="generator" content="Hugo 0.35" />
+  <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-4/" />
+  <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/katex.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="http://ottodeng.io/css/main.css" />
+  <link rel="stylesheet" href="http://ottodeng.io/css/search.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://ottodeng.io/css/syntax.css" /><link rel="stylesheet" href="http://ottodeng.io/css/codeblock.css" />
+
+
+
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/photoswipe.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/default-skin.min.css">
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://ottodeng.io"></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+
+        
+
+        
+        
+        <li>
+          <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+            <span class="hidden-sm hidden-md hidden-lg">Search</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="" href="http://ottodeng.io">
+            <img class="avatar-img" src="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" alt="" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+
+<div id="modalSearch" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Search blog.qikqiak.com</h4>
+      </div>
+      <div class="modal-body">
+          <div class="aa-input-container" id="aa-input-container">
+    <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Search for titles or URIs..." name="search" autocomplete="off" />
+    <svg class="aa-input-icon" viewBox="654 -372 1664 1664">
+        <path d="M1806,332c0-123.3-43.8-228.8-131.5-316.5C1586.8-72.2,1481.3-116,1358-116s-228.8,43.8-316.5,131.5  C953.8,103.2,910,208.7,910,332s43.8,228.8,131.5,316.5C1129.2,736.2,1234.7,780,1358,780s228.8-43.8,316.5-131.5  C1762.2,560.8,1806,455.3,1806,332z M2318,1164c0,34.7-12.7,64.7-38,90s-55.3,38-90,38c-36,0-66-12.7-90-38l-343-342  c-119.3,82.7-252.3,124-399,124c-95.3,0-186.5-18.5-273.5-55.5s-162-87-225-150s-113-138-150-225S654,427.3,654,332  s18.5-186.5,55.5-273.5s87-162,150-225s138-113,225-150S1262.7-372,1358-372s186.5,18.5,273.5,55.5s162,87,225,150s113,138,150,225  S2062,236.7,2062,332c0,146.7-41.3,279.7-124,399l343,343C2305.7,1098.7,2318,1128.7,2318,1164z" />
+    </svg>
+</div>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/algoliasearch.min.js"></script>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/autocomplete.min.js"></script>
+<script>
+var client = algoliasearch("ROLFLYASRK", "68051a824e77fa9a8f1dad341efad57a");
+var index = client.initIndex('dockerk8s-blog');
+autocomplete('#aa-search-input',
+{ hint: false}, {
+    source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+    
+    displayKey: 'name',
+    
+    templates: {
+        
+        suggestion: function(suggestion) {
+            
+            return '<span>' + '<a href="/' + suggestion.uri+ '">' +
+            suggestion._highlightResult.title.value + '</a></span>';
+        }
+    }
+});
+</script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>F5 连接NetOps/SecOps与DevOps」 -- 「4」Declarative Onboarding</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on September 20, 2019
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="f5-连接netops-secops与devops-4-declarative-onboarding">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「4」Declarative Onboarding</h1>
+
+<p>本文主要介绍的第二个F5声明式组件 &ndash; Declarative Onboarding</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/29.png" alt="Declarative Onboarding" /></p>
+
+<p>Declarative Onboarding提供了一种声明式的方式来配置F5 BIGIP的L1-L3的配置，包括激活license，底层的系统配置，网络配置，集群配置等。结合AS3（配置L4-L7的策略），帮助用户提供Infrastructure as Code的管理方式，并且可以很方便地与第三方的编排工具进行集成。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/28.png" alt="Declarative Onboarding" /></p>
+
+<p>使用Declarative Onboarding还是需要一些预备的条件的：
+1. 必须有一个mgmt的IP地址，DO才可以根据这个地址进行API交换。
+2. BIG-IP的版本必须是v13.1.0或者以上的版本。
+3. 如果使用v13.1.x的版本，可以直接使用admin和默认密码进行交互。如果使用v14.x以上的版本，则需要在使用前手动登陆一次设备，重置admin的密码。</p>
+
+<p>DO的API是<strong>https://<BIG-IP>:8443/mgmt/shared/declarative-onboarding</strong>
+具体的配置是一个json格式的配置文件，在使用DO之前，需要在BIGIP上安装DO的RPM包，才可以正常使用。</p>
+
+<p>以下是一个简单的配置文件：</p>
+
+<pre><code>{
+&quot;schemaVersion&quot;: &quot;0.1.0&quot;,
+&quot;class&quot;: &quot;Device&quot;,
+&quot;Common&quot;: {
+    &quot;class&quot;: &quot;Tenant&quot;,
+    &quot;hostname&quot;: &quot;bigip.example.com&quot;,
+    &quot;myLicense&quot;: {
+        &quot;class&quot;: &quot;License&quot;,
+        &quot;licenseType&quot;: &quot;regKey&quot;,
+        &quot;regKey&quot;: &quot;MMKGX-UPVPI-YIEMK-OAZIS-KQHSNAZ&quot;
+    },
+    &quot;myDns&quot;: {
+        &quot;class&quot;: &quot;DNS&quot;,
+        &quot;nameServers&quot;: [
+            &quot;8.8.8.8&quot;,
+            &quot;2001:4860:4860::8844&quot;
+        ],
+        &quot;search&quot;: [
+            &quot;f5.com&quot;
+        ]
+    },
+    &quot;myNtp&quot;: {
+        &quot;class&quot;: &quot;NTP&quot;,
+        &quot;servers&quot;: [
+            &quot;0.pool.ntp.org&quot;,
+            &quot;1.pool.ntp.org&quot;
+        ],
+        &quot;timezone&quot;: &quot;UTC&quot;
+    },
+    &quot;root&quot;: {
+        &quot;class&quot;: &quot;User&quot;,
+        &quot;userType&quot;: &quot;root&quot;,
+        &quot;oldPassword&quot;: &quot;foo&quot;,
+        &quot;newPassword&quot;: &quot;bar&quot;
+    },
+    &quot;admin&quot;: {
+        &quot;class&quot;: &quot;User&quot;,
+        &quot;userType&quot;: &quot;regular&quot;,
+        &quot;password&quot;: &quot;asdfjkl&quot;,
+        &quot;shell&quot;: &quot;bash&quot;
+    },
+    &quot;anotherUser&quot;: {
+        &quot;class&quot;: &quot;User&quot;,
+        &quot;userType&quot;: &quot;regular&quot;,
+        &quot;password&quot;: &quot;foobar&quot;,
+        &quot;partitionAccess&quot;: {
+            &quot;Common&quot;: {
+                &quot;role&quot;: &quot;guest&quot;
+            }
+        }
+    },
+    &quot;myVlan&quot;: {
+        &quot;class&quot;: &quot;VLAN&quot;,
+        &quot;tag&quot;: 1234,
+        &quot;mtu&quot;: 1500,
+        &quot;interfaces&quot;: [
+            {
+                &quot;name&quot;: &quot;1.1&quot;,
+                &quot;tagged&quot;: true
+            }
+        ]
+    },
+    &quot;mySelfIp&quot;: {
+        &quot;class&quot;: &quot;SelfIp&quot;,
+        &quot;address&quot;: &quot;1.2.3.4/24&quot;,
+        &quot;vlan&quot;: &quot;myVlan&quot;,
+        &quot;allowService&quot;: &quot;all&quot;,
+        &quot;trafficGroup&quot;: &quot;traffic-group-local-only&quot;
+    },
+    &quot;myRoute&quot;: {
+        &quot;class&quot;: &quot;Route&quot;,
+        &quot;gw&quot;: &quot;10.1.20.1&quot;,
+        &quot;network&quot;: &quot;0.0.0.0/0&quot;
+    }
+} 
+</code></pre>
+
+<p>更多的例子与说明，可以参考以下链接：
+<a href="https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/examples.html">https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/examples.html</a></p>
+
+<p>另外如果使用Microsoft Visual Studio Code进行json文件的编辑，可以插入一个额外的scheme来实现智能Validating的功能。</p>
+
+<pre><code>{
+    &quot;$schema&quot;: &quot;https://raw.githubusercontent.com/F5Networks/f5-declarative-onboarding/master/schema/latest/base.schema.json&quot;,
+</code></pre>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/30.png" alt="vali" /></p>
+
+<p>具体请参考：
+<a href="https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/validate.html">https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/validate.html</a></p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://ottodeng.io/post/f5-supernetops-3/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://ottodeng.io/post/f5-supernetops-5/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「5」Application Services 3 Extension">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:otto.dengzt@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/ottodeng" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/otto_deng" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/otto-deng-8239751" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="http://ottodeng.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Otto Deng
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2019
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376077/katex.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/auto-render.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376066/jquery-1.12.4.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376461/bootstrap.min.js"></script>
+<script src="http://ottodeng.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/photoswipe.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/photoswipe-ui-default.min.js"></script>
+<script src="http://ottodeng.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

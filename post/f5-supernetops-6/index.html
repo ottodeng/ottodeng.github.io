@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>「F5 连接NetOps/SecOps与DevOps」 -- 「6」Telemetry Streaming</title>
+  <meta property="og:title" content="「F5 连接NetOps/SecOps与DevOps」 -- 「6」Telemetry Streaming" />
+  <meta name="twitter:title" content="「F5 连接NetOps/SecOps与DevOps」 -- 「6」Telemetry Streaming" />
+  <meta name="description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「6」Telemetry Streaming 本文主要介绍第四个声明式组件Telemetry Streami">
+  <meta property="og:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「6」Telemetry Streaming 本文主要介绍第四个声明式组件Telemetry Streami">
+  <meta name="twitter:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「6」Telemetry Streaming 本文主要介绍第四个声明式组件Telemetry Streami">
+  <meta name="author" content="Otto Deng"/>
+  <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@otto_deng" />
+  <meta name="twitter:creator" content="@otto_deng" />
+  <meta property="og:url" content="http://ottodeng.io/post/f5-supernetops-6/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="" />
+
+  <meta name="generator" content="Hugo 0.35" />
+  <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-6/" />
+  <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/katex.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="http://ottodeng.io/css/main.css" />
+  <link rel="stylesheet" href="http://ottodeng.io/css/search.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://ottodeng.io/css/syntax.css" /><link rel="stylesheet" href="http://ottodeng.io/css/codeblock.css" />
+
+
+
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/photoswipe.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/default-skin.min.css">
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://ottodeng.io"></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+
+        
+
+        
+        
+        <li>
+          <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+            <span class="hidden-sm hidden-md hidden-lg">Search</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="" href="http://ottodeng.io">
+            <img class="avatar-img" src="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" alt="" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+
+<div id="modalSearch" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Search blog.qikqiak.com</h4>
+      </div>
+      <div class="modal-body">
+          <div class="aa-input-container" id="aa-input-container">
+    <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Search for titles or URIs..." name="search" autocomplete="off" />
+    <svg class="aa-input-icon" viewBox="654 -372 1664 1664">
+        <path d="M1806,332c0-123.3-43.8-228.8-131.5-316.5C1586.8-72.2,1481.3-116,1358-116s-228.8,43.8-316.5,131.5  C953.8,103.2,910,208.7,910,332s43.8,228.8,131.5,316.5C1129.2,736.2,1234.7,780,1358,780s228.8-43.8,316.5-131.5  C1762.2,560.8,1806,455.3,1806,332z M2318,1164c0,34.7-12.7,64.7-38,90s-55.3,38-90,38c-36,0-66-12.7-90-38l-343-342  c-119.3,82.7-252.3,124-399,124c-95.3,0-186.5-18.5-273.5-55.5s-162-87-225-150s-113-138-150-225S654,427.3,654,332  s18.5-186.5,55.5-273.5s87-162,150-225s138-113,225-150S1262.7-372,1358-372s186.5,18.5,273.5,55.5s162,87,225,150s113,138,150,225  S2062,236.7,2062,332c0,146.7-41.3,279.7-124,399l343,343C2305.7,1098.7,2318,1128.7,2318,1164z" />
+    </svg>
+</div>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/algoliasearch.min.js"></script>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/autocomplete.min.js"></script>
+<script>
+var client = algoliasearch("ROLFLYASRK", "68051a824e77fa9a8f1dad341efad57a");
+var index = client.initIndex('dockerk8s-blog');
+autocomplete('#aa-search-input',
+{ hint: false}, {
+    source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+    
+    displayKey: 'name',
+    
+    templates: {
+        
+        suggestion: function(suggestion) {
+            
+            return '<span>' + '<a href="/' + suggestion.uri+ '">' +
+            suggestion._highlightResult.title.value + '</a></span>';
+        }
+    }
+});
+</script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>「F5 连接NetOps/SecOps与DevOps」 -- 「6」Telemetry Streaming</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on September 20, 2019
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="f5-连接netops-secops与devops-6-telemetry-streaming">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「6」Telemetry Streaming</h1>
+
+<p>本文主要介绍第四个声明式组件Telemetry Streaming（以下简称TS）的使用方式。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/33.png" alt="ts" /></p>
+
+<p>AS3提供了一种声明式的方式来配置F5 BIGIP的L4-L7的配置，包括LTM，DNS，AFM，ASM等模块的配置，它支持multi-tenant和multi route-domain的配置。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/34.png" alt="ts-1" /></p>
+
+<p>TS主要用于监控BIGIP的系统状态和具体的事件日志（如Request Logging），然后通过定义第三方的消费者（如Elasticsearch, Splunk, AWS CloudWatch, Azure Sentinel等），它最大的好处就是免去一系列繁琐的格式匹配，只要定义你最终想需要输出的消费者，就可以达到系统状态和业务日志的收集和整合。举个简单的例子，以前用HSL输出到ELK平台的时候，你必须用Logstash来收HSL的日志，然后进行正则表达式的匹配。而现在，你只需要定义好request logging，然后forward到TS中，TS就可以直接写入到Elasticsearch中，非常方便。</p>
+
+<p>支持的第三方消费者列表如下：
+<img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/36.png" alt="ts-2" /></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/35.png" alt="ts-3" /></p>
+
+<p>而TS的两个核心组件，一个是Event Listener，一个是System Poller分别用于收集Stats和Events。</p>
+
+<p>目前TS仅支持RPM包安装到BIGIP上的方式，尚未支持docker容器的部署。</p>
+
+<p>当然，要使用TS，和AS3和DO一样，也是需要一些预备的条件的：
+1. 必须使用v13.0或者以上的版本
+2. 进行API交互的账号，必须有administrator role的权限。</p>
+
+<p>TS的URI是https://<BIG-IP>/mgmt/shared/telemetry/declare</p>
+
+<p>以下是一个简单的例子，详情可参考
+<a href="https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/quick-start.html">https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/quick-start.html</a></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/37.png" alt="ts-3" /></p>
+
+<p>而Event Listener的配置，你可以通过AS3或者TMSH进行配置，由于篇幅较长，我这里就不贴出来了，具体可以参考以下链接。</p>
+
+<p><a href="https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/event-listener.html">https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/event-listener.html</a></p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://ottodeng.io/post/f5-supernetops-5/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「5」Application Services 3 Extension">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:otto.dengzt@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/ottodeng" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/otto_deng" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/otto-deng-8239751" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="http://ottodeng.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Otto Deng
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2019
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376077/katex.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/auto-render.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376066/jquery-1.12.4.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376461/bootstrap.min.js"></script>
+<script src="http://ottodeng.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/photoswipe.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/photoswipe-ui-default.min.js"></script>
+<script src="http://ottodeng.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

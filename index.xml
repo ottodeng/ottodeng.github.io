@@ -1,17 +1,80 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Otto Deng</title>
+    <title></title>
     <link>http://ottodeng.io/</link>
-    <description>Recent content on Otto Deng</description>
+    <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Fri, 07 Dec 2018 14:16:17 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2019 18:02:26 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「F5 连接NetOps/SecOps与DevOps」 -- 「6」Telemetry Streaming</title>
+      <link>http://ottodeng.io/post/f5-supernetops-6/</link>
+      <pubDate>Fri, 20 Sep 2019 18:02:26 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-6/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「6」Telemetry Streaming 本文主要介绍第四个声明式组件Telemetry Streami</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「5」Application Services 3 Extension</title>
+      <link>http://ottodeng.io/post/f5-supernetops-5/</link>
+      <pubDate>Fri, 20 Sep 2019 15:22:58 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-5/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「5」Application Services 3 Extension 本文主要介绍第三个声明式组件Application Services</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「4」Declarative Onboarding</title>
+      <link>http://ottodeng.io/post/f5-supernetops-4/</link>
+      <pubDate>Fri, 20 Sep 2019 11:12:02 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-4/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「4」Declarative Onboarding 本文主要介绍的第二个F5声明式组件 &amp;ndash; Declarative Onboarding Declarative Onboard</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates</title>
+      <link>http://ottodeng.io/post/f5-supernetops-3/</link>
+      <pubDate>Mon, 29 Jul 2019 12:12:11 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-3/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「3」Cloud Templates 本文主要介绍的第一个F5声明式组件 &amp;ndash; Cloud Templates 在上一篇系列文章中有提到，在</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</title>
+      <link>http://ottodeng.io/post/f5-supernetops-2/</link>
+      <pubDate>Mon, 08 Jul 2019 10:45:53 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-2/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「1」数字化转型</title>
+      <link>http://ottodeng.io/post/f5-supernetops-1/</link>
+      <pubDate>Sun, 23 Jun 2019 10:42:35 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-1/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「1」数字化转型 数字化转型 数字化转型是指通过利用现代技术和通信手段，改变企业为客户创造</description>
+    </item>
+    
+    <item>
+      <title>「F5 连接NetOps/SecOps与DevOps」</title>
+      <link>http://ottodeng.io/post/f5-supernetops-0/</link>
+      <pubDate>Tue, 07 May 2019 11:31:03 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-0/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 介绍篇 「F5 连接NetOps/SecOps与DevOps」是一个从零开始学习并打造一个</description>
+    </item>
     
     <item>
       <title>CJE exam</title>
@@ -64,7 +127,7 @@
       <pubDate>Wed, 04 Apr 2018 10:18:03 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>http://ottodeng.io/resume_en/</guid>
-      <description>Personal info  Otto Deng / 1988 Shenzhen, Guangdong, China Zhongkai University of Technology Agriculture and Engineering Major in System/Cloud Architect, Application Delivery Blog: ottodeng.io Target:  Location：Guangzhou Function/Position：Tech Leader / Cloud Architect   Contact  Mobile：18675625750 Email：otto.dengzt@gmail.com WeChat：dengoxygen  About Me  7 years of Infrastructure Architecture and operations experience 3 years of IaaS, PaaS, Containerization and Serverless Architect experience Consulting / Customer serving experience, with good presentation skills Excellent troubleshooting skills Excellent communication (written and oral) and interpersonal skills Excellent leadership and management skills Love learning and introducing new technology in order to help colleagues and customers embrace and adopt new technology  Work Experience F5 Networks (08/2018 - Now) Solution Consultant</description>
+      <description>Personal info  Otto Deng / 1988 Guangzhou, Guangdong, China Zhongkai University of Technology Agriculture and Engineering Major in System/Cloud Architect, Application Delivery, DevOps Blog: ottodeng.io  Contact  Mobile：18675625750 Email：otto.dengzt@gmail.com WeChat：dengoxygen  About Me  DevOps expert Excellent hands-on design and implementation of a CI/CD pipeline to support enterprise level projects. 9 years of Infrastructure Architecture and operations experience 3 years of IaaS, PaaS, Containerization and Micro Service Architect experience Consulting / Customer serving experience, with good presentation skills Excellent troubleshooting skills Excellent communication (written and oral) and interpersonal skills Excellent leadership and management skills Love learning and introducing new technology in order to help colleagues and customers embrace and adopt new technology  Work Experience F5 Networks (08/2018 - Now) Solution Consultant</description>
     </item>
     
     <item>
@@ -73,7 +136,7 @@
       <pubDate>Wed, 04 Apr 2018 10:17:56 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>http://ottodeng.io/resume_cn/</guid>
-      <description>个人资料 邓子涛 / 1988 广东深圳 仲恺农业工程学院 System/Cloud Architect, 应用交付专家 个人博客: ottodeng.io 目标: 工作地点：广州 职位：Tech Leader / Cloud Architect 联系方式 手机：1867562</description>
+      <description>个人资料 邓子涛 / 1988 广东广州 仲恺农业工程学院 云架构师，应用交付专家，DevOps专家 个人博客: ottodeng.io 联系方式 手机：18675625750 Email</description>
     </item>
     
     <item>
@@ -109,7 +172,7 @@
       <pubDate>Sun, 11 Feb 2018 15:26:52 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>http://ottodeng.io/about/</guid>
-      <description>Info Otto Deng Shenzhen, Guangdong, China 🇨🇳 Zhongkai University of Technology Agriculture and Engineering （仲恺农业工程学院） Major in System/Cloud Architect 技术历程 2010-2011 路由交换 CCIE(SP)#28297 @2011.03 2011-2015 应用交付，安全增值，系统集成，数据分析。 F5 Certified Technology Specialist @2014.01 2015-2016 Python, Django, C</description>
+      <description>Info Otto Deng Guangzhou, Guangdong, China 🇨🇳 Zhongkai University of Technology Agriculture and Engineering （仲恺农业工程学院） Major in System/Cloud Architect, DevOps, CI/CD 技术历程 2010-2011 路由交换 CCIE(SP)#28297 @2011.03 2011-2015 应用交付，安全增值，系统集成，数据分析。 F5 Certified Technology Specialist @2014.01 2015-2016 Python,</description>
     </item>
     
   </channel>

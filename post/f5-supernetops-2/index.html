@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</title>
+  <meta property="og:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code" />
+  <meta name="twitter:title" content="F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code" />
+  <meta name="description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure">
+  <meta property="og:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure">
+  <meta name="twitter:description" content="「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure">
+  <meta name="author" content="Otto Deng"/>
+  <link href='https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@otto_deng" />
+  <meta name="twitter:creator" content="@otto_deng" />
+  <meta property="og:url" content="http://ottodeng.io/post/f5-supernetops-2/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="" />
+
+  <meta name="generator" content="Hugo 0.35" />
+  <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-2/" />
+  <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/katex.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="http://ottodeng.io/css/main.css" />
+  <link rel="stylesheet" href="http://ottodeng.io/css/search.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://ottodeng.io/css/syntax.css" /><link rel="stylesheet" href="http://ottodeng.io/css/codeblock.css" />
+
+
+
+
+
+
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/photoswipe.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/default-skin.min.css">
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://ottodeng.io"></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+
+        
+
+        
+        
+        <li>
+          <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+            <span class="hidden-sm hidden-md hidden-lg">Search</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="" href="http://ottodeng.io">
+            <img class="avatar-img" src="https://res.cloudinary.com/ottodeng/image/upload/c_fill,h_322,w_322/v1518405815/otto.jpg" alt="" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+
+<div id="modalSearch" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Search blog.qikqiak.com</h4>
+      </div>
+      <div class="modal-body">
+          <div class="aa-input-container" id="aa-input-container">
+    <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Search for titles or URIs..." name="search" autocomplete="off" />
+    <svg class="aa-input-icon" viewBox="654 -372 1664 1664">
+        <path d="M1806,332c0-123.3-43.8-228.8-131.5-316.5C1586.8-72.2,1481.3-116,1358-116s-228.8,43.8-316.5,131.5  C953.8,103.2,910,208.7,910,332s43.8,228.8,131.5,316.5C1129.2,736.2,1234.7,780,1358,780s228.8-43.8,316.5-131.5  C1762.2,560.8,1806,455.3,1806,332z M2318,1164c0,34.7-12.7,64.7-38,90s-55.3,38-90,38c-36,0-66-12.7-90-38l-343-342  c-119.3,82.7-252.3,124-399,124c-95.3,0-186.5-18.5-273.5-55.5s-162-87-225-150s-113-138-150-225S654,427.3,654,332  s18.5-186.5,55.5-273.5s87-162,150-225s138-113,225-150S1262.7-372,1358-372s186.5,18.5,273.5,55.5s162,87,225,150s113,138,150,225  S2062,236.7,2062,332c0,146.7-41.3,279.7-124,399l343,343C2305.7,1098.7,2318,1128.7,2318,1164z" />
+    </svg>
+</div>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/algoliasearch.min.js"></script>
+<script src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/autocomplete.min.js"></script>
+<script>
+var client = algoliasearch("ROLFLYASRK", "68051a824e77fa9a8f1dad341efad57a");
+var index = client.initIndex('dockerk8s-blog');
+autocomplete('#aa-search-input',
+{ hint: false}, {
+    source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+    
+    displayKey: 'name',
+    
+    templates: {
+        
+        suggestion: function(suggestion) {
+            
+            return '<span>' + '<a href="/' + suggestion.uri+ '">' +
+            suggestion._highlightResult.title.value + '</a></span>';
+        }
+    }
+});
+</script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on July 8, 2019
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="f5-连接netops-secops与devops-2-infrastructure-as-code">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「2」Infrastructure as Code</h1>
+
+<p>本文主要分享什么叫做Infrastructure as Code, 还有实现它的两种方式：</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/14.png" alt="InfraAsCode" /></p>
+
+<p>基础设施即代码(以下均简称IaC)是一种用描述性的方式来管理基础设施（包括网络，虚拟机，存储，负载均衡等），IaC模型在每次应用时都生成相同的环境，它是与DevOps结合的关键时间，与持续交付(Continue Delivery)结合使用。</p>
+
+<p>IaC的发展，解决了CD流水线中的环境飘移问题。如果没有IaC，团队必须维护各个环境的设置。随着时间的推移，每个环境都会成为了信息孤岛，无法自动复制相同的配置。环境之间的不一致会导致部署期间出现问题，最后会导致基础设施的管理，变得非常难以跟踪，并且只能通过手动进行单独的维护。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/10.png" alt="IaC" /></p>
+
+<h2 id="与devops的关系">与DevOps的关系</h2>
+
+<p>IaC可以成为在DevOps中实现最佳实践的关键属性，开发人员可以更多地参与定义配置，Ops团队在开发过程的早期阶段就参与其中。利用IaC的工具可以提高服务器状态和配置的可见性，最终为企业内的用户提供可视性，旨在将团队聚集在一起，最大限度地发挥他们的作用。自动化通常旨在解决手动过程中的混乱和容易出错的问题，并使其更高效，更高效。允许创建更好的软件和应用程序，灵活，减少停机时间，并为公司提供整体成本效益的方式。IaC旨在降低从手动配置中带来的复杂性。自动化和协作被认为是DevOps的核心要点，基础架构自动化工具通常作为DevOps工具链的重要一环。</p>
+
+<h2 id="iac的特点">IaC的特点：</h2>
+
+<h5 id="1-版本控制和历史管理">1. 版本控制和历史管理</h5>
+
+<h5 id="2-所有操作可以追溯和进行审计">2. 所有操作可以追溯和进行审计</h5>
+
+<h5 id="3-快速简单-容易回滚">3. 快速简单，容易回滚</h5>
+
+<h5 id="4-方面团队协作-共同维护">4. 方面团队协作，共同维护</h5>
+
+<h5 id="5-幂等性-idempotence">5. 幂等性(Idempotence)</h5>
+
+<p>而幂等性是这里面一个很重要的规范原则，无论环境的起始状态如何，这个部署指令执行了多少次，它都可以保证环境最终的状态是一致的。因此，通过IaC，团队对环境描述进行更改并对配置模型进行版本化，通常会采用标准化并容易理解的代码格式（如JSON，YAML）。持续交付Pipeline以IaC方式配置目标环境。如果团队需要进行更改，他们会编辑源，而不是目标。记住，<code>Source of the truth</code>!</p>
+
+<h2 id="iac主要带来三个主要的价值">IaC主要带来三个主要的价值：</h2>
+
+<h5 id="1-成本-减少">1. 成本（减少）</h5>
+
+<h5 id="2-速度-更快的执行">2. 速度（更快的执行）</h5>
+
+<h5 id="3-风险-人为的操作错误所带来的安全隐患">3. 风险（人为的操作错误所带来的安全隐患）</h5>
+
+<p>实施IaC的团队可以快速，大规模地提供稳定的环境。团队通过代码表示环境的最终期望状态，从而避免手动配置环境并强制实现一致性。使用IaC进行基础架构部署都是可重复的，可防止因配置偏差或缺少依赖性而导致的运行时问题。DevOps团队可以与统一的实践和工具协同工作，快速，可靠，大规模地交付应用程序及其支持基础架构。</p>
+
+<h2 id="实现iac通常有两种方法">实现IaC通常有两种方法：</h2>
+
+<h5 id="1-imperative-命令式">1. Imperative（命令式）</h5>
+
+<h5 id="2-declarative-声明式">2. Declarative（声明式）</h5>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/15.png" alt="IaC" /></p>
+
+<p>命令式的特点非常明显，如果需要达到最终的目的，你要以适当的顺序执行特定的命令，比如你执行的顺序是123，就绝对不能是321。并且每一步操作，你都需要执行对应的API或者指令应该在哪里。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/16.png" alt="Imperative" /></p>
+
+<p>而声明式就非常简单了，只需要描述你所需环境的最终状态，然后通过少量的API任务，post过去，最终环境就可以根据你所需要的描述，生成最终的状态，所以也非常受开发者喜爱。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/17.png" alt="Declarative" /></p>
+
+<p>而f5有4种声明式的组件来匹配在持续交付流水线中的每一个环节：部署，上线，配置，监控。</p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/19.png" alt="cd-pipeline" /></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/18.png" alt="tools" /></p>
+
+<p>下一章开始，我将会具体的展开每一个组件（Cloud Template, Declarative Onboarding, Application Services 3 Extension, Telemetry Streaming)具体的作用和使用的方法以及场景。</p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://ottodeng.io/post/f5-supernetops-1/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「1」数字化转型">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://ottodeng.io/post/f5-supernetops-3/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:otto.dengzt@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/ottodeng" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/otto_deng" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/otto-deng-8239751" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="http://ottodeng.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Otto Deng
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2019
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376077/katex.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376058/auto-render.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376066/jquery-1.12.4.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376461/bootstrap.min.js"></script>
+<script src="http://ottodeng.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+
+
+
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376059/photoswipe.min.js"></script>
+<script src="https://res.cloudinary.com/ottodeng/raw/upload/v1519376057/photoswipe-ui-default.min.js"></script>
+<script src="http://ottodeng.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

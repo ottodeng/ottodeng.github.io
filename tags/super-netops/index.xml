@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Super Netops on </title>
+    <link>http://ottodeng.io/tags/super-netops/</link>
+    <description>Recent content in Super Netops on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
+    <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
+    <lastBuildDate>Fri, 20 Sep 2019 18:02:26 +0800</lastBuildDate>
+    
+	<atom:link href="http://ottodeng.io/tags/super-netops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>「F5 连接NetOps/SecOps与DevOps」 -- 「6」Telemetry Streaming</title>
+      <link>http://ottodeng.io/post/f5-supernetops-6/</link>
+      <pubDate>Fri, 20 Sep 2019 18:02:26 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-6/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「6」Telemetry Streaming 本文主要介绍第四个声明式组件Telemetry Streami</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「5」Application Services 3 Extension</title>
+      <link>http://ottodeng.io/post/f5-supernetops-5/</link>
+      <pubDate>Fri, 20 Sep 2019 15:22:58 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-5/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「5」Application Services 3 Extension 本文主要介绍第三个声明式组件Application Services</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「4」Declarative Onboarding</title>
+      <link>http://ottodeng.io/post/f5-supernetops-4/</link>
+      <pubDate>Fri, 20 Sep 2019 11:12:02 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-4/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「4」Declarative Onboarding 本文主要介绍的第二个F5声明式组件 &amp;ndash; Declarative Onboarding Declarative Onboard</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「3」Cloud Templates</title>
+      <link>http://ottodeng.io/post/f5-supernetops-3/</link>
+      <pubDate>Mon, 29 Jul 2019 12:12:11 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-3/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「3」Cloud Templates 本文主要介绍的第一个F5声明式组件 &amp;ndash; Cloud Templates 在上一篇系列文章中有提到，在</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「2」Infrastructure as Code</title>
+      <link>http://ottodeng.io/post/f5-supernetops-2/</link>
+      <pubDate>Mon, 08 Jul 2019 10:45:53 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-2/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「2」Infrastructure as Code 本文主要分享什么叫做Infrastructure</description>
+    </item>
+    
+    <item>
+      <title>F5 连接NetOps/SecOps与DevOps」 -- 「1」数字化转型</title>
+      <link>http://ottodeng.io/post/f5-supernetops-1/</link>
+      <pubDate>Sun, 23 Jun 2019 10:42:35 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-1/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「1」数字化转型 数字化转型 数字化转型是指通过利用现代技术和通信手段，改变企业为客户创造</description>
+    </item>
+    
+    <item>
+      <title>「F5 连接NetOps/SecOps与DevOps」</title>
+      <link>http://ottodeng.io/post/f5-supernetops-0/</link>
+      <pubDate>Tue, 07 May 2019 11:31:03 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-0/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 介绍篇 「F5 连接NetOps/SecOps与DevOps」是一个从零开始学习并打造一个</description>
+    </item>
+    
+  </channel>
+</rss>
