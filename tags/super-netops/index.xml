@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Fri, 20 Sep 2019 15:22:58 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2019 18:02:26 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/tags/super-netops/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「F5 连接NetOps/SecOps与DevOps」 -- 「6」Telemetry Streaming</title>
+      <link>http://ottodeng.io/post/f5-supernetops-6/</link>
+      <pubDate>Fri, 20 Sep 2019 18:02:26 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/post/f5-supernetops-6/</guid>
+      <description>「F5 连接NetOps/SecOps与DevOps」 &amp;ndash; 「6」Telemetry Streaming 本文主要介绍第四个声明式组件Telemetry Streami</description>
+    </item>
     
     <item>
       <title>F5 连接NetOps/SecOps与DevOps」 -- 「5」Application Services 3 Extension</title>
