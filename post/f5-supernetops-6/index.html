@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-  <meta name="generator" content="Hugo 0.49.2" />
+  <meta name="generator" content="Hugo 0.69.0" />
   <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-6/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -248,42 +248,27 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h1 id="f5-连接netops-secops与devops-6-telemetry-streaming">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「6」Telemetry Streaming</h1>
-
+        <h1 id="f5-连接netopssecops与devops----6telemetry-streaming">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「6」Telemetry Streaming</h1>
 <p>本文主要介绍第四个声明式组件Telemetry Streaming（以下简称TS）的使用方式。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/33.png" alt="ts" /></p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/33.png" alt="ts"></p>
 <p>TS提供了一种声明式的方式来来监控F5的系统状态和具体的事件日志（主要用于收集业务访问日志），是在整个CICD流水线中的最后一个环节。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/34.png" alt="ts-1" /></p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/34.png" alt="ts-1"></p>
 <p>TS主要用于监控BIGIP的系统状态和具体的事件日志（如Request Logging），然后通过定义第三方的消费者（如Elasticsearch, Splunk, AWS CloudWatch, Azure Sentinel等），它最大的好处就是免去一系列繁琐的格式匹配，只要定义你最终想需要输出的消费者，就可以达到系统状态和业务日志的收集和整合。举个简单的例子，以前用HSL输出到ELK平台的时候，你必须用Logstash来收HSL的日志，然后进行正则表达式的匹配。而现在，你只需要定义好request logging，然后forward到TS中，TS就可以直接写入到Elasticsearch中，非常方便。</p>
-
 <p>支持的第三方消费者列表如下：
-<img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/36.png" alt="ts-2" /></p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/35.png" alt="ts-3" /></p>
-
+<img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/36.png" alt="ts-2"></p>
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/35.png" alt="ts-3"></p>
 <p>而TS的两个核心组件，一个是Event Listener，一个是System Poller分别用于收集Stats和Events。</p>
-
 <p>目前TS仅支持RPM包安装到BIGIP上的方式，尚未支持docker容器的部署。</p>
-
-<p>当然，要使用TS，和AS3和DO一样，也是需要一些预备的条件的：
-1. 必须使用v13.0或者以上的版本
-2. 进行API交互的账号，必须有administrator role的权限。</p>
-
-<p>TS的URI是https://<BIG-IP>/mgmt/shared/telemetry/declare</p>
-
+<p>当然，要使用TS，和AS3和DO一样，也是需要一些预备的条件的：</p>
+<ol>
+<li>必须使用v13.0或者以上的版本</li>
+<li>进行API交互的账号，必须有administrator role的权限。</li>
+</ol>
+<p>TS的URI是https://<!-- raw HTML omitted -->/mgmt/shared/telemetry/declare</p>
 <p>以下是一个简单的例子，详情可参考
 <a href="https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/quick-start.html">https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/quick-start.html</a></p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/37.png" alt="ts-3" /></p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/37.png" alt="ts-3"></p>
 <p>而Event Listener的配置，你可以通过AS3或者TMSH进行配置，由于篇幅较长，我这里就不贴出来了，具体可以参考以下链接。</p>
-
 <p><a href="https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/event-listener.html">https://clouddocs.f5.com/products/extensions/f5-telemetry-streaming/latest/event-listener.html</a></p>
 
       </article>
@@ -295,6 +280,10 @@ autocomplete('#aa-search-input',
               <a href="http://ottodeng.io/post/f5-supernetops-5/" data-toggle="tooltip" data-placement="top" title="F5 连接NetOps/SecOps与DevOps」 -- 「5」Application Services 3 Extension">&larr; Previous Post</a>
             </li>
           
+          
+            <li class="next">
+              <a href="http://ottodeng.io/post/ece/" data-toggle="tooltip" data-placement="top" title="ECE exam">Next Post &rarr;</a>
+            </li>
           
         </ul>
       
@@ -365,13 +354,13 @@ autocomplete('#aa-search-input',
           
 
           &nbsp;&bull;&nbsp;
-          2019
+          2020
 
           
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.49.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

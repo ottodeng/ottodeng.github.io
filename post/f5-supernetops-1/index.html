@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-  <meta name="generator" content="Hugo 0.49.2" />
+  <meta name="generator" content="Hugo 0.69.0" />
   <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-1/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -248,72 +248,47 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h1 id="f5-连接netops-secops与devops-1-数字化转型">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「1」数字化转型</h1>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/2.png" alt="数字化转型" /></p>
-
+        <h1 id="f5-连接netopssecops与devops----1数字化转型">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「1」数字化转型</h1>
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/2.png" alt="数字化转型"></p>
 <h2 id="数字化转型">数字化转型</h2>
-
 <p>数字化转型是指通过利用现代技术和通信手段，改变企业为客户创造价值的方式。如今，数字技术正被融入到产品，服务与流程当中，用以转变客户的业务成果及商业与公共服务的交付方式。这就是数字化转型。几乎目前各行各业，每个公司都在做数字化转型，那么究竟要怎么做才可以实现数字化转型呢？</p>
-
 <h5 id="数字化转型的关键">数字化转型的关键</h5>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/3.png" alt="数字化转型的3个方面" /></p>
-
-<p>主要可以拆分为3个方面：<br />
-1) 流程上的改变</p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/3.png" alt="数字化转型的3个方面"></p>
+<p>主要可以拆分为3个方面：</p>
+<ol>
+<li>流程上的改变</li>
+</ol>
 <p>传统的瀑布式开发已经不能满足应对市场上的节奏，应用的迭代速度已经跟不上公司的要求，并且周期长的项目交付，一旦一步走错，对项目的影响是巨大的。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/4.png" alt="流程改变" /></p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/4.png" alt="流程改变"></p>
 <p>所以很多应用开发团队都纷纷开始从瀑布开发模式转向敏捷开发模式，其中一个重要的核心，就是快速试错。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/5.png" alt="开发模式" /></p>
-
-<p>2) 组织架构的变化</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/6.png" alt="组织架构-传统" /><br />
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/5.png" alt="开发模式"></p>
+<ol start="2">
+<li>组织架构的变化</li>
+</ol>
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/6.png" alt="组织架构-传统"><br>
 传统的IT架构大概就像上面这个图，每当做一个项目的时候，就拉一群人进去，开发完毕之后，就丢给Ops团队，当项目完毕之后，团队就解散了，剩下的时候只留给了Ops团队，每当应用出现问题的时候，就会出现责任互相推托的情况。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/7.png" alt="组织架构-Agile" /><br />
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/7.png" alt="组织架构-Agile"><br>
 敏捷的转型，主要体现在开发团队的改变，从臃肿的大型团队，转变为精益团队，以小步，快速迭代的方式交付应用，与此同时，基础架构团队为了满足他们的快速迭代的速度，也需要一些弹性并且快速交付的计算资源来满足这个速度。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/8.png" alt="组织架构-Devops" /><br />
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/8.png" alt="组织架构-Devops"><br>
 而DevOps的转变，就已经有了一个根本性的转变，主要体现为从<code>Project</code>转变为<code>Product</code>,其中主要的核心就是对Product赋予了生命周期，这个团队就是以最快速的速度开发出MVP(Minimum Viable Product), 并且在这个基础上进行迭代更新，只要这个产品存在，就会一直更新迭代下去。与此同时，基础架构团队也会专门成立云平台的团队，去构建IaaS或者PaaS平台，标准化底层的基础架构，更好的集成到CI/CD流水线里面去。</p>
-
-<p>3) 基础系统架构的变化</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/10.png" alt="组织架构-Devops" /><br />
+<ol start="3">
+<li>基础系统架构的变化</li>
+</ol>
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/10.png" alt="组织架构-Devops"><br>
 基础架构开始代码化，标准化，使用Infrastructure as Code的方式，将基础设施架构代码化，并且使用代码仓库进行迭代，并且保持代码仓库和现网环境的一致性，实现Source of the Truth！</p>
-
 <h2 id="devops">DevOps</h2>
-
 <p>DevOps用于指强调软件开发人员和运维人员之间的<strong>协作</strong>和<strong>沟通</strong>，同时自动化软件交付和基础架构迭代过程的一组实践。它旨在建立一种<strong>文化</strong>和<strong>环境</strong>，在这种文化和环境中，构建、测试和发布软件可以快速、频繁和更可靠地进行。</p>
-
-<h2 id="continuous-integration-持续集成">Continuous Integration(持续集成)</h2>
-
+<h2 id="continuous-integration持续集成">Continuous Integration(持续集成)</h2>
 <p>持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试）来验证，从而尽早地发现集成错误。</p>
-
-<h2 id="continuous-delivery-持续交付">Continuous Delivery(持续交付)</h2>
-
+<h2 id="continuous-delivery持续交付">Continuous Delivery(持续交付)</h2>
 <p>持续交付，是一种软件工程手法，让软件产品的产出过程在一个短周期内完成，以保证软件可以稳定、持续的保持在随时可以释出的状况。它的目标在于让软件的建置、测试与释出变得更快以及更频繁。这种方式可以减少软件开发的成本与时间，减少风险。</p>
-
-<h2 id="continuous-deployment-持续部署">Continuous Deployment(持续部署)</h2>
-
+<h2 id="continuous-deployment持续部署">Continuous Deployment(持续部署)</h2>
 <p>持续部署意味着所有的变更都会被自动部署到生产环境中。持续交付意味着所有的变更都可以被部署到生产环境中，但是出于业务考虑，可以选择不部署。如果要实施持续部署，必须先实施持续交付。</p>
-
 <p>很多人都会把数字化转型，DevOps，Agile, CI/CD之间简单的化上等号，但是实际上他们都是有本质的区别的，所关注的对象都是不一样的，就像下面这个图。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/12.png" alt="区别" /></p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/12.png" alt="区别"></p>
 <h2 id="supernetops">SuperNetOps</h2>
-
 <p>随着开发人员越来越多地绕过内部IT团队以满足业务对速度的需求，云、自动部署和DevOps实践正在重塑IT。而网络运维人员正在学习如何以新的方式应用他们的专业知识，为开发团队构建一个自主的基础架构自服务平台，f5提出了<strong>SuperNetOps</strong>这个概念，主要希望网络运维人员通过标准化的服务，并且通过自动化的工具链提供服务，将服务时间从几天缩短到几分钟，通过这些技能的学习，可以将运维应用拥有各方面的自动化技能，进而运维其他基础架构设备。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/13.png" alt="SuperNetOps" /></p>
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/13.png" alt="SuperNetOps"></p>
 
       </article>
 
@@ -398,13 +373,13 @@ autocomplete('#aa-search-input',
           
 
           &nbsp;&bull;&nbsp;
-          2019
+          2020
 
           
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.49.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>
