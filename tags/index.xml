@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on </title>
@@ -8,21 +8,22 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
-    <lastBuildDate>Fri, 07 Dec 2018 14:16:17 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 15 Apr 2020 08:04:42 +0800</lastBuildDate>
     
 	<atom:link href="http://ottodeng.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Devops</title>
-      <link>http://ottodeng.io/tags/devops/</link>
-      <pubDate>Fri, 07 Dec 2018 14:16:17 +0800</pubDate>
+      <title>elastic</title>
+      <link>http://ottodeng.io/tags/elastic/</link>
+      <pubDate>Wed, 15 Apr 2020 08:04:42 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://ottodeng.io/tags/devops/</guid>
+      <guid>http://ottodeng.io/tags/elastic/</guid>
       <description></description>
     </item>
     
     <item>
+<<<<<<< HEAD
       <title>Elastic</title>
       <link>http://ottodeng.io/tags/elastic/</link>
       <pubDate>Wed, 15 Apr 2020 08:04:42 +0800</pubDate>
@@ -53,31 +54,45 @@
       <title>Github</title>
       <link>http://ottodeng.io/tags/github/</link>
       <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
+=======
+      <title>elasticsearch</title>
+      <link>http://ottodeng.io/tags/elasticsearch/</link>
+      <pubDate>Wed, 15 Apr 2020 08:04:42 +0800</pubDate>
+>>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://ottodeng.io/tags/github/</guid>
+      <guid>http://ottodeng.io/tags/elasticsearch/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Github Pages</title>
-      <link>http://ottodeng.io/tags/github-pages/</link>
-      <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
+      <title>f5</title>
+      <link>http://ottodeng.io/tags/f5/</link>
+      <pubDate>Fri, 20 Sep 2019 18:02:26 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://ottodeng.io/tags/github-pages/</guid>
+      <guid>http://ottodeng.io/tags/f5/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Hugo</title>
-      <link>http://ottodeng.io/tags/hugo/</link>
-      <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
+      <title>super-netops</title>
+      <link>http://ottodeng.io/tags/super-netops/</link>
+      <pubDate>Fri, 20 Sep 2019 18:02:26 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://ottodeng.io/tags/hugo/</guid>
+      <guid>http://ottodeng.io/tags/super-netops/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Kubernetes</title>
+      <title>devops</title>
+      <link>http://ottodeng.io/tags/devops/</link>
+      <pubDate>Fri, 07 Dec 2018 14:16:17 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/tags/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
       <link>http://ottodeng.io/tags/kubernetes/</link>
       <pubDate>Mon, 09 Jul 2018 21:26:29 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
@@ -86,7 +101,7 @@
     </item>
     
     <item>
-      <title>Kubespray</title>
+      <title>kubespray</title>
       <link>http://ottodeng.io/tags/kubespray/</link>
       <pubDate>Mon, 14 May 2018 09:10:34 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
@@ -95,15 +110,16 @@
     </item>
     
     <item>
-      <title>Me</title>
-      <link>http://ottodeng.io/tags/me/</link>
-      <pubDate>Sun, 11 Feb 2018 15:26:52 +0800</pubDate>
+      <title>vsphere</title>
+      <link>http://ottodeng.io/tags/vsphere/</link>
+      <pubDate>Mon, 14 May 2018 09:10:34 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://ottodeng.io/tags/me/</guid>
+      <guid>http://ottodeng.io/tags/vsphere/</guid>
       <description></description>
     </item>
     
     <item>
+<<<<<<< HEAD
       <title>Super Netops</title>
       <link>http://ottodeng.io/tags/super-netops/</link>
       <pubDate>Fri, 20 Sep 2019 18:02:26 +0800</pubDate>
@@ -114,6 +130,9 @@
     
     <item>
       <title>Terraform</title>
+=======
+      <title>terraform</title>
+>>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
       <link>http://ottodeng.io/tags/terraform/</link>
       <pubDate>Wed, 09 May 2018 18:20:39 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
@@ -122,11 +141,38 @@
     </item>
     
     <item>
-      <title>Vsphere</title>
-      <link>http://ottodeng.io/tags/vsphere/</link>
-      <pubDate>Mon, 14 May 2018 09:10:34 +0800</pubDate>
+      <title>github</title>
+      <link>http://ottodeng.io/tags/github/</link>
+      <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
-      <guid>http://ottodeng.io/tags/vsphere/</guid>
+      <guid>http://ottodeng.io/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github-pages</title>
+      <link>http://ottodeng.io/tags/github-pages/</link>
+      <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/tags/github-pages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>http://ottodeng.io/tags/hugo/</link>
+      <pubDate>Mon, 12 Feb 2018 12:30:13 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>me</title>
+      <link>http://ottodeng.io/tags/me/</link>
+      <pubDate>Sun, 11 Feb 2018 15:26:52 +0800</pubDate>
+      <author>otto.dengzt@gmail.com (Otto Deng)</author>
+      <guid>http://ottodeng.io/tags/me/</guid>
       <description></description>
     </item>
     

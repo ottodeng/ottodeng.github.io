@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-  <meta name="generator" content="Hugo 0.35" />
+  <meta name="generator" content="Hugo 0.69.0" />
   <link rel="canonical" href="http://ottodeng.io/post/kubespray/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -248,18 +248,11 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h1 id="deploy-a-production-ready-kubernetes-cluster">Deploy a Production Ready Kubernetes Cluster</h1>
-
+        <h1 id="deploy-a-production-ready-kubernetes-cluster">Deploy a Production Ready Kubernetes Cluster</h1>
 <p>Kubespray是Kubernetes incubator中的项目，目标是提供Production Ready Kubernetes部署方案，该项目基础是通过 Ansible-playbook 来定义系统与 Kubernetes 集群部署的任务</p>
-
 <p>接上篇介绍，Terraform部署完k8s的所有虚拟机之后，接下来就是在deploy node上部署kubespray来自动化安装kubernetes.</p>
-
 <p>在本篇教程中，我还将StorageClass和vSAN做联动，这样当应用申请PVC的时候，就会自动创建PV，并且将PV关联到vSAN上的vmfs.</p>
-
 <p>具体环境如下：</p>
-
 <table>
 <thead>
 <tr>
@@ -268,98 +261,82 @@ autocomplete('#aa-search-input',
 <th>Remark</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>esxi-host01</td>
 <td>10.0.0.11</td>
 <td>#ESXi host01</td>
 </tr>
-
 <tr>
 <td>esxi-host02</td>
 <td>10.0.0.12</td>
 <td>#ESXi host02</td>
 </tr>
-
 <tr>
 <td>esxi-host03</td>
 <td>10.0.0.13</td>
 <td>#ESXi host03</td>
 </tr>
-
 <tr>
 <td>esxi-host04</td>
 <td>10.0.0.14</td>
 <td>#ESXi host04</td>
 </tr>
-
 <tr>
 <td>esxi-host05</td>
 <td>10.0.0.15</td>
 <td>#ESXi host05</td>
 </tr>
-
 <tr>
 <td>vCenter</td>
 <td>10.0.0.10</td>
 <td>#vCenter</td>
 </tr>
-
 <tr>
 <td>Terraform</td>
 <td>10.0.0.5</td>
 <td>#Terraform</td>
 </tr>
-
 <tr>
 <td>k8s-deploy</td>
 <td>10.0.0.9</td>
 <td>#Deploy Node</td>
 </tr>
-
 <tr>
 <td>k8s-master01</td>
 <td>10.0.0.21</td>
 <td>#Master Node</td>
 </tr>
-
 <tr>
 <td>k8s-master02</td>
 <td>10.0.0.22</td>
 <td>#Master Node</td>
 </tr>
-
 <tr>
 <td>k8s-master03</td>
 <td>10.0.0.23</td>
 <td>#Master Node</td>
 </tr>
-
 <tr>
 <td>k8s-node01</td>
 <td>10.0.0.31</td>
 <td>#Workder Node</td>
 </tr>
-
 <tr>
 <td>k8s-node02</td>
 <td>10.0.0.32</td>
 <td>#Workder Node</td>
 </tr>
-
 <tr>
 <td>k8s-node03</td>
 <td>10.0.0.33</td>
 <td>#Workder Node</td>
 </tr>
-
 <tr>
 <td>k8s-node04</td>
 <td>10.0.0.34</td>
 <td>#Workder Node</td>
 </tr>
-
 <tr>
 <td>k8s-node05</td>
 <td>10.0.0.35</td>
@@ -367,9 +344,7 @@ autocomplete('#aa-search-input',
 </tr>
 </tbody>
 </table>
-
-<hr />
-
+<hr>
 <table>
 <thead>
 <tr>
@@ -378,7 +353,6 @@ autocomplete('#aa-search-input',
 <th>Kernel</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Ubuntu</td>
@@ -387,9 +361,7 @@ autocomplete('#aa-search-input',
 </tr>
 </tbody>
 </table>
-
-<hr />
-
+<hr>
 <table>
 <thead>
 <tr>
@@ -397,49 +369,43 @@ autocomplete('#aa-search-input',
 <th>VERSION</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>kubernetes</td>
 <td>1.9.5</td>
 </tr>
-
 <tr>
 <td>etcd</td>
 <td>3.2.4</td>
 </tr>
-
 <tr>
 <td>calico</td>
 <td>2.6.8</td>
 </tr>
-
 <tr>
 <td>docker</td>
 <td>17.03-ce</td>
 </tr>
 </tbody>
 </table>
-
-<h2 id="2-1-初始化ubuntu">2.1 初始化Ubuntu</h2>
-
-<h3 id="2-1-1-配置host表">2.1.1 配置host表</h3>
+<h2 id="21-初始化ubuntu">2.1 初始化Ubuntu</h2>
+<h3 id="211-配置host表">2.1.1 配置host表</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@k8s-deploy:~# cat /etc/hosts
-<span style="color:#099">127</span>.0.0.1       localhost
-<span style="color:#998;font-style:italic"># The following lines are desirable for IPv6 capable hosts
-</span><span style="color:#998;font-style:italic"></span>::1     localhost ip6-localhost ip6-loopback
+127.0.0.1       localhost
+<span style="color:#998;font-style:italic"># The following lines are desirable for IPv6 capable hosts</span>
+::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
-<span style="color:#099">10</span>.0.0.21 k8s-master01
-<span style="color:#099">10</span>.0.0.22 k8s-master02 
-<span style="color:#099">10</span>.0.0.23 k8s-master03
-<span style="color:#099">10</span>.0.0.31 k8s-node01 
-<span style="color:#099">10</span>.0.0.32 k8s-node02 
-<span style="color:#099">10</span>.0.0.33 k8s-node03 
-<span style="color:#099">10</span>.0.0.34 k8s-node04 
-<span style="color:#099">10</span>.0.0.35 k8s-node05</code></pre></div>
-<h3 id="2-1-2-配置deploy节点免密登陆到k8s的所有节点">2.1.2 配置deploy节点免密登陆到k8s的所有节点</h3>
+10.0.0.21 k8s-master01
+10.0.0.22 k8s-master02 
+10.0.0.23 k8s-master03
+10.0.0.31 k8s-node01 
+10.0.0.32 k8s-node02 
+10.0.0.33 k8s-node03 
+10.0.0.34 k8s-node04 
+10.0.0.35 k8s-node05
+</code></pre></div><h3 id="212-配置deploy节点免密登陆到k8s的所有节点">2.1.2 配置deploy节点免密登陆到k8s的所有节点</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen
  ssh-copy-id -i k8s-master01
  ssh-copy-id -i k8s-master02
@@ -450,8 +416,8 @@ ff02::2 ip6-allrouters
  ssh-copy-id -i k8s-node04
  ssh-copy-id -i k8s-node05
 
-然后将deploy node SSH到每一台节点上，目的是提前将每台主机的指纹加入到deploy node的known_hosts里面</code></pre></div>
-<h3 id="2-1-3-所有节点配置ntp">2.1.3 所有节点配置NTP</h3>
+然后将deploy node SSH到每一台节点上，目的是提前将每台主机的指纹加入到deploy node的known_hosts里面
+</code></pre></div><h3 id="213-所有节点配置ntp">2.1.3 所有节点配置NTP</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get install ntp -y
 
 ntp servers:
@@ -459,32 +425,32 @@ s1a.time.edu.cn
 s1b.time.edu.cn
 s1c.time.edu.cn
   
-systemctl restart ntp</code></pre></div>
-<h3 id="2-1-4-所有节点安装python">2.1.4 所有节点安装python</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get install python -y</code></pre></div>
-<h3 id="2-2-在deploy-node上安装ansible">2.2 在deploy node上安装ansible</h3>
+systemctl restart ntp
+</code></pre></div><h3 id="214-所有节点安装python">2.1.4 所有节点安装python</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get install python -y
+</code></pre></div><h3 id="22-在deploy-node上安装ansible">2.2 在deploy node上安装ansible</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get install software-properties-common
 apt-add-repository ppa:ansible/ansible
 apt-get update
-apt-get install ansible -y</code></pre></div>
-<p>安装完毕之后，请确保ansible是从PPA安装的，并且版本大于2.5.2。</p>
+apt-get install ansible -y
+</code></pre></div><p>安装完毕之后，请确保ansible是从PPA安装的，并且版本大于2.5.2。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@k8s-deploy:~# ansible --version
-ansible <span style="color:#099">2</span>.5.2
+ansible 2.5.2
   config <span style="color:#008080">file</span> <span style="font-weight:bold">=</span> /etc/ansible/ansible.cfg
   configured module search <span style="color:#008080">path</span> <span style="font-weight:bold">=</span> <span style="font-weight:bold">[</span>u<span style="color:#b84">&#39;/root/.ansible/plugins/modules&#39;</span>, u<span style="color:#b84">&#39;/usr/share/ansible/plugins/modules&#39;</span><span style="font-weight:bold">]</span>
   ansible python module <span style="color:#008080">location</span> <span style="font-weight:bold">=</span> /usr/lib/python2.7/dist-packages/ansible
   executable <span style="color:#008080">location</span> <span style="font-weight:bold">=</span> /usr/bin/ansible
-  python <span style="color:#008080">version</span> <span style="font-weight:bold">=</span> <span style="color:#099">2</span>.7.12 <span style="font-weight:bold">(</span>default, Dec  <span style="color:#099">4</span> <span style="color:#099">2017</span>, <span style="color:#099">14</span>:50:18<span style="font-weight:bold">)</span> <span style="font-weight:bold">[</span>GCC <span style="color:#099">5</span>.4.0 <span style="color:#099">20160609</span><span style="font-weight:bold">]</span>
+  python <span style="color:#008080">version</span> <span style="font-weight:bold">=</span> 2.7.12 <span style="font-weight:bold">(</span>default, Dec  <span style="color:#099">4</span> 2017, 14:50:18<span style="font-weight:bold">)</span> <span style="font-weight:bold">[</span>GCC 5.4.0 20160609<span style="font-weight:bold">]</span>
  
 root@k8s-deploy:~# ansible-playbook --version
-ansible-playbook <span style="color:#099">2</span>.5.2
+ansible-playbook 2.5.2
   config <span style="color:#008080">file</span> <span style="font-weight:bold">=</span> /etc/ansible/ansible.cfg
   configured module search <span style="color:#008080">path</span> <span style="font-weight:bold">=</span> <span style="font-weight:bold">[</span>u<span style="color:#b84">&#39;/root/.ansible/plugins/modules&#39;</span>, u<span style="color:#b84">&#39;/usr/share/ansible/plugins/modules&#39;</span><span style="font-weight:bold">]</span>
   ansible python module <span style="color:#008080">location</span> <span style="font-weight:bold">=</span> /usr/lib/python2.7/dist-packages/ansible
   executable <span style="color:#008080">location</span> <span style="font-weight:bold">=</span> /usr/bin/ansible-playbook
-  python <span style="color:#008080">version</span> <span style="font-weight:bold">=</span> <span style="color:#099">2</span>.7.12 <span style="font-weight:bold">(</span>default, Dec  <span style="color:#099">4</span> <span style="color:#099">2017</span>, <span style="color:#099">14</span>:50:18<span style="font-weight:bold">)</span> <span style="font-weight:bold">[</span>GCC <span style="color:#099">5</span>.4.0 <span style="color:#099">20160609</span><span style="font-weight:bold">]</span>
-root@k8s-deploy:~#</code></pre></div>
-<p>修改ansible默认的inventory</p>
+  python <span style="color:#008080">version</span> <span style="font-weight:bold">=</span> 2.7.12 <span style="font-weight:bold">(</span>default, Dec  <span style="color:#099">4</span> 2017, 14:50:18<span style="font-weight:bold">)</span> <span style="font-weight:bold">[</span>GCC 5.4.0 20160609<span style="font-weight:bold">]</span>
+root@k8s-deploy:~#
+</code></pre></div><p>修改ansible默认的inventory</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@k8s-deploy:/opt# cat /etc/ansible/hosts 
 <span style="font-weight:bold">[</span>k8s-all<span style="font-weight:bold">]</span>
 k8s-master01
@@ -507,15 +473,13 @@ k8s-node01
 k8s-node02
 k8s-node03
 k8s-node04
-k8s-node05</code></pre></div>
-<p>最后测试一下</p>
+k8s-node05
+</code></pre></div><p>最后测试一下</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ansible all -m ping
 ansible k8s-all -m copy -a <span style="color:#b84">&#39;src=/etc/hosts dest=/etc/hosts&#39;</span>
-ansible k8s-all -m shell -a <span style="color:#b84">&#39;date&#39;</span></code></pre></div>
-<h3 id="2-3-在deploy-node上安装kubespray并运行">2.3 在deploy node上安装kubespray并运行</h3>
-
+ansible k8s-all -m shell -a <span style="color:#b84">&#39;date&#39;</span>
+</code></pre></div><h3 id="23-在deploy-node上安装kubespray并运行">2.3 在deploy node上安装kubespray并运行</h3>
 <p>kubespray的环境要求</p>
-
 <ul>
 <li>Ansible v2.4</li>
 <li>Jinja 2.9</li>
@@ -536,18 +500,18 @@ ansible all -m shell -a <span style="color:#b84">&#39;cat /proc/sys/net/ipv4/ip_
 ansible all -m shell -a <span style="color:#b84">&#39;echo 1 &gt; /proc/sys/net/ipv4/ip_forward&#39;</span>
 ansible all -m shell -a <span style="color:#b84">&#39;sysctl -p&#39;</span>
 ansible all -m shell -a <span style="color:#b84">&#39;cat /proc/sys/net/ipv4/ip_forward&#39;</span>
-ansible all -m shell -a <span style="color:#b84">&#39;swapoff -a&#39;</span>  <span style="color:#998;font-style:italic">#建议手动到每个节点上将/etc/fstab/的swap部分注释掉
-</span><span style="color:#998;font-style:italic"></span>ansible all -m shell -a <span style="color:#b84">&#39;free -h&#39;</span></code></pre></div>
-<p>安装kubespray</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/kubernetes-incubator/kubespray.git</code></pre></div>
-<p>修改默认的inventory</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># Copy ``inventory/sample`` as ``inventory/mycluster``
-</span><span style="color:#998;font-style:italic"></span>cp -rfp inventory/sample inventory/mycluster
+ansible all -m shell -a <span style="color:#b84">&#39;swapoff -a&#39;</span>  <span style="color:#998;font-style:italic">#建议手动到每个节点上将/etc/fstab/的swap部分注释掉</span>
+ansible all -m shell -a <span style="color:#b84">&#39;free -h&#39;</span>
+</code></pre></div><p>安装kubespray</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/kubernetes-incubator/kubespray.git
+</code></pre></div><p>修改默认的inventory</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># Copy ``inventory/sample`` as ``inventory/mycluster``</span>
+cp -rfp inventory/sample inventory/mycluster
 
-<span style="color:#998;font-style:italic"># Review and change parameters under ``inventory/mycluster/group_vars``
-</span><span style="color:#998;font-style:italic"></span>cat inventory/mycluster/group_vars/all.yml
-cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
-<p>修改后的/inventory/mycluster/hosts.ini如下</p>
+<span style="color:#998;font-style:italic"># Review and change parameters under ``inventory/mycluster/group_vars``</span>
+cat inventory/mycluster/group_vars/all.yml
+cat inventory/mycluster/group_vars/k8s-cluster.yml
+</code></pre></div><p>修改后的/inventory/mycluster/hosts.ini如下</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">k8s-master01 ansible_ssh_host</span><span style="font-weight:bold">=</span><span style="color:#b84">10.0.0.21</span>
 <span style="color:#008080">k8s-master02 ansible_ssh_host</span><span style="font-weight:bold">=</span><span style="color:#b84">10.0.0.22</span>
 <span style="color:#008080">k8s-master03 ansible_ssh_host</span><span style="font-weight:bold">=</span><span style="color:#b84">10.0.0.23</span>
@@ -585,16 +549,16 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 <span style="font-weight:bold">[k8s-cluster:children]</span>
 <span style="color:#008080">kube-master</span>
 <span style="color:#008080">kube-node</span>
-<span style="color:#008080">kube-ingress</span></code></pre></div>
-<p>修改后的/inventory/mycluster/group_vars/all.yml如下</p>
+<span style="color:#008080">kube-ingress</span>
+</code></pre></div><p>修改后的/inventory/mycluster/group_vars/all.yml如下</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#998;font-style:italic"># Valid bootstrap options (required): ubuntu, coreos, centos, none</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>bootstrap_os:<span style="color:#bbb"> </span>none<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">bootstrap_os</span>:<span style="color:#bbb"> </span>none<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">#Directory where etcd data stored</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>etcd_data_dir:<span style="color:#bbb"> </span>/var/lib/etcd<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">etcd_data_dir</span>:<span style="color:#bbb"> </span>/var/lib/etcd<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Directory where the binaries will be installed</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>bin_dir:<span style="color:#bbb"> </span>/usr/local/bin<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">bin_dir</span>:<span style="color:#bbb"> </span>/usr/local/bin<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## The access_ip variable is used to define how other nodes should access</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## the node.  This is used in flannel to allow other flannel nodes to see</span><span style="color:#bbb">
@@ -652,18 +616,18 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## If set the possible values are either &#39;gce&#39;, &#39;aws&#39;, &#39;azure&#39;, &#39;openstack&#39;, &#39;vsphere&#39;, or &#39;external&#39;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## When openstack is used make sure to source in the openstack credentials</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## like you would do when using nova-client before starting the playbook.</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>cloud_provider:<span style="color:#bbb"> </span>vsphere<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">cloud_provider</span>:<span style="color:#bbb"> </span>vsphere<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_vcenter_ip:<span style="color:#bbb"> </span><span style="color:#b84">&#34;10.0.0.10&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_vcenter_port:<span style="color:#bbb"> </span><span style="color:#099">443</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_insecure:<span style="color:#bbb"> </span><span style="color:#099">1</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_user:<span style="color:#bbb"> </span><span style="color:#b84">&#34;administrator@vsphere.local&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_password:<span style="color:#bbb"> </span><span style="color:#b84">&#34;CHANGEME&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_datacenter:<span style="color:#bbb"> </span><span style="color:#b84">&#34;DataCenter&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_datastore:<span style="color:#bbb"> </span><span style="color:#b84">&#34;vsanDatastore&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_working_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;k8s-nodes&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_scsi_controller_type:<span style="color:#bbb"> </span><span style="color:#b84">&#34;pvscsi&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>vsphere_resource_pool:<span style="color:#bbb"> </span><span style="color:#b84">&#34;&#34;</span>k8s-cluster-RP<span style="color:#b84">&#34;
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_vcenter_ip</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;10.0.0.10&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_vcenter_port</span>:<span style="color:#bbb"> </span><span style="color:#099">443</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_insecure</span>:<span style="color:#bbb"> </span><span style="color:#099">1</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_user</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;administrator@vsphere.local&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_password</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;CHANGEME&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_datacenter</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;DataCenter&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_datastore</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;vsanDatastore&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_working_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;k8s-nodes&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_scsi_controller_type</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;pvscsi&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vsphere_resource_pool</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;&#34;</span>k8s-cluster-RP<span style="color:#b84">&#34;
 </span><span style="color:#b84">#这些配置是为了StorageClass能够动态创建PV，k8s本身需要获取vCenter的权限
 </span><span style="color:#b84">
 </span><span style="color:#b84">## When azure is used, you need to also set the following variables.
@@ -681,7 +645,7 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#b84">#azure_route_table_name:
 </span><span style="color:#b84">
 </span><span style="color:#b84">## When OpenStack is used, Cinder version can be explicitly specified if autodetection fails (Fixed in 1.9: https://github.com/kubernetes/kubernetes/issues/50461)
-</span><span style="color:#b84">#openstack_blockstorage_version: &#34;</span>v<span style="color:#099">1</span>/v<span style="color:#099">2</span>/auto<span style="color:#bbb"> </span>(default)<span style="color:#b84">&#34;
+</span><span style="color:#b84">#openstack_blockstorage_version: &#34;</span>v1/v2/auto<span style="color:#bbb"> </span>(default)<span style="color:#b84">&#34;
 </span><span style="color:#b84">## When OpenStack is used, if LBaaSv2 is available you can enable it with the following 2 variables.
 </span><span style="color:#b84">#openstack_lbaas_enabled: True
 </span><span style="color:#b84">#openstack_lbaas_subnet_id: &#34;</span>Neutron<span style="color:#bbb"> </span>subnet<span style="color:#bbb"> </span>ID<span style="color:#bbb"> </span>(not<span style="color:#bbb"> </span>network<span style="color:#bbb"> </span>ID)<span style="color:#bbb"> </span>to<span style="color:#bbb"> </span>create<span style="color:#bbb"> </span>LBaaS<span style="color:#bbb"> </span>VIP<span style="color:#b84">&#34;
@@ -735,54 +699,54 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#b84">#etcd_memory_limit: &#34;</span>512M&#34;<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># The read-only port for the Kubelet to serve on with no authentication/authorization. Uncomment to enable.</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_read_only_port:<span style="color:#bbb"> </span><span style="color:#099">10255</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 开启这项的目的是可以让heapster可以读取kubelet的10255来取metric</span></code></pre></div>
-<p>修改后的/inventory/mycluster/group_vars/k8s-cluster.yml如下</p>
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_read_only_port</span>:<span style="color:#bbb"> </span><span style="color:#099">10255</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 开启这项的目的是可以让heapster可以读取kubelet的10255来取metric</span><span style="color:#bbb">
+</span></code></pre></div><p>修改后的/inventory/mycluster/group_vars/k8s-cluster.yml如下</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#998;font-style:italic"># Kubernetes configuration dirs and system namespace.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Those are where all the additional config stuff goes</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># the kubernetes normally puts in /srv/kubernetes.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># This puts them in a sane location and namespace.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Editing those values will almost surely break something.</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_config_dir:<span style="color:#bbb"> </span>/etc/kubernetes<span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_script_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ bin_dir }}/kubernetes-scripts&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_manifest_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/manifests&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_config_dir</span>:<span style="color:#bbb"> </span>/etc/kubernetes<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_script_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ bin_dir }}/kubernetes-scripts&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_manifest_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/manifests&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># This is where all the cert scripts and certs will be located</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_cert_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/ssl&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_cert_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/ssl&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># This is where all of the bearer tokens will be stored</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_token_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/tokens&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_token_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/tokens&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># This is where to save basic auth file</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_users_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/users&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_users_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_config_dir }}/users&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_api_anonymous_auth:<span style="color:#bbb"> </span><span style="font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_api_anonymous_auth</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">true</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## Change this to use another Kubernetes version, e.g. a current beta release</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_version:<span style="color:#bbb"> </span>v<span style="color:#099">1.9</span>.<span style="color:#099">5</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_version</span>:<span style="color:#bbb"> </span>v1<span style="color:#099">.9.5</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Where the binaries will be downloaded.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Note: ensure that you&#39;ve enough disk space (about 1G)</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>local_release_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;/tmp/releases&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">local_release_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;/tmp/releases&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Random shifts for retrying failed ops like pushing/downloading</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>retry_stagger:<span style="color:#bbb"> </span><span style="color:#099">5</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">retry_stagger</span>:<span style="color:#bbb"> </span><span style="color:#099">5</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># This is the group that the cert creation scripts chgrp the</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># cert files to. Not really changeable...</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_cert_group:<span style="color:#bbb"> </span>kube-cert<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_cert_group</span>:<span style="color:#bbb"> </span>kube-cert<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Cluster Loglevel configuration</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_log_level:<span style="color:#bbb"> </span><span style="color:#099">2</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_log_level</span>:<span style="color:#bbb"> </span><span style="color:#099">2</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Users to create for basic auth in Kubernetes API via HTTP</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Optionally add groups for user</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_api_pwd:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ lookup(&#39;password&#39;, inventory_dir + &#39;/credentials/kube_user.creds length=15 chars=ascii_letters,digits&#39;) }}&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_users:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>kube:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>pass:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{kube_api_pwd}}&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span>role:<span style="color:#bbb"> </span>admin<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>groups:<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>system:masters<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_api_pwd</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ lookup(&#39;password&#39;, inventory_dir + &#39;/credentials/kube_user.creds length=15 chars=ascii_letters,digits&#39;) }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_users</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">kube</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="font-weight:bold">pass</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{kube_api_pwd}}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="font-weight:bold">role</span>:<span style="color:#bbb"> </span>admin<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="font-weight:bold">groups</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- system:masters<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## It is possible to activate / deactivate selected authentication methods (basic auth, static token auth)</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">#kube_oidc_auth: false</span><span style="color:#bbb">
@@ -803,128 +767,128 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Choose network plugin (cilium, calico, contiv, weave or flannel)</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Can also be set to &#39;cloud&#39;, which lets the cloud provider setup appropriate routing</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_network_plugin:<span style="color:#bbb"> </span>calico<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_network_plugin</span>:<span style="color:#bbb"> </span>calico<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># weave&#39;s network password for encryption</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># if null then no network encryption</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># you can use --extra-vars to pass the password in command line</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>weave_password:<span style="color:#bbb"> </span>EnterPasswordHere<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">weave_password</span>:<span style="color:#bbb"> </span>EnterPasswordHere<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Weave uses consensus mode by default</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Enabling seed mode allow to dynamically add or remove hosts</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># https://www.weave.works/docs/net/latest/ipam/</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>weave_mode_seed:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">weave_mode_seed</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># This two variable are automatically changed by the weave&#39;s role, do not manually change these values</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># To reset values :</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># weave_seed: uninitialized</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># weave_peers: uninitialized</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>weave_seed:<span style="color:#bbb"> </span>uninitialized<span style="color:#bbb">
-</span><span style="color:#bbb"></span>weave_peers:<span style="color:#bbb"> </span>uninitialized<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">weave_seed</span>:<span style="color:#bbb"> </span>uninitialized<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">weave_peers</span>:<span style="color:#bbb"> </span>uninitialized<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Set the MTU of Weave (default 1376, Jumbo Frames: 8916)</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>weave_mtu:<span style="color:#bbb"> </span><span style="color:#099">1376</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">weave_mtu</span>:<span style="color:#bbb"> </span><span style="color:#099">1376</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Enable kubernetes network policies</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>enable_network_policy:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">enable_network_policy</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Kubernetes internal network for services, unused block of space.</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_service_addresses:<span style="color:#bbb"> </span><span style="color:#099">10.233</span>.<span style="color:#099">0.0</span>/<span style="color:#099">18</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_service_addresses</span>:<span style="color:#bbb"> </span><span style="color:#099">10.233.0.0</span>/<span style="color:#099">18</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># internal network. When used, it will assign IP</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># addresses from this range to individual pods.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># This network must be unused in your network infrastructure!</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_pods_subnet:<span style="color:#bbb"> </span><span style="color:#099">10.233</span>.<span style="color:#099">64.0</span>/<span style="color:#099">18</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_pods_subnet</span>:<span style="color:#bbb"> </span><span style="color:#099">10.233.64.0</span>/<span style="color:#099">18</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># internal network node size allocation (optional). This is the size allocated</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># to each node on your network.  With these defaults you should have</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># room for 4096 nodes with 254 pods per node.</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_network_node_prefix:<span style="color:#bbb"> </span><span style="color:#099">24</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_network_node_prefix</span>:<span style="color:#bbb"> </span><span style="color:#099">24</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># The port the API Server will be listening on.</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_apiserver_ip:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(1)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_apiserver_port:<span style="color:#bbb"> </span><span style="color:#099">6443</span><span style="color:#bbb"> </span><span style="color:#998;font-style:italic"># (https)</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_apiserver_insecure_port:<span style="color:#bbb"> </span><span style="color:#099">8080</span><span style="color:#bbb"> </span><span style="color:#998;font-style:italic"># (http)</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_apiserver_ip</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(1)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_apiserver_port</span>:<span style="color:#bbb"> </span><span style="color:#099">6443</span><span style="color:#bbb"> </span><span style="color:#998;font-style:italic"># (https)</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_apiserver_insecure_port</span>:<span style="color:#bbb"> </span><span style="color:#099">8080</span><span style="color:#bbb"> </span><span style="color:#998;font-style:italic"># (http)</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Set to 0 to disable insecure port - Requires RBAC in authorization_modes and kube_api_anonymous_auth: true</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">#kube_apiserver_insecure_port: 0 # (disabled)</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Kube-proxy proxyMode configuration.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Can be ipvs, iptables</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_proxy_mode:<span style="color:#bbb"> </span>ipvs<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_proxy_mode</span>:<span style="color:#bbb"> </span>ipvs<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 这里我修改了默认的iptables为ipvs</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## Encrypting Secret Data at Rest (experimental)</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kube_encrypt_secret_data:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kube_encrypt_secret_data</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># DNS configuration.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Kubernetes cluster name, also will be used as DNS domain</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>cluster_name:<span style="color:#bbb"> </span>cluster.local<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">cluster_name</span>:<span style="color:#bbb"> </span>cluster.local<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Subdomains of DNS domain to be resolved via /etc/resolv.conf for hostnet pods</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>ndots:<span style="color:#bbb"> </span><span style="color:#099">2</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">ndots</span>:<span style="color:#bbb"> </span><span style="color:#099">2</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Can be dnsmasq_kubedns, kubedns, coredns, coredns_dual, manual or none</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>dns_mode:<span style="color:#bbb"> </span>coredns<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">dns_mode</span>:<span style="color:#bbb"> </span>coredns<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 这里我修改了默认的kubedns为coredns</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Set manual server if using a custom cluster DNS server</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">#manual_dns_server: 10.x.x.x</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Can be docker_dns, host_resolvconf or none</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>resolvconf_mode:<span style="color:#bbb"> </span>docker_dns<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">resolvconf_mode</span>:<span style="color:#bbb"> </span>docker_dns<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Deploy netchecker app to verify DNS resolve as an HTTP service</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>deploy_netchecker:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">deploy_netchecker</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Ip address of the kubernetes skydns service</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>skydns_server:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(3)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>skydns_server_secondary:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(4)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>dnsmasq_dns_server:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(2)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>dns_domain:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ cluster_name }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">skydns_server</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(3)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">skydns_server_secondary</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(4)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">dnsmasq_dns_server</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ kube_service_addresses|ipaddr(&#39;net&#39;)|ipaddr(2)|ipaddr(&#39;address&#39;) }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">dns_domain</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;{{ cluster_name }}&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Path used to store Docker data</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>docker_daemon_graph:<span style="color:#bbb"> </span><span style="color:#b84">&#34;/var/lib/docker&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">docker_daemon_graph</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;/var/lib/docker&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## A string of extra options to pass to the docker daemon.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## This string should be exactly as you wish it to appear.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## An obvious use case is allowing insecure-registry access</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## to self hosted registries like so:</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>docker_options:<span style="color:#bbb"> </span><span style="color:#b84">&#34;--insecure-registry={{ kube_service_addresses }} --graph={{ docker_daemon_graph }}  {{ docker_log_opts }}&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>docker_bin_dir:<span style="color:#bbb"> </span><span style="color:#b84">&#34;/usr/bin&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">docker_options</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;--insecure-registry={{ kube_service_addresses }} --graph={{ docker_daemon_graph }}  {{ docker_log_opts }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">docker_bin_dir</span>:<span style="color:#bbb"> </span><span style="color:#b84">&#34;/usr/bin&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Settings for containerized control plane (etcd/kubelet/secrets)</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>etcd_deployment_type:<span style="color:#bbb"> </span>docker<span style="color:#bbb">
-</span><span style="color:#bbb"></span>kubelet_deployment_type:<span style="color:#bbb"> </span>host<span style="color:#bbb">
-</span><span style="color:#bbb"></span>vault_deployment_type:<span style="color:#bbb"> </span>docker<span style="color:#bbb">
-</span><span style="color:#bbb"></span>helm_deployment_type:<span style="color:#bbb"> </span>host<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">etcd_deployment_type</span>:<span style="color:#bbb"> </span>docker<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kubelet_deployment_type</span>:<span style="color:#bbb"> </span>host<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">vault_deployment_type</span>:<span style="color:#bbb"> </span>docker<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">helm_deployment_type</span>:<span style="color:#bbb"> </span>host<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># K8s image pull policy (imagePullPolicy)</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>k8s_image_pull_policy:<span style="color:#bbb"> </span>IfNotPresent<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">k8s_image_pull_policy</span>:<span style="color:#bbb"> </span>IfNotPresent<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Kubernetes dashboard</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># RBAC required. see docs/getting-started.md for access details.</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>dashboard_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">dashboard_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">true</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Monitoring apps for k8s</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>efk_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">efk_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Helm deployment</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>helm_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">helm_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Istio deployment</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>istio_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">istio_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Registry deployment</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>registry_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">registry_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># registry_namespace: &#34;{{ system_namespace }}&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># registry_storage_class: &#34;&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># registry_disk_size: &#34;10Gi&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Local volume provisioner deployment</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>local_volume_provisioner_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">local_volume_provisioner_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># local_volume_provisioner_namespace: &#34;{{ system_namespace }}&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># local_volume_provisioner_base_dir: /mnt/disks</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># local_volume_provisioner_mount_dir: /mnt/disks</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># local_volume_provisioner_storage_class: local-storage</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># CephFS provisioner deployment</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>cephfs_provisioner_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">cephfs_provisioner_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># cephfs_provisioner_namespace: &#34;{{ system_namespace }}&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># cephfs_provisioner_cluster: ceph</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># cephfs_provisioner_monitors:</span><span style="color:#bbb">
@@ -936,7 +900,7 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># cephfs_provisioner_storage_class: cephfs</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Nginx ingress controller deployment</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>ingress_nginx_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">ingress_nginx_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">true</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 将ingress打开</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># ingress_nginx_host_network: false</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># ingress_nginx_namespace: &#34;ingress-nginx&#34;</span><span style="color:#bbb">
@@ -951,11 +915,11 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">#   53: &#34;kube-system/kube-dns:53&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Cert manager deployment</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>cert_manager_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">cert_manager_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># cert_manager_namespace: &#34;cert-manager&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Add Persistent Volumes Storage Class for corresponding cloud provider ( OpenStack is only supported now )</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>persistent_volumes_enabled:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">persistent_volumes_enabled</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># Make a copy of kubeconfig on the host that runs Ansible in {{ inventory_dir }}/artifacts</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># kubeconfig_localhost: false</span><span style="color:#bbb">
@@ -981,8 +945,8 @@ cat inventory/mycluster/group_vars/k8s-cluster.yml</code></pre></div>
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## Running on top of openstack vms with cinder enabled may lead to unschedulable pods due to NoVolumeZoneConflict restriction in kube-scheduler.</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## See https://github.com/kubernetes-incubator/kubespray/issues/2141</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">## Set this variable to true to get rid of this issue</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>volume_cross_zone_attachment:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span></code></pre></div>
-<p>修改所有的grc.io和quay.io的image，我已经将这些image镜像到我的docker hub的仓库上。
+</span><span style="color:#bbb"></span><span style="font-weight:bold">volume_cross_zone_attachment</span>:<span style="color:#bbb"> </span><span style="font-weight:bold">false</span><span style="color:#bbb">
+</span></code></pre></div><p>修改所有的grc.io和quay.io的image，我已经将这些image镜像到我的docker hub的仓库上。
 在/kubespray目录下面创建change_registry.sh</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-weight:bold">#!/bin/bash
 </span><span style="color:#999;font-weight:bold"></span><span style="color:#008080">all_image_files</span><span style="font-weight:bold">=(</span>
@@ -998,24 +962,22 @@ roles/kubernetes-apps/ansible/defaults/main.yml
     sed -i <span style="color:#b84">&#39;s/quay.io\/external_storage\//ottodeng\/quay.io_external_storage_/g&#39;</span> <span style="color:#008080">$file</span>
     sed -i <span style="color:#b84">&#39;s/quay.io\/kubespray\//ottodeng\/quay.io_kubespray_/g&#39;</span> <span style="color:#008080">$file</span>
     sed -i <span style="color:#b84">&#39;s/quay.io\/kubernetes-ingress-controller\//ottodeng\/quay.io_kubernetes-ingress-controller_/g&#39;</span> <span style="color:#008080">$file</span>
-<span style="font-weight:bold">done</span></code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +x change_registry.sh
-./change_registry.sh</code></pre></div>
-<p>执行完毕之后，可以查看一下修改后的内容，确保已经修改成功</p>
+<span style="font-weight:bold">done</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +x change_registry.sh
+./change_registry.sh
+</code></pre></div><p>执行完毕之后，可以查看一下修改后的内容，确保已经修改成功</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep -irn <span style="color:#b84">&#34;grc.io&#34;</span>
-grep -irn <span style="color:#b84">&#34;quay.io&#34;</span></code></pre></div>
-<p>给kubespray的执行结果输出日志</p>
+grep -irn <span style="color:#b84">&#34;quay.io&#34;</span>
+</code></pre></div><p>给kubespray的执行结果输出日志</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999">cd</span> ~/kubespray
-<span style="color:#999">echo</span> <span style="color:#b84">&#39;log_path = /var/log/ansible.log&#39;</span> &gt; ansible.cfg</code></pre></div>
-<p>开始执行kubespray</p>
+<span style="color:#999">echo</span> <span style="color:#b84">&#39;log_path = /var/log/ansible.log&#39;</span> &gt; ansible.cfg
+</code></pre></div><p>开始执行kubespray</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999">cd</span> ~/kubespray
-ansible-playbook -i inventory/mycluster/hosts.ini cluster.yml</code></pre></div>
-<p>当执行完毕之后，大概的样子如下图所示：</p>
-
-<p><img src="https://res.cloudinary.com/ottodeng/image/upload/v1526028915/image2018-5-4_16_57_29.png" alt="FINISH" /></p>
-
+ansible-playbook -i inventory/mycluster/hosts.ini cluster.yml
+</code></pre></div><p>当执行完毕之后，大概的样子如下图所示：</p>
+<p><img src="https://res.cloudinary.com/ottodeng/image/upload/v1526028915/image2018-5-4_16_57_29.png" alt="FINISH"></p>
 <p>如果没有failed，则证明已经部署成功，如果有failed，则可以查看/var/log/ansible.log的失败日志。</p>
-
-<h3 id="2-4-确认k8s集群运行正常-并且能够通过storageclass动态创建pv">2.4 确认k8s集群运行正常，并且能够通过StorageClass动态创建PV</h3>
+<h3 id="24-确认k8s集群运行正常并且能够通过storageclass动态创建pv">2.4 确认k8s集群运行正常，并且能够通过StorageClass动态创建PV</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@k8s-master01:~# kubectl get cs
 NAME                 STATUS    MESSAGE              ERROR
 controller-manager   Healthy   ok                  
@@ -1041,45 +1003,45 @@ To further debug and diagnose cluster problems, use <span style="color:#b84">&#3
   
 root@k8s-master01:~# kubectl get pod --all-namespaces -o wide
 NAMESPACE       NAME                                       READY     STATUS    RESTARTS   AGE       IP                NODE
-ingress-nginx   ingress-nginx-controller-5pssh             <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.90.129    k8s-node04
-ingress-nginx   ingress-nginx-controller-76g64             <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.64.65     k8s-node03
-ingress-nginx   ingress-nginx-controller-9cxg8             <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.97.66     k8s-node05
-ingress-nginx   ingress-nginx-controller-z6qv6             <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.121.129   k8s-node02
-ingress-nginx   ingress-nginx-controller-z9bxw             <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.65.65     k8s-node01
-ingress-nginx   ingress-nginx-default-backend-v1.4-k2jr4   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.97.65     k8s-node05
-kube-system     calico-node-7tcgx                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.21      k8s-master01
-kube-system     calico-node-cspmf                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.22      k8s-master02
-kube-system     calico-node-dqtxd                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.32      k8s-node02
-kube-system     calico-node-j46p2                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.35      k8s-node05
-kube-system     calico-node-mqxd9                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.34      k8s-node04
-kube-system     calico-node-nrng6                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.23      k8s-master03
-kube-system     calico-node-psk2q                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.31      k8s-node01
-kube-system     calico-node-s6thl                          <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.33      k8s-node03
-kube-system     coredns-7dfc584b6c-m4bs5                   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.121.130   k8s-node02
-kube-system     coredns-7dfc584b6c-trwxp                   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.90.130    k8s-node04
-kube-system     kube-apiserver-k8s-master01              <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.21      k8s-master01
-kube-system     kube-apiserver-k8s-master02              <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.22      k8s-master02
-kube-system     kube-apiserver-k8s-master03              <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.23      k8s-master03
-kube-system     kube-controller-manager-k8s-master01     <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.21      k8s-master01
-kube-system     kube-controller-manager-k8s-master02     <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.22      k8s-master02
-kube-system     kube-controller-manager-k8s-master03     <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.23      k8s-master03
-kube-system     kube-proxy-k8s-master01                  <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.21      k8s-master01
-kube-system     kube-proxy-k8s-master02                  <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.22      k8s-master02
-kube-system     kube-proxy-k8s-master03                  <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.23      k8s-master03
-kube-system     kube-proxy-k8s-node01                    <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.31      k8s-node01
-kube-system     kube-proxy-k8s-node02                    <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.32      k8s-node02
-kube-system     kube-proxy-k8s-node03                    <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.33      k8s-node03
-kube-system     kube-proxy-k8s-node04                    <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.34      k8s-node04
-kube-system     kube-proxy-k8s-node05                    <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.35      k8s-node05
-kube-system     kube-scheduler-k8s-master01              <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.21      k8s-master01
-kube-system     kube-scheduler-k8s-master02              <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.22      k8s-master02
-kube-system     kube-scheduler-k8s-master03              <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.23      k8s-master03
-kube-system     kubernetes-dashboard-66fc89bd85-k977x      <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.233.121.131   k8s-node02
-kube-system     nginx-proxy-k8s-node01                   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          6m        <span style="color:#099">10</span>.0.0.31      k8s-node01
-kube-system     nginx-proxy-k8s-node02                   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.32      k8s-node02
-kube-system     nginx-proxy-k8s-node03                   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.33      k8s-node03
-kube-system     nginx-proxy-k8s-node04                   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.34      k8s-node04
-kube-system     nginx-proxy-k8s-node05                   <span style="color:#099">1</span>/1       Running   <span style="color:#099">0</span>          5m        <span style="color:#099">10</span>.0.0.35      k8s-node05
+ingress-nginx   ingress-nginx-controller-5pssh             1/1       Running   <span style="color:#099">0</span>          5m        10.233.90.129    k8s-node04
+ingress-nginx   ingress-nginx-controller-76g64             1/1       Running   <span style="color:#099">0</span>          5m        10.233.64.65     k8s-node03
+ingress-nginx   ingress-nginx-controller-9cxg8             1/1       Running   <span style="color:#099">0</span>          5m        10.233.97.66     k8s-node05
+ingress-nginx   ingress-nginx-controller-z6qv6             1/1       Running   <span style="color:#099">0</span>          5m        10.233.121.129   k8s-node02
+ingress-nginx   ingress-nginx-controller-z9bxw             1/1       Running   <span style="color:#099">0</span>          5m        10.233.65.65     k8s-node01
+ingress-nginx   ingress-nginx-default-backend-v1.4-k2jr4   1/1       Running   <span style="color:#099">0</span>          5m        10.233.97.65     k8s-node05
+kube-system     calico-node-7tcgx                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.21      k8s-master01
+kube-system     calico-node-cspmf                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.22      k8s-master02
+kube-system     calico-node-dqtxd                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.32      k8s-node02
+kube-system     calico-node-j46p2                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.35      k8s-node05
+kube-system     calico-node-mqxd9                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.34      k8s-node04
+kube-system     calico-node-nrng6                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.23      k8s-master03
+kube-system     calico-node-psk2q                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.31      k8s-node01
+kube-system     calico-node-s6thl                          1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.33      k8s-node03
+kube-system     coredns-7dfc584b6c-m4bs5                   1/1       Running   <span style="color:#099">0</span>          5m        10.233.121.130   k8s-node02
+kube-system     coredns-7dfc584b6c-trwxp                   1/1       Running   <span style="color:#099">0</span>          5m        10.233.90.130    k8s-node04
+kube-system     kube-apiserver-k8s-master01              1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.21      k8s-master01
+kube-system     kube-apiserver-k8s-master02              1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.22      k8s-master02
+kube-system     kube-apiserver-k8s-master03              1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.23      k8s-master03
+kube-system     kube-controller-manager-k8s-master01     1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.21      k8s-master01
+kube-system     kube-controller-manager-k8s-master02     1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.22      k8s-master02
+kube-system     kube-controller-manager-k8s-master03     1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.23      k8s-master03
+kube-system     kube-proxy-k8s-master01                  1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.21      k8s-master01
+kube-system     kube-proxy-k8s-master02                  1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.22      k8s-master02
+kube-system     kube-proxy-k8s-master03                  1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.23      k8s-master03
+kube-system     kube-proxy-k8s-node01                    1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.31      k8s-node01
+kube-system     kube-proxy-k8s-node02                    1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.32      k8s-node02
+kube-system     kube-proxy-k8s-node03                    1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.33      k8s-node03
+kube-system     kube-proxy-k8s-node04                    1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.34      k8s-node04
+kube-system     kube-proxy-k8s-node05                    1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.35      k8s-node05
+kube-system     kube-scheduler-k8s-master01              1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.21      k8s-master01
+kube-system     kube-scheduler-k8s-master02              1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.22      k8s-master02
+kube-system     kube-scheduler-k8s-master03              1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.23      k8s-master03
+kube-system     kubernetes-dashboard-66fc89bd85-k977x      1/1       Running   <span style="color:#099">0</span>          5m        10.233.121.131   k8s-node02
+kube-system     nginx-proxy-k8s-node01                   1/1       Running   <span style="color:#099">0</span>          6m        10.0.0.31      k8s-node01
+kube-system     nginx-proxy-k8s-node02                   1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.32      k8s-node02
+kube-system     nginx-proxy-k8s-node03                   1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.33      k8s-node03
+kube-system     nginx-proxy-k8s-node04                   1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.34      k8s-node04
+kube-system     nginx-proxy-k8s-node05                   1/1       Running   <span style="color:#099">0</span>          5m        10.0.0.35      k8s-node05
 root@k8s-master01:~#
 
 root@k8s-master01:~# calicoctl node status
@@ -1090,58 +1052,57 @@ IPv4 BGP status
 +--------------+-------------------+-------+------------+-------------+
 | PEER ADDRESS |     PEER TYPE     | STATE |   SINCE    |    INFO     |
 +--------------+-------------------+-------+------------+-------------+
-| <span style="color:#099">10</span>.0.0.22    | node-to-node mesh | up    | <span style="color:#099">2018</span>-05-07 | Established |
-| <span style="color:#099">10</span>.0.0.23    | node-to-node mesh | up    | <span style="color:#099">2018</span>-05-07 | Established |
-| <span style="color:#099">10</span>.0.0.31    | node-to-node mesh | up    | <span style="color:#099">2018</span>-05-07 | Established |
-| <span style="color:#099">10</span>.0.0.32    | node-to-node mesh | up    | <span style="color:#099">2018</span>-05-07 | Established |
-| <span style="color:#099">10</span>.0.0.33    | node-to-node mesh | up    | <span style="color:#099">2018</span>-05-07 | Established |
-| <span style="color:#099">10</span>.0.0.34    | node-to-node mesh | up    | <span style="color:#099">2018</span>-05-07 | Established |
-| <span style="color:#099">10</span>.0.0.35    | node-to-node mesh | up    | <span style="color:#099">2018</span>-05-07 | Established |
+| 10.0.0.22    | node-to-node mesh | up    | 2018-05-07 | Established |
+| 10.0.0.23    | node-to-node mesh | up    | 2018-05-07 | Established |
+| 10.0.0.31    | node-to-node mesh | up    | 2018-05-07 | Established |
+| 10.0.0.32    | node-to-node mesh | up    | 2018-05-07 | Established |
+| 10.0.0.33    | node-to-node mesh | up    | 2018-05-07 | Established |
+| 10.0.0.34    | node-to-node mesh | up    | 2018-05-07 | Established |
+| 10.0.0.35    | node-to-node mesh | up    | 2018-05-07 | Established |
 +--------------+-------------------+-------+------------+-------------+
 
 IPv6 BGP status
-No IPv6 peers found.</code></pre></div>
-<p>创建StorageClass和PV</p>
+No IPv6 peers found.
+
+</code></pre></div><p>创建StorageClass和PV</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat<span style="color:#bbb"> </span>vsphere-volume-sc-fast.yaml<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>apiVersion:<span style="color:#bbb"> </span>storage.k8s.io/v<span style="color:#099">1</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kind:<span style="color:#bbb"> </span>StorageClass<span style="color:#bbb">
-</span><span style="color:#bbb"></span>metadata:<span style="color:#bbb"> 
-</span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span>fast<span style="color:#bbb">
-</span><span style="color:#bbb"></span>provisioner:<span style="color:#bbb"> </span>kubernetes.io/vsphere-volume<span style="color:#bbb">
-</span><span style="color:#bbb"></span>parameters:<span style="color:#bbb"> 
-</span><span style="color:#bbb">  </span>datastore:<span style="color:#bbb"> </span>vsanDatastore<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>diskformat:<span style="color:#bbb"> </span>thin<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>fstype:<span style="color:#bbb"> </span>ext<span style="color:#099">3</span></code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat<span style="color:#bbb"> </span>vsphere-volume-pvcsc.yaml<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>storage.k8s.io/v1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kind</span>:<span style="color:#bbb"> </span>StorageClass<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">metadata</span>:<span style="color:#bbb"> 
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">name</span>:<span style="color:#bbb"> </span>fast<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">provisioner</span>:<span style="color:#bbb"> </span>kubernetes.io/vsphere-volume<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">parameters</span>:<span style="color:#bbb"> 
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">datastore</span>:<span style="color:#bbb"> </span>vsanDatastore<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">diskformat</span>:<span style="color:#bbb"> </span>thin<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">fstype</span>:<span style="color:#bbb"> </span>ext3<span style="color:#bbb">
+</span></code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat<span style="color:#bbb"> </span>vsphere-volume-pvcsc.yaml<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>kind:<span style="color:#bbb"> </span>PersistentVolumeClaim<span style="color:#bbb">
-</span><span style="color:#bbb"></span>apiVersion:<span style="color:#bbb"> </span>v<span style="color:#099">1</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>metadata:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span>pvcsc<span style="color:#099">001</span><span style="color:#bbb">
-</span><span style="color:#bbb">  </span>annotations:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>volume.beta.kubernetes.io/storage-class:<span style="color:#bbb"> </span>fast<span style="color:#bbb">
-</span><span style="color:#bbb"></span>spec:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>accessModes:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>ReadWriteOnce<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>resources:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>requests:<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>storage:<span style="color:#bbb"> </span>2Gi</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@k8s-master01:~# kubectl get pvc
+</span><span style="color:#bbb"></span><span style="font-weight:bold">kind</span>:<span style="color:#bbb"> </span>PersistentVolumeClaim<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>v1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">metadata</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">name</span>:<span style="color:#bbb"> </span>pvcsc001<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">annotations</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="font-weight:bold">volume.beta.kubernetes.io/storage-class</span>:<span style="color:#bbb"> </span>fast<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="font-weight:bold">spec</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">accessModes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- ReadWriteOnce<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="font-weight:bold">resources</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="font-weight:bold">requests</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="font-weight:bold">storage</span>:<span style="color:#bbb"> </span>2Gi<span style="color:#bbb">
+</span></code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@k8s-master01:~# kubectl get pvc
 NAME       STATUS    VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 pvcsc001   Bound     pvc-5adb155b-4f7c-11e8-aaf4-00505698233c   2Gi        RWO            fast           4s
 root@k8s-master01:~# kubectl get pv
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS    CLAIM              STORAGECLASS   REASON    AGE
 pvc-5adb155b-4f7c-11e8-aaf4-00505698233c   2Gi        RWO            Delete           Bound     default/pvcsc001   fast                     7s
-root@k8s-master01:~#</code></pre></div>
-<p>可以查看到pvc已经正常的Bound到PV</p>
-
+root@k8s-master01:~#
+</code></pre></div><p>可以查看到pvc已经正常的Bound到PV</p>
 <p><code>在大型集群部署中，请注意提高master组件的pod limit或者直接取消limit，具体可以在role中找到对应的limit的输入值</code></p>
-
 <ul>
 <li><a href="https://github.com/kubernetes-incubator/kubespray/blob/master/docs/large-deployments.md">https://github.com/kubernetes-incubator/kubespray/blob/master/docs/large-deployments.md</a></li>
 </ul>
-
 <p>详细项目请参考</p>
-
 <ul>
 <li><a href="https://github.com/kubernetes-incubator/kubespray">https://github.com/kubernetes-incubator/kubespray</a></li>
 <li><a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/overview.html#vsphere-storage-concepts">https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/overview.html#vsphere-storage-concepts</a></li>
@@ -1236,7 +1197,7 @@ root@k8s-master01:~#</code></pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

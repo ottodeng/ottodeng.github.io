@@ -1,9 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
+<<<<<<< HEAD
     <title>Github on </title>
     <link>http://ottodeng.io/tags/github/</link>
     <description>Recent content in Github on </description>
+=======
+    <title>github on </title>
+    <link>http://ottodeng.io/tags/github/</link>
+    <description>Recent content in github on </description>
+>>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>

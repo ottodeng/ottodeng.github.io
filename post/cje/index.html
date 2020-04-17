@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-  <meta name="generator" content="Hugo 0.35" />
+  <meta name="generator" content="Hugo 0.69.0" />
   <link rel="canonical" href="http://ottodeng.io/post/cje/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -248,66 +248,168 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h3 id="what-is-cje">What is CJE?</h3>
-
+        <h3 id="what-is-cje">What is CJE?</h3>
 <p>CJE 全称（Certified Jenkins Engineer），是由CloudBee公司认证的Jenkins工程师认证，主要针对在DevOps领域的一个技术认证。</p>
-
 <p>另外还有一个认证叫做CCJE(Certified CloudBees Jenkins Engineer)，也就是CloudBee提供的商业版Jenkins提供的认证。</p>
-
 <p>考试的费用是150刀，一共有65道选择（单选/多选）题（其中随机有5题不算分），考试时间为90分钟。如果60题里面你答对了40题以上，恭喜你，通过了！</p>
-
 <h3 id="我的学习过程">我的学习过程</h3>
-
 <p>我简单地说一下自己的学习过程吧，希望能给大家一个参考。</p>
-
 <p>首先，对于我这种半路出家学习jenkins的人来说，真的有一定的难度，我入门弄jenkins的时候，已经是2.0时代了，pipeline满天飞，如果你是一个从Jenkins 1.x开始，在日常工作用是使用Freestyle来创建job的话，相信这个考试对于你来讲是比较容易的。</p>
-
 <p>熟读一下课程或者资料，其实离通过已经不远了，当然最重要的还是得动手做实验，考试的内容有些比较偏门，例如在哪安装一个自定义的插件，一个插件要降级要怎么做，如果一个job里面用到一个插件，这个插件卸载之后，这个job会有什么变化等等。。。</p>
-
 <ul>
-<li>1. Linux Academy 的 Certified Jenkins Engineer (2018)，这个是最重要的，考试的内容，都有在视频培训里面有提到，并且最后还有模拟的考试，一样是65题（重在学习知识点）。</li>
-<li>2. <a href="https://github.com/craigbarrau/jenkins-certified-engineer">https://github.com/craigbarrau/jenkins-certified-engineer</a></li>
-<li>3. <a href="https://github.com/harikak84/Certified-Jenkins-Engineer">https://github.com/harikak84/Certified-Jenkins-Engineer</a></li>
-<li>4. 当然还有官方的study guide了</li>
+<li>
+<ol>
+<li>Linux Academy 的 Certified Jenkins Engineer (2018)，这个是最重要的，考试的内容，都有在视频培训里面有提到，并且最后还有模拟的考试，一样是65题（重在学习知识点）。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><a href="https://github.com/craigbarrau/jenkins-certified-engineer">https://github.com/craigbarrau/jenkins-certified-engineer</a></li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><a href="https://github.com/harikak84/Certified-Jenkins-Engineer">https://github.com/harikak84/Certified-Jenkins-Engineer</a></li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>当然还有官方的study guide了</li>
+</ol>
+</li>
 </ul>
-
 <h3 id="考试的准备">考试的准备</h3>
-
 <p>有时候遇到一道多选题，7选4，结果答案里面有5个单词你都没见过的，确实挺崩溃的，英文好挺重要的。。。</p>
-
 <p>总结一下个别题目的大概的考点吧</p>
-
 <ul>
-<li>1. Jenkins安装向导能做点什么，如果直接skip又是怎么样的</li>
-<li>2. 分布式节点的优势，影响等，这方面考的挺多的</li>
-<li>3. 插件的安装和卸载，存放的路径</li>
-<li>4. Jenkins CLI，RESTAPI</li>
-<li>5. Master的executors在哪配，连接端口在哪配等</li>
-<li>6. Job的unstable的可能</li>
-<li>7. Fingerprint</li>
-<li>8. 根据Label选择build node</li>
-<li>9. discard old build来减轻master的压力</li>
-<li>10. 如何创建一个job，（POST，CLI，UI直接创建等）</li>
-<li>11. Credential相关，如果curl一个url来执行任务，应该用什么插件去隐藏用户名密码</li>
-<li>12. Dashboard View相关</li>
-<li>13. Build Triggers</li>
-<li>14. Post-build Actions</li>
-<li>15. notification，如果想要发送邮件通知，最少需要配置什么</li>
-<li>16. Poll SCM</li>
-<li>17. 常用的SCM, git svn Mercurial CVS</li>
-<li>18. pipeline的一些用法，最少条件等</li>
-<li>19. Folder的Health metrics</li>
-<li>20. job的Concurrent</li>
-<li>21. 各种Test</li>
-<li>22. Schedule的用法那，5个*具体都是代表什么</li>
-<li>23. 执行一个windows或者linux语句，应该在哪里配置</li>
-<li>24. 添加一个agent除了需要jre，还需要什么</li>
-<li>25. CI/CD的概念一定要熟</li>
+<li>
+<ol>
+<li>Jenkins安装向导能做点什么，如果直接skip又是怎么样的</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>分布式节点的优势，影响等，这方面考的挺多的</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>插件的安装和卸载，存放的路径</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Jenkins CLI，RESTAPI</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Master的executors在哪配，连接端口在哪配等</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>Job的unstable的可能</li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li>Fingerprint</li>
+</ol>
+</li>
+<li>
+<ol start="8">
+<li>根据Label选择build node</li>
+</ol>
+</li>
+<li>
+<ol start="9">
+<li>discard old build来减轻master的压力</li>
+</ol>
+</li>
+<li>
+<ol start="10">
+<li>如何创建一个job，（POST，CLI，UI直接创建等）</li>
+</ol>
+</li>
+<li>
+<ol start="11">
+<li>Credential相关，如果curl一个url来执行任务，应该用什么插件去隐藏用户名密码</li>
+</ol>
+</li>
+<li>
+<ol start="12">
+<li>Dashboard View相关</li>
+</ol>
+</li>
+<li>
+<ol start="13">
+<li>Build Triggers</li>
+</ol>
+</li>
+<li>
+<ol start="14">
+<li>Post-build Actions</li>
+</ol>
+</li>
+<li>
+<ol start="15">
+<li>notification，如果想要发送邮件通知，最少需要配置什么</li>
+</ol>
+</li>
+<li>
+<ol start="16">
+<li>Poll SCM</li>
+</ol>
+</li>
+<li>
+<ol start="17">
+<li>常用的SCM, git svn Mercurial CVS</li>
+</ol>
+</li>
+<li>
+<ol start="18">
+<li>pipeline的一些用法，最少条件等</li>
+</ol>
+</li>
+<li>
+<ol start="19">
+<li>Folder的Health metrics</li>
+</ol>
+</li>
+<li>
+<ol start="20">
+<li>job的Concurrent</li>
+</ol>
+</li>
+<li>
+<ol start="21">
+<li>各种Test</li>
+</ol>
+</li>
+<li>
+<ol start="22">
+<li>Schedule的用法那，5个*具体都是代表什么</li>
+</ol>
+</li>
+<li>
+<ol start="23">
+<li>执行一个windows或者linux语句，应该在哪里配置</li>
+</ol>
+</li>
+<li>
+<ol start="24">
+<li>添加一个agent除了需要jre，还需要什么</li>
+</ol>
+</li>
+<li>
+<ol start="25">
+<li>CI/CD的概念一定要熟</li>
+</ol>
+</li>
 </ul>
-
 <p>差不多就是这些了，很多题目都太长，只记得大概考的内容了，最后祝贺大家好运吧：）</p>
+<p><img src="https://res.cloudinary.com/ottodeng/image/upload/v1544624143/cje.png" alt="cje"></p>
 
 <p><img src="https://res.cloudinary.com/ottodeng/image/upload/v1544624143/cje.png" alt="cje" /></p>
 
@@ -400,7 +502,7 @@ autocomplete('#aa-search-input',
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
@@ -8,7 +8,11 @@
     <language>zh-cn</language>
     <managingEditor>otto.dengzt@gmail.com (Otto Deng)</managingEditor>
     <webMaster>otto.dengzt@gmail.com (Otto Deng)</webMaster>
+<<<<<<< HEAD
     <lastBuildDate>Wed, 15 Apr 2020 08:04:42 +0800</lastBuildDate>
+=======
+    <lastBuildDate>Wed, 04 Apr 2018 10:18:03 +0800</lastBuildDate>
+>>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
     
 	<atom:link href="http://ottodeng.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -145,7 +149,11 @@
       <pubDate>Wed, 04 Apr 2018 10:18:03 +0800</pubDate>
       <author>otto.dengzt@gmail.com (Otto Deng)</author>
       <guid>http://ottodeng.io/resume_en/</guid>
+<<<<<<< HEAD
       <description>Personal info  Otto Deng / 1988 Guangzhou, Guangdong, China Zhongkai University of Technology Agriculture and Engineering Major in System/Cloud Architect, Application Delivery, DevOps Blog: ottodeng.io  Contact  Mobile：18675625750 Email：otto.dengzt@gmail.com WeChat：dengoxygen  About Me  DevOps expert Excellent hands-on design and implementation of a CI/CD pipeline to support enterprise level projects. 9 years of Infrastructure Architecture and operations experience 3 years of IaaS, PaaS, Containerization and Micro Service Architect experience Consulting / Customer serving experience, with good presentation skills Excellent troubleshooting skills Excellent communication (written and oral) and interpersonal skills Excellent leadership and management skills Love learning and introducing new technology in order to help colleagues and customers embrace and adopt new technology  Work Experience F5 Networks (08/2018 - Now) Solution Consultant</description>
+=======
+      <description>Personal info  Otto Deng / 1988 Guangzhou, Guangdong, China Zhongkai University of Technology Agriculture and Engineering Major in DevOps, System/Cloud Architect, Distributed Application, Blog: ottodeng.io  Contact  Mobile：18675625750 Email：otto.dengzt@gmail.com WeChat：dengoxygen   About Me  DevOps expert Excellent hands-on design and implementation of a CI/CD pipeline to support enterprise level projects. 9 years of Infrastructure Architecture and operations experience 4 years of IaaS, PaaS, Containerization and Micro Service Architect experience Consulting / Customer serving experience, with good presentation skills Excellent troubleshooting skills Excellent communication (written and oral) and interpersonal skills Excellent leadership and management skills Love learning and introducing new technology in order to help colleagues and customers embrace and adopt new technology   Work Experience F5 Networks (08/2018 - Now) Solution Consultant</description>
+>>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
     </item>
     
     <item>
