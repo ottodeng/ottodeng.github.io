@@ -22,11 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-<<<<<<< HEAD
   <meta name="generator" content="Hugo 0.35" />
-=======
-  <meta name="generator" content="Hugo 0.69.0" />
->>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
   <link rel="canonical" href="http://ottodeng.io/post/ece/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -252,7 +248,6 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-<<<<<<< HEAD
         
 
 <h3 id="elastic认证备考始末">Elastic认证备考始末</h3>
@@ -292,53 +287,17 @@ PS：这题我犯了大错，题目要求设置elastic和kibana的密码都是pa
 
 <h3 id="考试经验分享">考试经验分享</h3>
 
-=======
-        <h3 id="elastic认证备考始末">Elastic认证备考始末</h3>
-<p>由于工作的原因，会涉及到一些elastic相关的领域，而我个人也是比较喜欢收集各种认证的badge的。所以有机会的话，我还是想把elastic这个认证拿下。</p>
-<p>最开始有考试的这个想法，其实是在2019年中，在极客时间看到阮一鸣的Elasticsearch核心技术与实战，在8月底更新完毕之后，我就利用一些碎片时间，慢慢开始深入接触这个领域。</p>
-<p>这个考试其实难点就在于通过线太高了，几乎是90分以上才通过（官方没有明确说明，但是经过每个考生最后的总结，大概就是这个情况）。</p>
-<h3 id="考试准备的过程">考试准备的过程</h3>
-<p>由于时间比较零碎，所以我快速的过了一遍极客时间的视频之后，就开始利用碎片时间无穷无尽的敲实验了。其中包含了Linux academy课程提供的lab，国外Guido Lena Cota大叔的练习题。一遍又一遍之后，又重新看视频和官方文档不断的查漏补缺。</p>
-<p>实验环境，建议直接用极客时间课程上面的docker-compose，起3个容器节点，几乎可以涵盖大部分的lab实验了。</p>
-<h3 id="这次考了什么">这次考了什么？</h3>
-<p>用最长的篇幅，写大家最关心的吧，</p>
-<ol>
-<li>index allocation，需要用到awareness和force。
-这题主要是有两个index，分别是3个shares和1个副本，第一个index，需要你把所有的share都落到node1上，第二个index需要把所有share都落到node2和node3上。 ps：这题我一开始挺困惑的，设置了node的attr，然后设置index的require attr，后面发现设置了awareness和force，至少node2和node3的就正常了。然后发现第一个index还是落在1 2 3上，最后把副本数改成0，然后3个shares也都落到node1上了。</li>
-<li>dynamic mapping和reindex
-需要查询wayne&rsquo;s和waynes有相同的命中和评分，这题需要注意的是，如果你用了standard的tokenizer，它是不会变小写的，所以如果doc里面是Wayne’s，你就会发现没有命中。必须再加一个lowercase</li>
-<li>新增一个filed叫做address_completed，然后需要由&rdquo;{{street}} {{address}} {{neighbor}} {{zipcode}}&ldquo;四个field按顺序组成。
-创建ingest pipeline，用到set processor和 _update_by_query</li>
-<li>nested type和nested query
-最后使用nested query的验证查询时候，确保你的查询没有错误命中。</li>
-<li>dynamic template，所有string字段设置为keyword，如果命中x_*的，就设置为integer</li>
-<li>Each query item, catagroy, item_description of filed fire，然后item_description这个filed要增加boost 2，最后算分的时候，需要3个field相加，而不是选最大值。
-这里直接用一个bool query，然后3个should match就可以了，然后其中一个match增加boost 2</li>
-<li>earthquare的date_histogram聚合，然后选出magnitude和depth的最大值。
-题目要求是11个月内，每个月的最大值，按道理应该是要加一个range来匹配范围的，但是最后发现index里面的timestrap，也只有11个月，所以我就没做range过滤了。</li>
-<li>单机的rbac，创建一个susan的账号，然后分别kibana_user的权限
-PS：这题我犯了大错，题目要求设置elastic和kibana的密码都是password，但是我初始化的时候都设置成了elastic，最后发现再也改不了了，所以只能去kibana.yml那里改连接es的密码，连进去之后，重新再把elastic和kibana两个账号的密码改回password。</li>
-<li>单机snapshot</li>
-<li>match_phrase，highlight，sort</li>
-</ol>
-<h3 id="考试经验分享">考试经验分享</h3>
->>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
 <ol>
 <li>考试是可以外接显示器的，只要你把笔记本的盖子合上。，用大屏的显示器非常有优势（但是远程的CentOS，分辨率还是比较低，也没有办法修改），当然你还要准备一个外置键盘，鼠标，摄像头和麦克风。</li>
 <li>考试的题目可以复制到kibana上，再对着来敲，这样就不用来回切换了。</li>
 <li>注意审题，包括题目的每一个要求，尤其是最后框里很多题只需要输入json的 千万别范我一样的错误，把初始密码设置了，回头想改就比较麻烦了。对于运维经验不强的同学来说，困难就比较大了。</li>
 <li>选一个网络好的时间段，避免有丢包和延时过大的情况。</li>
 </ol>
-<<<<<<< HEAD
 
 <h3 id="写在最后">写在最后</h3>
 
 <p>当你每个知识点都看过之后，你就发现其实这个考试也并没有那么难的，毕竟每个知识点考的深度并不会太难，只是es涉及到的知识点实在太多了，你要做到的就是大量的练习，不断地查漏补缺，确保在考试之前，官方的文档整个都过1-2遍，没有知识盲点。</p>
 
-=======
-<h3 id="写在最后">写在最后</h3>
-<p>当你每个知识点都看过之后，你就发现其实这个考试也并没有那么难的，毕竟每个知识点考的深度并不会太难，只是es涉及到的知识点实在太多了，你要做到的就是大量的练习，不断地查漏补缺，确保在考试之前，官方的文档整个都过1-2遍，没有知识盲点。</p>
->>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
 <p>最后，祝大家早日通过拿到Lucky Coin！</p>
 
       </article>
@@ -426,11 +385,7 @@ PS：这题我犯了大错，题目要求设置elastic和kibana的密码都是pa
         </p>
         
         <p class="credits theme-by text-muted">
-<<<<<<< HEAD
           <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
-=======
-          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
->>>>>>> cf230ba2090482a0034f0e0b18c5b778a0c53ebd
           
         </p>
       </div>
