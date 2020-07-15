@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-  <meta name="generator" content="Hugo 0.74.1" />
+  <meta name="generator" content="Hugo 0.54.0" />
   <link rel="canonical" href="http://ottodeng.io/post/terraform/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -248,12 +248,20 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <h1 id="deploy-kubernetes-vms-with-terraform">Deploy Kubernetes VMs with Terraform</h1>
+        
+
+<h1 id="deploy-kubernetes-vms-with-terraform">Deploy Kubernetes VMs with Terraform</h1>
+
 <p>Terraform是什么？以下是官方具体的解析，其实说白了，就是<strong>Write, Plan, and create Infrastructure as Code</strong></p>
+
 <p>Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.</p>
+
 <p>Configuration files describe to Terraform the components needed to run a single application or your entire datacenter. Terraform generates an execution plan describing what it will do to reach the desired state, and then executes it to build the described infrastructure. As the configuration changes, Terraform is able to determine what changed and create incremental execution plans which can be applied.</p>
+
 <p>The infrastructure Terraform can manage includes low-level components such as compute instances, storage, and networking, as well as high-level components such as DNS entries, SaaS features, etc.</p>
+
 <p>具体环境如下：</p>
+
 <table>
 <thead>
 <tr>
@@ -262,82 +270,98 @@ autocomplete('#aa-search-input',
 <th>Remark</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>esxi-host01</td>
 <td>10.0.0.11</td>
 <td>#ESXi host01</td>
 </tr>
+
 <tr>
 <td>esxi-host02</td>
 <td>10.0.0.12</td>
 <td>#ESXi host02</td>
 </tr>
+
 <tr>
 <td>esxi-host03</td>
 <td>10.0.0.13</td>
 <td>#ESXi host03</td>
 </tr>
+
 <tr>
 <td>esxi-host04</td>
 <td>10.0.0.14</td>
 <td>#ESXi host04</td>
 </tr>
+
 <tr>
 <td>esxi-host05</td>
 <td>10.0.0.15</td>
 <td>#ESXi host05</td>
 </tr>
+
 <tr>
 <td>vCenter</td>
 <td>10.0.0.10</td>
 <td>#vCenter</td>
 </tr>
+
 <tr>
 <td>Terraform</td>
 <td>10.0.0.5</td>
 <td>#Terraform</td>
 </tr>
+
 <tr>
 <td>k8s-deploy</td>
 <td>10.0.0.9</td>
 <td>#Deploy Node</td>
 </tr>
+
 <tr>
 <td>k8s-master01</td>
 <td>10.0.0.21</td>
 <td>#Master Node</td>
 </tr>
+
 <tr>
 <td>k8s-master02</td>
 <td>10.0.0.22</td>
 <td>#Master Node</td>
 </tr>
+
 <tr>
 <td>k8s-master03</td>
 <td>10.0.0.23</td>
 <td>#Master Node</td>
 </tr>
+
 <tr>
 <td>k8s-node01</td>
 <td>10.0.0.31</td>
 <td>#Workder Node</td>
 </tr>
+
 <tr>
 <td>k8s-node02</td>
 <td>10.0.0.32</td>
 <td>#Workder Node</td>
 </tr>
+
 <tr>
 <td>k8s-node03</td>
 <td>10.0.0.33</td>
 <td>#Workder Node</td>
 </tr>
+
 <tr>
 <td>k8s-node04</td>
 <td>10.0.0.34</td>
 <td>#Workder Node</td>
 </tr>
+
 <tr>
 <td>k8s-node05</td>
 <td>10.0.0.35</td>
@@ -345,7 +369,9 @@ autocomplete('#aa-search-input',
 </tr>
 </tbody>
 </table>
-<hr>
+
+<hr />
+
 <table>
 <thead>
 <tr>
@@ -354,6 +380,7 @@ autocomplete('#aa-search-input',
 <th>Kernel</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>Ubuntu</td>
@@ -362,7 +389,9 @@ autocomplete('#aa-search-input',
 </tr>
 </tbody>
 </table>
-<hr>
+
+<hr />
+
 <table>
 <thead>
 <tr>
@@ -370,43 +399,52 @@ autocomplete('#aa-search-input',
 <th>VERSION</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>kubernetes</td>
 <td>1.9.5</td>
 </tr>
+
 <tr>
 <td>etcd</td>
 <td>3.2.4</td>
 </tr>
+
 <tr>
 <td>calico</td>
 <td>2.6.8</td>
 </tr>
+
 <tr>
 <td>docker</td>
 <td>17.03-ce</td>
 </tr>
 </tbody>
 </table>
+
 <h2 id="terraform">Terraform</h2>
-<hr>
+
+<hr />
+
 <p>首先我们来安装Terraform</p>
-<h3 id="11-install-go-110">1.1 Install GO 1.10</h3>
+
+<h3 id="1-1-install-go-1-10">1.1 Install GO 1.10</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.10.1.linux-amd64.tar.gz
 <span style="color:#999">export</span> <span style="color:#008080">PATH</span><span style="font-weight:bold">=</span>/usr/local/go/bin:<span style="color:#008080">$PATH</span>
 <span style="color:#999">export</span> <span style="color:#008080">GOPATH</span><span style="font-weight:bold">=</span>/root/go
-<span style="color:#999">export</span> <span style="color:#008080">GOROOT</span><span style="font-weight:bold">=</span>/usr/local/go
-</code></pre></div><h3 id="12-install-terraform-0117">1.2 Install Terraform 0.11.7</h3>
+<span style="color:#999">export</span> <span style="color:#008080">GOROOT</span><span style="font-weight:bold">=</span>/usr/local/go</code></pre></div>
+<h3 id="1-2-install-terraform-0-11-7">1.2 Install Terraform 0.11.7</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
 unzip terraform_0.11.7_linux_amd64.zip
-cp terraform /usr/local/bin/
-</code></pre></div><h3 id="13-terraform-文件">1.3 Terraform 文件</h3>
+cp terraform /usr/local/bin/</code></pre></div>
+<h3 id="1-3-terraform-文件">1.3 Terraform 文件</h3>
+
 <p>为了逻辑清晰，我将所有配置分成4个文件</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# ls
-data_sources.tf k8s.tf terraform.tfvars variables.tf
-</code></pre></div><p><code>data_sources.tf</code>
+data_sources.tf k8s.tf terraform.tfvars variables.tf</code></pre></div>
+<p><code>data_sources.tf</code>
 存放vsphere已有的资源变量</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_datacenter&#34;</span> <span style="color:#b84">&#34;datacenter&#34;</span> <span style="font-weight:bold">{</span>
   <span style="color:#008080">name</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_datacenter}&#34;</span>
@@ -436,9 +474,9 @@ data_sources.tf k8s.tf terraform.tfvars variables.tf
 <span style="color:#008080">data</span> <span style="color:#b84">&#34;vsphere_network&#34;</span> <span style="color:#b84">&#34;network&#34;</span> <span style="font-weight:bold">{</span>
   <span style="color:#008080">name</span>          <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_port_group}&#34;</span>
   <span style="color:#008080">datacenter_id</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${data.vsphere_datacenter.datacenter.id}&#34;</span>
-<span style="font-weight:bold">}</span>
+<span style="font-weight:bold">}</span></code></pre></div>
+<p><code>k8s.tf</code></p>
 
-</code></pre></div><p><code>k8s.tf</code></p>
 <p>存放具体需要创建的k8s的VM资源</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#998;font-style:italic"># Configure vSphere provider
 </span><span style="color:#998;font-style:italic"></span><span style="color:#008080">provider</span> <span style="color:#b84">&#34;vsphere&#34;</span> <span style="font-weight:bold">{</span>
@@ -586,9 +624,8 @@ data_sources.tf k8s.tf terraform.tfvars variables.tf
       <span style="color:#008080">dns_server_list</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;${var.vsphere_dns_servers}&#34;</span>
     <span style="font-weight:bold">}</span>
   <span style="font-weight:bold">}</span>
-<span style="font-weight:bold">}</span>
-
-</code></pre></div><p><code>variables.tf</code>
+<span style="font-weight:bold">}</span></code></pre></div>
+<p><code>variables.tf</code>
 用来存放变量</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#998;font-style:italic"># vCenter connection
 </span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;vsphere_user&#34;</span> <span style="font-weight:bold">{</span>
@@ -730,8 +767,8 @@ data_sources.tf k8s.tf terraform.tfvars variables.tf
 <span style="font-weight:bold">variable</span> <span style="color:#b84">&#34;esxi_hosts&#34;</span> <span style="font-weight:bold">{</span>
         <span style="color:#008080">description</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;ESXi HOSTs&#34;</span>
         <span style="color:#008080">type</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;map&#34;</span>
-<span style="font-weight:bold">}</span>
-</code></pre></div><p><code>terraform.tfvars</code>
+<span style="font-weight:bold">}</span></code></pre></div>
+<p><code>terraform.tfvars</code>
 用来存放所有变量的实例，基本上我们只需要修改这个文件中的内容</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#998;font-style:italic"># vCenter connection
 </span><span style="color:#998;font-style:italic"></span><span style="color:#008080">vsphere_vcenter</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.10&#34;</span>
@@ -778,17 +815,19 @@ data_sources.tf k8s.tf terraform.tfvars variables.tf
 <span style="color:#b84">&#34;2&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.13&#34;</span>
 <span style="color:#b84">&#34;3&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.14&#34;</span>
 <span style="color:#b84">&#34;4&#34;</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#b84">&#34;10.0.0.15&#34;</span>
-<span style="font-weight:bold">}</span>
-</code></pre></div><h3 id="14-在vcenter里面创建预置的资源">1.4 在vCenter里面创建预置的资源</h3>
+<span style="font-weight:bold">}</span></code></pre></div>
+<h3 id="1-4-在vcenter里面创建预置的资源">1.4 在vCenter里面创建预置的资源</h3>
+
 <p>1.4.1 创建Resource Pool，并且名字设置为<code>k8s-cluster-RP</code>
 1.4.2 创建VM Template，我们可以使用ubuntu16.04的ISO安装完毕之后，就可以直接关机并且转换为tempalte，并且名字设置为<code>ubuntu16.04-template</code>
 这步具体就不演示了，比较简单。</p>
-<h3 id="15-terraform-gogogo">1.5 Terraform GOGOGO</h3>
+
+<h3 id="1-5-terraform-gogogo">1.5 Terraform GOGOGO</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# terraform init
 
 Initializing provider plugins...
 - Checking <span style="font-weight:bold">for</span> available provider plugins on https://releases.hashicorp.com...
-- Downloading plugin <span style="font-weight:bold">for</span> provider <span style="color:#b84">&#34;vsphere&#34;</span> <span style="font-weight:bold">(</span>1.4.1<span style="font-weight:bold">)</span>...
+- Downloading plugin <span style="font-weight:bold">for</span> provider <span style="color:#b84">&#34;vsphere&#34;</span> <span style="font-weight:bold">(</span><span style="color:#099">1</span>.4.1<span style="font-weight:bold">)</span>...
 
 The following providers <span style="font-weight:bold">do</span> not have any version constraints in configuration,
 so the latest version was installed.
@@ -809,18 +848,14 @@ should now work.
 If you ever <span style="color:#999">set</span> or change modules or backend configuration <span style="font-weight:bold">for</span> Terraform,
 rerun this <span style="color:#999">command</span> to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to <span style="font-weight:bold">do</span> so <span style="font-weight:bold">if</span> necessary.
-root@terraform:~/terraform#
+root@terraform:~/terraform#</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# terraform plan
 
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# terraform plan
-
-<span style="color:#998;font-style:italic">#如果没有配置错误，这里会出现每个创建的资源的详细配置项</span>
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
-root@terraform:~/terraform# terraform apply
+<span style="color:#998;font-style:italic">#如果没有配置错误，这里会出现每个创建的资源的详细配置项</span></code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@terraform:~/terraform# terraform apply
  
 vsphere_virtual_machine.k8s-masters.1: Still creating... <span style="font-weight:bold">(</span>1m20s elapsed<span style="font-weight:bold">)</span>
 vsphere_virtual_machine.k8s-nodes.4: Still creating... <span style="font-weight:bold">(</span>1m20s elapsed<span style="font-weight:bold">)</span>
 vsphere_virtual_machine.k8s-deploy: Creation <span style="color:#999">complete</span> after 1m29s <span style="font-weight:bold">(</span>ID: 42187d77-86a2-ef21-f7aa-b443576029ae<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span>2<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m29s <span style="font-weight:bold">(</span>ID: 4218bd31-cbb1-b181-2699-6af3f00563b5<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span><span style="color:#099">2</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m29s <span style="font-weight:bold">(</span>ID: 4218bd31-cbb1-b181-2699-6af3f00563b5<span style="font-weight:bold">)</span>
 vsphere_virtual_machine.k8s-masters.0: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
 vsphere_virtual_machine.k8s-nodes.2: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
 vsphere_virtual_machine.k8s-nodes.1: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
@@ -828,17 +863,18 @@ vsphere_virtual_machine.k8s-nodes.0: Still creating... <span style="font-weight:
 vsphere_virtual_machine.k8s-nodes.3: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
 vsphere_virtual_machine.k8s-masters.1: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
 vsphere_virtual_machine.k8s-nodes.4: Still creating... <span style="font-weight:bold">(</span>1m30s elapsed<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span>4<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m34s <span style="font-weight:bold">(</span>ID: 4218e1b4-ea21-ca96-1e78-6d6c30b655e9<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span>0<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m35s <span style="font-weight:bold">(</span>ID: 42182c7f-cffe-4109-33e9-0df8cc113261<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span>0<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m36s <span style="font-weight:bold">(</span>ID: 4218dbe8-a641-7db6-982a-5b215cd0571f<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span>1<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m37s <span style="font-weight:bold">(</span>ID: 42185559-a55f-7aab-37c3-6706494c061d<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span>1<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m37s <span style="font-weight:bold">(</span>ID: 42184531-0cbc-6ed5-e025-98b9ca6dc312<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span>3<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m39s <span style="font-weight:bold">(</span>ID: 4218ed5b-f131-d96e-24a7-4d9b0e5b9c89<span style="font-weight:bold">)</span>
-vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span>2<span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m39s <span style="font-weight:bold">(</span>ID: 421855f2-6d31-1b7f-18d1-5870a0548bac<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">4</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m34s <span style="font-weight:bold">(</span>ID: 4218e1b4-ea21-ca96-1e78-6d6c30b655e9<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">0</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m35s <span style="font-weight:bold">(</span>ID: 42182c7f-cffe-4109-33e9-0df8cc113261<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span><span style="color:#099">0</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m36s <span style="font-weight:bold">(</span>ID: 4218dbe8-a641-7db6-982a-5b215cd0571f<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-masters<span style="font-weight:bold">[</span><span style="color:#099">1</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m37s <span style="font-weight:bold">(</span>ID: <span style="color:#099">42185559</span>-a55f-7aab-37c3-6706494c061d<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">1</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m37s <span style="font-weight:bold">(</span>ID: <span style="color:#099">42184531</span>-0cbc-6ed5-e025-98b9ca6dc312<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">3</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m39s <span style="font-weight:bold">(</span>ID: 4218ed5b-f131-d96e-24a7-4d9b0e5b9c89<span style="font-weight:bold">)</span>
+vsphere_virtual_machine.k8s-nodes<span style="font-weight:bold">[</span><span style="color:#099">2</span><span style="font-weight:bold">]</span>: Creation <span style="color:#999">complete</span> after 1m39s <span style="font-weight:bold">(</span>ID: 421855f2-6d31-1b7f-18d1-5870a0548bac<span style="font-weight:bold">)</span>
 
 Apply complete! Resources: <span style="color:#099">10</span> added, <span style="color:#099">0</span> changed, <span style="color:#099">0</span> destroyed.
-root@terraform:~/terraform#
-</code></pre></div><p>执行完毕之后，就能看到vCenter里面已经创建好所有的k8s集群的主机</p>
+root@terraform:~/terraform#</code></pre></div>
+<p>执行完毕之后，就能看到vCenter里面已经创建好所有的k8s集群的主机</p>
+
 <p><code>terraform show</code>能够看到创建的所有资源的详细信息</p>
 
       </article>
@@ -930,7 +966,7 @@ root@terraform:~/terraform#
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.54.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

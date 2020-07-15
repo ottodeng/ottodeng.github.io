@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-  <meta name="generator" content="Hugo 0.74.1" />
+  <meta name="generator" content="Hugo 0.54.0" />
   <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-4/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -248,20 +248,28 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <h1 id="f5-连接netopssecops与devops----4declarative-onboarding">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「4」Declarative Onboarding</h1>
+        
+
+<h1 id="f5-连接netops-secops与devops-4-declarative-onboarding">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「4」Declarative Onboarding</h1>
+
 <p>本文主要介绍的第二个F5声明式组件 &ndash; Declarative Onboarding</p>
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/29.png" alt="Declarative Onboarding"></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/29.png" alt="Declarative Onboarding" /></p>
+
 <p>Declarative Onboarding提供了一种声明式的方式来配置F5 BIGIP的L1-L3的配置，包括激活license，底层的系统配置，网络配置，集群配置等。结合AS3（配置L4-L7的策略），帮助用户提供Infrastructure as Code的管理方式，并且可以很方便地与第三方的编排工具进行集成。</p>
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/28.png" alt="Declarative Onboarding"></p>
-<p>使用Declarative Onboarding还是需要一些预备的条件的：</p>
-<ol>
-<li>必须有一个mgmt的IP地址，DO才可以根据这个地址进行API交换。</li>
-<li>BIG-IP的版本必须是v13.1.0或者以上的版本。</li>
-<li>如果使用v13.1.x的版本，可以直接使用admin和默认密码进行交互。如果使用v14.x以上的版本，则需要在使用前手动登陆一次设备，重置admin的密码。</li>
-</ol>
-<p>DO的API是<strong>https://<!-- raw HTML omitted -->:8443/mgmt/shared/declarative-onboarding</strong>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/28.png" alt="Declarative Onboarding" /></p>
+
+<p>使用Declarative Onboarding还是需要一些预备的条件的：
+1. 必须有一个mgmt的IP地址，DO才可以根据这个地址进行API交换。
+2. BIG-IP的版本必须是v13.1.0或者以上的版本。
+3. 如果使用v13.1.x的版本，可以直接使用admin和默认密码进行交互。如果使用v14.x以上的版本，则需要在使用前手动登陆一次设备，重置admin的密码。</p>
+
+<p>DO的API是<strong>https://<BIG-IP>:8443/mgmt/shared/declarative-onboarding</strong>
 具体的配置是一个json格式的配置文件，在使用DO之前，需要在BIGIP上安装DO的RPM包，才可以正常使用。</p>
+
 <p>以下是一个简单的配置文件：</p>
+
 <pre><code>{
 &quot;schemaVersion&quot;: &quot;0.1.0&quot;,
 &quot;class&quot;: &quot;Device&quot;,
@@ -338,13 +346,18 @@ autocomplete('#aa-search-input',
     }
 } 
 </code></pre>
+
 <p>更多的例子与说明，可以参考以下链接：
 <a href="https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/examples.html">https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/examples.html</a></p>
+
 <p>另外如果使用Microsoft Visual Studio Code进行json文件的编辑，可以插入一个额外的scheme来实现智能Validating的功能。</p>
+
 <pre><code>{
     &quot;$schema&quot;: &quot;https://raw.githubusercontent.com/F5Networks/f5-declarative-onboarding/master/schema/latest/base.schema.json&quot;,
 </code></pre>
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/30.png" alt="vali"></p>
+
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/30.png" alt="vali" /></p>
+
 <p>具体请参考：
 <a href="https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/validate.html">https://clouddocs.f5.com/products/extensions/f5-declarative-onboarding/latest/validate.html</a></p>
 
@@ -437,7 +450,7 @@ autocomplete('#aa-search-input',
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.54.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

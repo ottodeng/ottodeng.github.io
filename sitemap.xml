@@ -1,46 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://ottodeng.io/</loc>
-    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://ottodeng.io/post/ece/</loc>
     <lastmod>2020-04-15T08:04:42+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/elastic/</loc>
-    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/elasticsearch/</loc>
-    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/post/</loc>
-    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/</loc>
-    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/f5/</loc>
-    <lastmod>2019-09-20T18:02:26+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/super-netops/</loc>
-    <lastmod>2019-09-20T18:02:26+08:00</lastmod>
   </url>
   
   <url>
@@ -84,38 +48,13 @@
   </url>
   
   <url>
-    <loc>http://ottodeng.io/tags/devops/</loc>
-    <lastmod>2018-12-07T14:16:17+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://ottodeng.io/post/ckad-exam/</loc>
     <lastmod>2018-07-09T21:26:29+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ottodeng.io/tags/kubernetes/</loc>
-    <lastmod>2018-07-09T21:26:29+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/kubespray/</loc>
-    <lastmod>2018-05-14T09:10:34+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://ottodeng.io/post/kubespray/</loc>
     <lastmod>2018-05-14T09:10:34+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/vsphere/</loc>
-    <lastmod>2018-05-14T09:10:34+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/terraform/</loc>
-    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
   </url>
   
   <url>
@@ -149,21 +88,6 @@
   </url>
   
   <url>
-    <loc>http://ottodeng.io/tags/github/</loc>
-    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/github-pages/</loc>
-    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ottodeng.io/tags/hugo/</loc>
-    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://ottodeng.io/post/change-log/</loc>
     <lastmod>2018-02-12T12:30:13+08:00</lastmod>
   </url>
@@ -174,12 +98,103 @@
   </url>
   
   <url>
-    <loc>http://ottodeng.io/tags/me/</loc>
-    <lastmod>2018-02-11T15:26:52+08:00</lastmod>
+    <loc>http://ottodeng.io/</loc>
+    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://ottodeng.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/devops/</loc>
+    <lastmod>2018-12-07T14:16:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/elastic/</loc>
+    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/elasticsearch/</loc>
+    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/f5/</loc>
+    <lastmod>2019-09-20T18:02:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/github/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/github-pages/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/hugo/</loc>
+    <lastmod>2018-02-12T12:30:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/kubernetes/</loc>
+    <lastmod>2018-07-09T21:26:29+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/kubespray/</loc>
+    <lastmod>2018-05-14T09:10:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/me/</loc>
+    <lastmod>2018-02-11T15:26:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/post/</loc>
+    <lastmod>2020-04-15T08:04:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/super-netops/</loc>
+    <lastmod>2019-09-20T18:02:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/</loc>
+    <lastmod>2018-12-07T14:16:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/terraform/</loc>
+    <lastmod>2018-05-09T18:20:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ottodeng.io/tags/vsphere/</loc>
+    <lastmod>2018-05-14T09:10:34+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
