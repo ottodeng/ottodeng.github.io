@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="" />
 
-  <meta name="generator" content="Hugo 0.35" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="canonical" href="http://ottodeng.io/post/f5-supernetops-5/" />
   <link rel="alternate" href="http://ottodeng.io/index.xml" type="application/rss+xml" title="">
 
@@ -248,18 +248,11 @@ autocomplete('#aa-search-input',
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h1 id="f5-连接netops-secops与devops-5-application-services-3-extension">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「5」Application Services 3 Extension</h1>
-
+        <h1 id="f5-连接netopssecops与devops----5application-services-3-extension">「F5 连接NetOps/SecOps与DevOps」 &ndash; 「5」Application Services 3 Extension</h1>
 <p>本文主要介绍第三个声明式组件Application Services 3 Extension（以下简称AS3）的使用方式。</p>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/31.png" alt="as3" /></p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/31.png" alt="as3"></p>
 <p>AS3提供了一种声明式的方式来配置F5 BIGIP的L4-L7的配置，包括LTM，DNS，AFM，ASM等模块的配置，它支持multi-tenant和multi route-domain的配置。</p>
-
 <p>包含但不限于以下配置：</p>
-
 <pre><code>- L3/L4: VIP. Pool SNAT Monitors, Profiles, etc.
 - HTTP/HTTPS ADC
 - L4 Firewall Policy Support (AFM Policy attachment)
@@ -271,17 +264,14 @@ autocomplete('#aa-search-input',
 - Methods for loading policies and iRules: base64 &amp; URL
 ...
 </code></pre>
-
-<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/32.png" alt="as3-2" /></p>
-
+<p><img src="https://ottodeng.oss-cn-shenzhen.aliyuncs.com/32.png" alt="as3-2"></p>
 <p>目前AS3和DO一样，支持RPM包安装在f5上，也支持用一个as3的docker容器来代理这些API的交互，当然目前也支持通过BIGIQ来下发这些AS3的json文件配置到每个BIGIP中，方便集中管理，帮助用户更好的实现SuperNetOps。</p>
-
-<p>当然，要使用AS3，和DO一样，也是需要一些预备的条件的：
-1. 必须使用v12.1或者以上的版本
-2. 进行API交互的账号，必须有administrator role的权限。</p>
-
+<p>当然，要使用AS3，和DO一样，也是需要一些预备的条件的：</p>
+<ol>
+<li>必须使用v12.1或者以上的版本</li>
+<li>进行API交互的账号，必须有administrator role的权限。</li>
+</ol>
 <p>一个简单的AS3例子如下：</p>
-
 <pre><code>{
 &quot;class&quot;: &quot;AS3&quot;,
 &quot;action&quot;: &quot;deploy&quot;,
@@ -324,10 +314,8 @@ autocomplete('#aa-search-input',
 }
 }
 </code></pre>
-
 <p>然后把这个JSON文件，POST到https://[BIGIP-IP]:PORT/mgmt/shared/appsvcs/declare即可。</p>
-
-<p>更多详细的介绍，请参考<a href="https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/">https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/</a></p>
+<p>更多详细的介绍，请参考https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/</p>
 
       </article>
 
@@ -418,7 +406,7 @@ autocomplete('#aa-search-input',
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.35</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>
